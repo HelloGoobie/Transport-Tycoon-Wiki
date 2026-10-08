@@ -1,0 +1,871 @@
+---
+title: Trucking
+categories:
+  - Trucking
+  - ES
+---
+<div> </div>
+<p><br/>
+Los camioneros son la espina dorsal de Transport Tycoon. Hemos desarrollados un complejo sistema de carga que permite vender un objeto a la vez o recolectar y combinar diferentes tipos de carga en rutas con múltiples paradas para maximizar el beneficio.
+</p><p>Asegúrate de preguntar por guías y ayudas desarrolladas por la comunidad. Oh, también tenemos varias estaciones de radio personalizadas, ofrecemos <a href="http://truckers.fm" rel="noopener" target="_blank">TruckersFM</a>, <a href="https://simulatorradio.com/home" rel="noopener" target="_blank">Simulator Radio</a> y <a href="https://upbeatradio.net/" rel="noopener" target="_blank">UpBeat Radio</a> disponibles en la parte izquierda-abajo de la selección de emisoras de radio.
+</p>
+<h2 id="Comenzando">Comenzando</h2>
+<div>Si es la primera vez que trabajas de camionero, te recomendamos leer la <a data-p="ES:Getting Started Guide">Guía de inicio rápido</a> para conocer la información básica esencial.</div>
+<p>Para comenzar como Camionero, diríjase a un <a data-p="ES:Job Center">centro de trabajo</a> y seleccione el trabajo <b>Trucker</b> (Camionero). Dirígete al <a data-p="ES:Car Dealer">concesionario de autos</a> para comprar el Speedo Express o una combinación de semi-cabina (camión) y remolque. El Speedo Express es gratuito y tiene una capacidad de maletero igual a su propia capacidad de inventario de 30 kg a 300 kg.
+</p>
+<h2 id="Veh.C3.ADculos"><span id="Vehículos"></span>Vehículos</h2>
+<p>El transporte por carretera requiere una semi cabina (camión) y un remolque para almacenar la carga. Los camiones se pueden comprar en un concesionario de automóviles o alternativamente se pueden encontrar <a data-p="Semi Spawners">en diferentes ubicaciones del mapa</a>. Ejemplos: LSIA, Sandy Shores y LS Docks. Los jugadores que tienen poco dinero en efectivo pueden comenzar con Speedo Express gratis. La capacidad del maletero del Speedo escala con el nivel de <a data-p="ES:Strength">Fuerza</a> de los jugadores.
+</p>
+<div><div id="tabber-c13f74f64b03151e803630f44a785464">
+<div>
+<table class="wt">
+<tbody><tr>
+<th><b>Nivel requerido</b>
+</th>
+<th><b>Nombre</b>
+</th>
+<th><b>Precio</b>
+</th>
+<th><b>Capacidad</b>
+</th>
+<th><b>Combustible</b>
+</th>
+<th><b>Maxima velocidad en MPH</b>
+</th></tr>
+<tr>
+<td>Nivel 1
+</td>
+<td><div>Speedo Express<span></span></div>
+</td>
+<td>$0
+</td>
+<td>30kg hasta 300kg
+</td>
+<td>70L (Gasolina)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td>Nivel 10
+</td>
+<td><div>Voyager Box SBW<span><p>Camión de caja de capacidad media, la capacidad aumenta con tu nivel de conducción.</p></span></div>
+</td>
+<td>$120,000
+</td>
+<td>50kg hasta 650kg
+</td>
+<td>280L (Diesel)
+</td>
+<td><i>Desconocido</i>
+</td></tr></tbody></table>
+</div>
+<div>
+<table class="wt">
+<tbody><tr>
+<th><b>Nombre</b>
+</th>
+<th><b>Precio</b>
+</th>
+<th><b>Capacidad</b>
+</th></tr>
+<tr>
+<td><div>MK1 (Pup Trailer)<span></span></div>
+</td>
+<td>$400,000
+</td>
+<td>400kg
+</td></tr>
+<tr>
+<td><div>MK2 (Trailer)<span></span></div>
+</td>
+<td>$600,000
+</td>
+<td>475kg
+</td></tr>
+<tr>
+<td><div>MK3 (Log Trailer)<span></span></div>
+</td>
+<td>$1,250,000
+</td>
+<td>600kg
+</td></tr>
+<tr>
+<td><div>MK4 (Bottom Dump Trailer)<span></span></div>
+</td>
+<td>$5,000,000
+</td>
+<td>775kg
+</td></tr>
+<tr>
+<td><div>MK5 (Dry Bulk Trailer)<span></span></div>
+</td>
+<td>$10,000,000
+</td>
+<td>1000kg
+</td></tr>
+<tr>
+<td><div>MK6 (Dump Trailer)<span></span></div>
+</td>
+<td>$18,000,000
+</td>
+<td>1500kg
+</td></tr>
+<tr>
+<td><div>MK7 (Container Trailer Small)<span></span></div>
+</td>
+<td>$30,000,000
+</td>
+<td>2200kg
+</td></tr>
+<tr>
+<td><div>MK8 (Container Trailer)<span></span></div>
+</td>
+<td>$45,000,000
+</td>
+<td>2500kg
+</td></tr>
+<tr>
+<td><div>MK9 (Refrigerated Trailer)<span></span></div>
+</td>
+<td>$75,000,000
+</td>
+<td>2750kg
+</td></tr>
+<tr>
+<td><div>MK10 (Refrigerated Trailer)<span></span></div>
+</td>
+<td>$100,000,000
+</td>
+<td>3000kg
+</td></tr>
+<tr>
+<td><div>MK11 (TV Trailer)<span></span></div>
+</td>
+<td>$160,000,000
+</td>
+<td>3500kg
+</td></tr>
+<tr>
+<td><div>MK12 (TV Trailer)<span></span></div>
+</td>
+<td>$250,000,000
+</td>
+<td>5000kg
+</td></tr>
+<tr>
+<td><div>MK13 (Box Trailer)<span></span></div>
+</td>
+<td>$450,000,000
+</td>
+<td>8500kg
+</td></tr>
+<tr>
+<td><div>MK14 (MOC)<span></span></div>
+</td>
+<td>$500,000,000
+</td>
+<td>9000kg
+</td></tr></tbody></table>
+</div>
+<div>
+<table class="wt">
+<tbody><tr>
+<th><b>Nombre</b>
+</th>
+<th><b>Precio</b>
+</th>
+<th><b>Combustible</b>
+</th>
+<th><b>Maxima velocidad en MPH</b>
+</th></tr>
+<tr>
+<td><div>Docktug<span></span></div>
+</td>
+<td>$250,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Road Killer<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Civilian Barracks<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Hauler<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Packer<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Phantom<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Phantom Heavy Hauler<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Long Path<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Cerberus Stock Classic<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Ural<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Custom Hauler<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Custom Phantom<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Ceberus Stock HD<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>CollinsCo Phantom<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>G.O. Hauler<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>G.O. DAF<span></span></div>
+</td>
+<td>$1,500,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr>
+<tr>
+<td><div>Chernobog Toter (MK15)<span></span></div>
+</td>
+<td>$10,000,000,000
+</td>
+<td>280L (Diesel)
+</td>
+<td>Desconocido
+</td></tr></tbody></table>
+<div><b>Para obtener el Chernobog Toter, debe comprar el Hauler, ir a la estación de actualización LSIA y pagar $10 mil millones ($10,000,000,000). El Chernobog Toter tiene una capacidad de carga de 6900 kg.</b></div>
+</div></div></div>
+<h2 id="Rutas_comerciales_b.C3.A1sicas"><span id="Rutas_comerciales_básicas"></span>Rutas comerciales básicas</h2>
+<p>Comienza una ruta de camiones recogiendo carga de uno de los siguientes vendedores. Dirígete al vendedor para obtener la mercadería, carga tanto como puedas en tu vehículo y luego diríjase a un comprador de carga que acepta la mercadería para venderla. Los troncos, la basura reciclada, los desechos tóxicos, los productos electrónicos reciclados y los escombros de las canteras forman parte de las rutas comerciales de camiones. Asegúrese de echar un vistazo a la sección <a data-a="Rutas_de_carga_avanzadas">Rutas de carga avanzadas</a>.
+</p>
+<table class="wt">
+<tbody><tr>
+<th>Carga
+</th>
+<th>Peso
+</th>
+<th>Ubicación
+</th>
+<th>Requisitos
+</th></tr>
+<tr>
+<td>Tools (Herramientas)<sup>1</sup>
+</td>
+<td>1 kg
+</td>
+<td>Cargo Buyer: Tools
+</td>
+<td>Nivel 1
+</td></tr>
+<tr>
+<td>Erasers (Borradores)<sup>1</sup>
+</td>
+<td>3 kg
+</td>
+<td>Cargo Buyer: Erasers
+</td>
+<td>Nivel 3
+</td></tr>
+<tr>
+<td>Logs (Troncos)
+</td>
+<td>60 kg
+</td>
+<td>Logging Camp
+</td>
+<td>Nivel 6
+</td></tr>
+<tr>
+<td>Recycled Trash (Basura Reciclada)
+</td>
+<td>90 kg
+</td>
+<td>Recycling Center
+</td>
+<td>Nivel 9
+</td></tr>
+<tr>
+<td>Toxic Waste (Desperdicio Tóxico)
+</td>
+<td>110 kg
+</td>
+<td>LSIA Waste Depot
+</td>
+<td>Nivel 11
+</td></tr>
+<tr>
+<td>Recycled Electronics (Electrónica reciclada)
+</td>
+<td>130 kg
+</td>
+<td>Electronics Store
+</td>
+<td>Nivel 13
+</td></tr>
+<tr>
+<td>Quarry Rubble (Escombros de cantera)
+</td>
+<td>150 kg
+</td>
+<td>Quarry
+</td>
+<td>Nivel 15
+</td></tr></tbody></table>
+<div>1. Las herramientas (<b>Tools</b>) y borradores (<b>Erasers</b>) <b>solo se pueden colocar</b> en el <b>Speedo Express</b> y en los <b>MK1, MK2, MK3 y MK4 Trailers</b>, en todos los demás trailers mostrara un error al querer agregarlos al maletero.</div>
+<div>2. El nivel de Trucking requerido indica el nivel en el que se desbloquea la señal en el mapa. De hecho, puede llevar cualquiera de estos elementos en su maletero en cualquier camión/nivel de fuerza.</div>
+<h3 id="Explotaci.C3.B3n_forestal_.28Troncos.29"><span id="Explotación_forestal_(Troncos)"></span>Explotación forestal (Troncos)</h3>
+<p>Los troncos de madera se desbloquean en el nivel 6, este es el primer tipo de transporte por camión donde hay varios pasos en el proceso. Debes recoger troncos del campamento de explotación y llévalos al aserradero para convertirlo en aserrín o tablones. Tanto el aserrín como los tablones se pueden vender en LS Port Export o almacenarse en <a data-p="ES:Self Storages">Almacenamientos Personales</a> para <a data-a="Rutas_de_carga_avanzadas">ser combinados con otros items/elementos</a>.
+</p>
+<h3 id="Proceso_b.C3.A1sico_de_materiales_reciclados"><span id="Proceso_básico_de_materiales_reciclados"></span>Proceso básico de materiales reciclados</h3>
+<p>En el nivel 9 desbloquearás materiales reciclados, que puedes recoger en el Centro de reciclaje. Tienes que llevar la basura reciclada a la instalación de clasificación para obtener tres materiales de ella. El plástico se puede exportar desde McKenzie Export. El cobre y el oro se pueden refinar en LS Foundry. El estaño refinado y el aluminio refinado se exportan desde LS Port Export. A partir de aquí, el proceso evolucionará permitiendo más materiales y nuevas combinaciones de materiales. Cuantos más pasos tenga el proceso, más ganarás con él. Las descripciones de los artículos y la exploración de las diferentes ubicaciones deberían llevarlo a nuevos procesos. 
+</p><p>Este es un diagrama de flujo que muestra uno de los procesos electrónicos de Nivel 13:
+</p>
+<h2 id="Rutas_de_carga_avanzadas">Rutas de carga avanzadas</h2>
+<p>Los troncos, la basura reciclada, los desechos tóxicos, los productos electrónicos reciclados, los escombros de cantera y la metanfetamina son parte de las rutas de camiones avanzadas que te permiten crear elementos avanzados, como casas.
+</p><p>Vendedores:
+</p>
+<table class="wt">
+<tbody><tr>
+<th>Carga
+</th>
+<th>Peso
+</th>
+<th>Ubicación
+</th>
+<th>Requisitos
+</th></tr>
+<tr>
+<td>Logs (Troncos)
+</td>
+<td>60 kg
+</td>
+<td>Logging Camp
+</td>
+<td>Nivel 6
+</td></tr>
+<tr>
+<td>Recycled Trash (Basura Reciclada)
+</td>
+<td>90 kg
+</td>
+<td>Recycling Center
+</td>
+<td>Nivel 9
+</td></tr>
+<tr>
+<td>Toxic Waste (Desperdicio Tóxico)
+</td>
+<td>110 kg
+</td>
+<td>LSIA Waste Depot
+</td>
+<td>Nivel 11
+</td></tr>
+<tr>
+<td>Recycled Electronics (Electrónica reciclada)
+</td>
+<td>130 kg
+</td>
+<td>Electronics Store
+</td>
+<td>Nivel 13
+</td></tr>
+<tr>
+<td>Quarry Rubble (Escombros de cantera)
+</td>
+<td>150 kg
+</td>
+<td>Quarry
+</td>
+<td>Nivel 15
+</td></tr></tbody></table>
+<p>Las rutas de camiones avanzadas pueden ser complejas y abrumadoras. Hay varias guías en video para algunas de las rutas de camiones, como Baterías y Concreto, que se pueden encontrar en la página <a data-p="YouTube Tutorials">Tutoriales de YouTube</a> (Solo en ingles). También hay calculadoras disponibles para rutas avanzadas para ayudarte, como <a href="https://bouncer.github.io/trucking-calculator/" rel="noopener" target="_blank">Calculador de Camionero</a> y <a href="https://docs.google.com/spreadsheets/d/173gQJDq3r0SwmSYxgYcmzfDbvnb9drXFcWTS6nElYvQ/edit?usp=sharing" rel="noopener" target="_blank">Hoja maestra de Camionro</a>. Tenga en cuenta que estos pueden estar desactualizados. También puede encontrar guías en <code>#tycoon-spreadsheets</code> en nuestro Discord.
+</p>
+<div><b>La siguiente imagen está desactualizada</b> y solo debe observarse para tener una idea general de cómo funciona el transporte avanzado. 
+Los precios y los pesos <b>ya no son precisos</b> y desde entonces se han introducido nuevas rutas. Este resumen se actualizará más adelante en 2022.</div>
+<h3 id="Joyer.C3.ADa"><span id="Joyería"></span>Joyería</h3>
+<p>La joyería se crea a partir de <i>escombros de cantera</i> y <i>electrónica reciclada</i> de la tienda de electrónica, y se vende en la joyería.
+</p>
+<h3 id="Bater.C3.ADas"><span id="Baterías"></span>Baterías</h3>
+<p>Las baterías se crean a partir de <i>escombros de cantera</i>, <i>basura reciclada</i> del centro de reciclaje y <i>residuos tóxicos</i> del depósito de desechos de LSIA.
+</p>
+<div>
+</div>
+<h2 id="Rutas_Premium">Rutas Premium</h2>
+<p>Actualmente en Transport Tycoon existen 3 rutas premium:
+</p>
+<h3 id="Concreto">Concreto</h3>
+<p>La mas conocida es la ruta para crear y vender concreto.
+</p>
+<h3 id="Rebar">Rebar</h3>
+<p>La ruta para hacer rebar también esta disponible.
+</p>
+<h3 id="Casas">Casas</h3>
+<p><small>Nota: Para ver el icono de venta, necesitas Tycoon Premium y Nivel 100 de Camionero.</small>
+</p><p>Por ultimo la ruta mas nueva agregar al juego es la ruta de la casa. Utiliza todas las rutas de camiones avanzadas y todas las rutas de camiones premium y conviértela en una ruta definitiva.
+</p>
+<h2 id="Sub-Tipos">Sub-Tipos</h2>
+<p>Algunas rutas secundarias de camiones también requieren un trabajo secundario de camiones. Estos trabajos se pueden adquirir en Trucking HQ o, en el caso del trabajo secundario de Liberty City, cualquier Centro de trabajo en Liberty City. Hay varios sub-trabajos de camiones disponibles:
+</p>
+<ul><li>Comercial</li>
+<li>Liberty City</li>
+<li>Refrigeración</li>
+<li>Militar</li>
+<li>Petroquímico</li>
+<li>Ilegal</li>
+<li>Master</li></ul>
+<p>El trabajo secundario maestro se obtiene con 1 millón de experiencia de camionero y te permite ver todos los transformadores de camiones.
+</p>
+<h3 id="Camionero_.28Liberty_City.29"><span id="Camionero_(Liberty_City)"></span>Camionero (Liberty City)</h3>
+<h3 id="Refrigeraci.C3.B3n"><span id="Refrigeración"></span>Refrigeración</h3>
+<p>El transporte refrigerado permite que los alimentos se envíen o se utilicen como comidas de avión. La carne puede la carne del producto final de la <a data-p="ES:Hunter">caza</a>, o la carne de pescado del producto final de la <a data-p="ES:Fishing">pesca</a>. La comida de aerolínea también se puede usar como un elemento de bonificación para el trabajo de <a data-p="ES:Airline Pilot">Piloto de línea aérea</a>. El transporte refrigerado agrega la siguiente carga:
+</p>
+<table class="wt">
+<tbody><tr>
+<th>Carga
+</th>
+<th>Peso
+</th>
+<th>Ubicación
+</th></tr>
+<tr>
+<td>Vegetables (Verduras)
+</td>
+<td>15 kg
+</td>
+<td>Great Chaparral Farming
+</td></tr>
+<tr>
+<td>Dairy Products (Productos Lácteos)
+</td>
+<td>15 kg
+</td>
+<td>Grapeseed Farm
+</td></tr></tbody></table>
+<p>El transporte refrigerado tiene las siguientes rutas de transporte por carretera:
+</p>
+<h3 id="Petroqu.C3.ADmica_.2F_Militares"><span id="Petroquímica_/_Militares"></span>Petroquímica / Militares</h3>
+<p>Los camiones petroquímicos y militares son trabajos secundarios separados, en los que se requiere la carga petroquímica para crear una carga en el trabajo secundario de militar. Estos trabajos secundarios agregan la siguiente carga:
+</p>
+<table class="wt">
+<tbody><tr>
+<th>Carga
+</th>
+<th>Peso
+</th>
+<th>Ubicación
+</th>
+<th>Trabajo secundario
+</th></tr>
+<tr>
+<td>Crude Oil (Petróleo Crudo)
+</td>
+<td>150 kg
+</td>
+<td>LS Oil Pumping Station
+</td>
+<td>Camionero Petroquímico
+</td></tr>
+<tr>
+<td>Raw Gas (Gas Crudo)
+</td>
+<td>150 kg
+</td>
+<td>GSD Gas Pumping Station
+</td>
+<td>Camionero Petroquímico
+</td></tr></tbody></table>
+<p>Los camiones petroquímicos y militares tienen las siguientes rutas de camiones. Debe hacer ambas rutas para fabricar explosivos que se pueden usar para obtener otra carga de camiones como se muestra a continuación.
+</p>
+<h3 id="Camionero_.28Ilegal.29"><span id="Camionero_(Ilegal)"></span>Camionero (Ilegal)</h3>
+<p>El transporte ilegal en camiones requiere <b>Nivel 17 de Camionero</b> y <b><a data-p="ES:Tycoon Premium">Licencia Premium</a></b>. Hay tres rutas disponibles: Cápsulas de píldora completas, Defibkit y de píldoras individuales. El transporte ilegal en camiones agregan la siguiente carga:
+</p>
+<table class="wt">
+<tbody><tr>
+<th>Carga
+</th>
+<th>Peso
+</th>
+<th>Ubicación
+</th>
+<th>Requisitos
+</th></tr>
+<tr>
+<td>Methamphetamine (Metanfetamina)
+</td>
+<td>40 kg
+</td>
+<td>Liquor Ace
+</td>
+<td>Nivel 17 y <a data-p="ES:Tycoon Premium">Premium</a>
+</td></tr></tbody></table>
+<p>Las rutas de Cápsulas de Píldora Completa y de Defibkit:
+</p><p>La ruta de Píldoras individuales:
+</p>
+<h2 id="Env.C3.ADos_de_veh.C3.ADculos"><span id="Envíos_de_vehículos"></span>Envíos de vehículos</h2>
+<p>Pueden crear diferentes <b>Tarjetas de envío de vehículos</b>.<br/>
+Puedes utilizarlos y el vehículo te quedara de forma permanente<br/>
+en tu garaje o puedes venderlos en el mercado.<br/>
+</p>
+<h3 id="Env.C3.ADos_de_veh.C3.ADculos_disponibles"><span id="Envíos_de_vehículos_disponibles"></span>Envíos de vehículos disponibles</h3>
+<ul><li><b>Annis ZR-350</b></li>
+<li><b>Coil Rocket Voltic</b> (ACTUALIZADO: Ahora puedes hacer un kit de actualización en lugar de una tarjeta de envío de vehículo)</li>
+<li><b>Coil Savanna ("Cybertruck")</b></li>
+<li><b>Hijak Vertice</b></li>
+<li><b>HVY Nightshark</b></li>
+<li><b>Karin Futo</b></li>
+<li><b>Karin Futo GT Hatch</b> (ACTUALIZADO: Ahora solo se puede obtener con un kit de actualización)</li>
+<li><b>Landstalker XL</b> (REQUISITO: Para desbloquear el secreto obtener la "Tarjeta SD: Planos de Landstalker XL")</li></ul>
+<h3 id="Materiales_necesarios">Materiales necesarios</h3>
+<table class="wt">
+<tbody><tr>
+<th>VEHÍCULOS
+</th>
+<th>Car Battery (1x)
+</th>
+<th>Chassis (1x)
+</th>
+<th>Vehicle Framework (1x)
+</th>
+<th>Wheels (4x)
+</th>
+<th>Circuit Boards (5x)
+</th>
+<th>Fiberglass Spools (15)
+</th>
+<th>Glass (25x)
+</th>
+<th>Refined Amalgam (50x)
+</th>
+<th>Kerosene (100x)
+</th>
+<th colspan="2">Traction Batteries (3x)
+</th></tr>
+<tr>
+<th><b>Annis ZR-350</b>
+</th>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☐</span>
+</td>
+<td colspan="2"><span>☐</span>
+</td></tr>
+<tr>
+<th><b>Coil Rocket Voltic (Upgrade Kit)</b>
+</th>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td colspan="2"><span>☐</span>
+</td></tr>
+<tr>
+<th><b>Coil Savanna ("Cybertruck")</b>
+</th>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☐</span>
+</td>
+<td colspan="2"><span>☑</span>
+</td></tr>
+<tr>
+<th><b>Hijak Vertice</b>
+</th>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☐</span>
+</td>
+<td colspan="2"><span>☐</span>
+</td></tr>
+<tr>
+<th><b>Karin Futo</b>
+</th>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☐</span>
+</td>
+<td colspan="2"><span>☐</span>
+</td></tr>
+<tr>
+<th>VEHÍCULOS</th>
+<th>Car Battery (2x)</th>
+<th>Chassis (2x)</th>
+<th>Vehicle Framework (2x)</th>
+<th>Wheels (4x)</th>
+<th>Circuit Boards (12x)</th>
+<th>Fiberglass Spools (25x)</th>
+<th>Glass (15x)</th>
+<th>Refined Amalgam (40x)</th>
+<th>Military Goods (4x)</th>
+<th>Titanium (60x)</th>
+<th>Treated Water (1x)
+</th></tr>
+<tr>
+<th><b>HVY Nightshark</b>
+</th>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td></tr>
+<tr>
+<th><b>Landstalker XL</b>
+</th>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☑</span>
+</td>
+<td><span>☐</span>
+</td>
+<td><span>☐</span>
+</td>
+<td><span>☐</span>
+</td></tr>
+</tbody></table>
+<h3 id="Ubicaci.C3.B3n_de_Crafting"><span id="Ubicación_de_Crafting"></span>Ubicación de Crafting</h3>
+<p>Los nuevos artículos usados:
+</p>
+<ul><li>Car Battery (Batería de coche)</li>
+<li>Chassis (Chasis)</li>
+<li>Traction Battery (Batería de tracción)</li>
+<li>Vehicle Framework (Marco del vehículo)</li>
+<li>Wheels (Ruedas)</li></ul>
+<p>se pueden fabricar en <b>Car Parts (Paleto Bay)</b>.
+</p>
+<div></div>
+<p><br/>
+<br/>
+Si tienes todos los materiales necesarios, puedes crear<br/>
+la tarjeta de envío del vehículo en <b>Vehicle Factory (Rancho)</b>.
+</p>
+<div></div>
+<h2 id="Alternativa_de_Camiones_.28Transporte_LITE.29"><span id="Alternativa_de_Camiones_(Transporte_LITE)"></span>Alternativa de Camiones (Transporte LITE)</h2>
+<p>Si está buscando una alternativa y quiere ganar experiencia de transporte como camionero, juegue en el servidor asociado: <b><a data-f="Partnered_Server" data-p="LITE Transportation">Transporte LITE</a></b> (Próximamente estará traducido)
+</p>
+<!-- 
+NewPP limit report
+Cached time: 20250623152452
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 1.516 seconds
+Real time usage: 0.466 seconds
+Preprocessor visited node count: 836/1000000
+Preprocessor generated node count: 5371/1000000
+Post‐expand include size: 20293/2097152 bytes
+Template argument size: 3521/2097152 bytes
+Highest expansion depth: 7/40
+Expensive parser function count: 25/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 26047/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00% 205.725 1 -total
+ 66.47% 136.739 1 Template:ES:Car_Dealer/Job_Vehicles/Trucker
+ 15.77% 32.448 1 Template:Otherlang
+ 8.13% 16.718 6 Template:Icon
+ 5.11% 10.514 1 Template:ES:Sub_Trucking
+ 3.07% 6.325 5 Template:Note
+ 3.00% 6.170 1 Template:ES:Car_Dealer/Trailers/Semi_Cabs
+ 2.84% 5.839 1 Template:ES:Vehicle_Shipments
+ 1.97% 4.057 1 Template:ES:Car_Dealer/Trailers/Job_Trailers
+-->
+<!-- Saved in parser cache with key mediawiki-f7_:pcache:idhash:1242-0!canonical and timestamp 20250623152451 and revision id 15594
+ -->

@@ -1,0 +1,46 @@
+name: Wiki data
+
+on:
+  pull_request:
+    paths: ["content/**", "tools/**"]
+  push:
+    branches: [main]
+    paths: ["content/**", "tools/**"]
+
+permissions:
+  contents: write
+
+jobs:
+  # On pull requests: make sure every page is valid. Contributors never touch data/.
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate pages
+        # Exit code 2 only means "data/ not rebuilt yet", which is expected on a PR.
+        run: python3 tools/build.py --links --check || { rc=$?; [ $rc -eq 2 ] || exit $rc; }
+      - name: Warn if data/ was edited by hand
+        run: |
+          git fetch --depth=1 origin "${{ github.base_ref }}"
+          if git diff --name-only "origin/${{ github.base_ref }}"...HEAD | grep -q '^data/'; then
+            echo "::warning::data/ is generated from content/. Edit the files in content/ instead; hand edits to data/ are overwritten."
+          fi
+
+  # After merge: rebuild data/ from content/ and commit it, so GitHub Pages serves the new version.
+  build:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: python3 tools/build.py
+      - name: Commit updated data
+        run: |
+          if [ -n "$(git status --porcelain data)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data
+            git commit -m "Rebuild data from content [skip ci]"
+            git push
+          fi

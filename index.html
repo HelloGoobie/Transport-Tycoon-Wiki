@@ -1,2396 +1,403 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Tycoon Gaming Wiki</title>
-    <style>
-      :root {
-        --bg: #12151a;
-        --panel: #1a1e25;
-        --panel2: #222731;
-        --line: #2d333f;
-        --text: #e7eaf0;
-        --dim: #97a0b0;
-        --acc: #ffb020;
-        --acc2: #ffd27a;
-        --accfg: #1a1200;
-        --link: #6cb6ff;
-        --ok: #5ad08a;
-        --fs: 15px
-      }
-
-      :root[data-theme=light] {
-        --bg: #f4f1ea;
-        --panel: #fffdf8;
-        --panel2: #efe9dc;
-        --line: #ddd4c2;
-        --text: #231f18;
-        --dim: #6b6354;
-        --acc: #d98a00;
-        --acc2: #a86a00;
-        --accfg: #fff;
-        --link: #0a58b8;
-        --ok: #1e8a50
-      }
-
-      * {
-        box-sizing: border-box
-      }
-
-      html,
-      body {
-        margin: 0;
-        height: 100%;
-        background: transparent;
-        color: var(--text);
-        font: var(--fs)/1.6 "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
-        overflow: hidden
-      }
-
-      body.standalone {
-        background: var(--bg);
-        pointer-events: auto
-      }
-
-      body.desk {
-        background: radial-gradient(120% 90% at 50% 0, #243044, #0d1118);
-        pointer-events: auto
-      }
-
-      :root[data-theme=light] body.desk {
-        background: radial-gradient(120% 90% at 50% 0, #cfd8e6, #8d9bb0)
-      }
-
-      #win {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        pointer-events: auto;
-        background: var(--bg);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        box-shadow: 0 24px 70px rgba(0, 0, 0, .65), 0 0 0 1px rgba(0, 0, 0, .5);
-        overflow: hidden;
-        min-width: 0
-      }
-
-      body.standalone #win {
-        inset: 0;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none
-      }
-
-      body.standalone #tb {
-        display: none
-      }
-
-      #win.max {
-        border-radius: 0
-      }
-
-      #win.min {
-        height: auto !important;
-        min-height: 0
-      }
-
-      #win.min header,
-      #win.min .wrap,
-      #win.min .rs {
-        display: none
-      }
-
-      #tb {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        height: 34px;
-        flex: none;
-        padding: 0 6px 0 12px;
-        background: linear-gradient(var(--panel2), var(--panel));
-        border-bottom: 1px solid var(--line);
-        cursor: grab;
-        touch-action: none;
-        user-select: none
-      }
-
-      #tb.drag {
-        cursor: grabbing
-      }
-
-      #set {
-        position: absolute;
-        right: 8px;
-        top: 40px;
-        width: 272px;
-        z-index: 60;
-        display: none;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        box-shadow: 0 14px 40px rgba(0, 0, 0, .5);
-        padding: 10px 12px
-      }
-
-      #set.on {
-        display: block
-      }
-
-      #set h5 {
-        margin: 0 0 6px;
-        font-size: .78em;
-        letter-spacing: .08em;
-        text-transform: uppercase;
-        color: var(--dim)
-      }
-
-      #set label {
-        display: flex;
-        gap: 10px;
-        align-items: flex-start;
-        padding: 7px 8px;
-        border-radius: 8px;
-        cursor: pointer
-      }
-
-      #set label:hover {
-        background: var(--panel2)
-      }
-
-      #set input {
-        margin-top: 5px;
-        accent-color: var(--acc)
-      }
-
-      #set small {
-        display: block;
-        color: var(--dim);
-        line-height: 1.3
-      }
-
-      #set .ib {
-        width: 100%;
-        margin-top: 8px;
-        justify-content: flex-start
-      }
-
-      #tb .ti {
-        font-weight: 700;
-        font-size: .86em;
-        letter-spacing: .05em;
-        text-transform: uppercase;
-        flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color: var(--dim)
-      }
-
-      #tb .ti b {
-        color: var(--acc)
-      }
-
-      .wb {
-        width: 28px;
-        height: 24px;
-        border: 0;
-        border-radius: 6px;
-        background: none;
-        color: var(--dim);
-        font-size: 13px;
-        line-height: 1;
-        display: grid;
-        place-items: center
-      }
-
-      .wb:hover {
-        background: var(--panel2);
-        color: var(--text)
-      }
-
-      .wb.x:hover {
-        background: #d9433a;
-        color: #fff
-      }
-
-      .wb.on {
-        color: var(--acc)
-      }
-
-      .rs {
-        position: absolute;
-        z-index: 50;
-        touch-action: none
-      }
-
-      .rs[data-d=r] {
-        right: -3px;
-        top: 10px;
-        bottom: 10px;
-        width: 8px;
-        cursor: ew-resize
-      }
-
-      .rs[data-d=l] {
-        left: -3px;
-        top: 10px;
-        bottom: 10px;
-        width: 8px;
-        cursor: ew-resize
-      }
-
-      .rs[data-d=b] {
-        bottom: -3px;
-        left: 10px;
-        right: 10px;
-        height: 8px;
-        cursor: ns-resize
-      }
-
-      .rs[data-d=t] {
-        top: -3px;
-        left: 10px;
-        right: 10px;
-        height: 8px;
-        cursor: ns-resize
-      }
-
-      .rs[data-d=br] {
-        right: -3px;
-        bottom: -3px;
-        width: 18px;
-        height: 18px;
-        cursor: nwse-resize
-      }
-
-      .rs[data-d=bl] {
-        left: -3px;
-        bottom: -3px;
-        width: 18px;
-        height: 18px;
-        cursor: nesw-resize
-      }
-
-      .rs[data-d=tr] {
-        right: -3px;
-        top: -3px;
-        width: 18px;
-        height: 18px;
-        cursor: nesw-resize
-      }
-
-      .rs[data-d=tl] {
-        left: -3px;
-        top: -3px;
-        width: 18px;
-        height: 18px;
-        cursor: nwse-resize
-      }
-
-      body.standalone .rs {
-        display: none
-      }
-
-      body.dragging {
-        user-select: none
-      }
-
-      body.dragging #win * {
-        pointer-events: none
-      }
-
-      button,
-      select,
-      input {
-        font: inherit;
-        color: inherit
-      }
-
-      button {
-        cursor: pointer
-      }
-
-      a {
-        color: var(--link)
-      }
-
-      ::selection {
-        background: var(--acc);
-        color: var(--accfg)
-      }
-
-      /* header */
-      header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        background: var(--panel);
-        border-bottom: 1px solid var(--line);
-        flex: none;
-        position: relative;
-        z-index: 30
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 800;
-        letter-spacing: .04em;
-        text-transform: uppercase;
-        font-size: .95em;
-        white-space: nowrap;
-        cursor: pointer;
-        border: 0;
-        background: none;
-        padding: 2px 4px
-      }
-
-      .brand i {
-        display: inline-grid;
-        place-items: center;
-        width: 26px;
-        height: 26px;
-        border-radius: 7px;
-        background: var(--acc);
-        color: var(--accfg);
-        font-style: normal;
-        font-weight: 900
-      }
-
-      .brand span em {
-        font-style: normal;
-        color: var(--acc)
-      }
-
-      .ib {
-        border: 1px solid var(--line);
-        background: var(--panel2);
-        border-radius: 8px;
-        min-width: 32px;
-        height: 32px;
-        padding: 0 8px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        white-space: nowrap
-      }
-
-      .ib:hover:not(:disabled) {
-        border-color: var(--acc);
-        color: var(--acc2)
-      }
-
-      .ib:disabled {
-        opacity: .35;
-        cursor: default
-      }
-
-      #menu {
-        display: none
-      }
-
-      .sbox {
-        position: relative;
-        flex: 1;
-        min-width: 120px;
-        max-width: 560px;
-        margin: 0 auto
-      }
-
-      #q {
-        width: 100%;
-        height: 34px;
-        border-radius: 9px;
-        border: 1px solid var(--line);
-        background: var(--bg);
-        padding: 0 38px 0 34px;
-        outline: none
-      }
-
-      #q:focus {
-        border-color: var(--acc);
-        box-shadow: 0 0 0 3px rgba(255, 176, 32, .18)
-      }
-
-      .sbox svg {
-        position: absolute;
-        left: 10px;
-        top: 9px;
-        width: 16px;
-        height: 16px;
-        color: var(--dim);
-        pointer-events: none
-      }
-
-      .sbox kbd {
-        position: absolute;
-        right: 8px;
-        top: 6px;
-        border: 1px solid var(--line);
-        border-radius: 5px;
-        padding: 0 6px;
-        font: 12px/20px monospace;
-        color: var(--dim);
-        pointer-events: none
-      }
-
-      #sx {
-        position: absolute;
-        right: 6px;
-        top: 5px;
-        display: none;
-        width: 24px;
-        height: 24px;
-        border: 0;
-        border-radius: 6px;
-        background: var(--panel2)
-      }
-
-      #res {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 40px;
-        max-height: min(70vh, 520px);
-        overflow: auto;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
-        display: none;
-        z-index: 40
-      }
-
-      .rr {
-        display: block;
-        width: 100%;
-        text-align: left;
-        border: 0;
-        border-bottom: 1px solid var(--line);
-        background: none;
-        padding: 9px 14px
-      }
-
-      .rr:last-child {
-        border-bottom: 0
-      }
-
-      .rr.on,
-      .rr:hover {
-        background: var(--panel2)
-      }
-
-      .rr b {
-        display: block;
-        font-weight: 600
-      }
-
-      .rr small {
-        display: block;
-        color: var(--dim);
-        line-height: 1.4;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap
-      }
-
-      .rr mark {
-        background: rgba(255, 176, 32, .28);
-        color: inherit;
-        border-radius: 3px;
-        padding: 0 1px
-      }
-
-      .rmeta {
-        padding: 7px 14px;
-        font-size: .82em;
-        color: var(--dim);
-        display: flex;
-        gap: 10px;
-        justify-content: space-between;
-        align-items: center;
-        background: var(--panel2);
-        position: sticky;
-        top: 0
-      }
-
-      .rmeta button {
-        border: 0;
-        background: none;
-        color: var(--link);
-        padding: 0;
-        text-decoration: underline
-      }
-
-      .tag {
-        display: inline-block;
-        font-size: .72em;
-        font-weight: 700;
-        letter-spacing: .04em;
-        padding: 0 6px;
-        border-radius: 5px;
-        background: var(--panel2);
-        border: 1px solid var(--line);
-        color: var(--dim);
-        margin-left: 6px;
-        vertical-align: 1px
-      }
-
-      #lang {
-        height: 32px;
-        border-radius: 8px;
-        border: 1px solid var(--line);
-        background: var(--panel2);
-        padding: 0 6px;
-        max-width: 230px;
-        cursor: pointer
-      }
-
-      #lang:focus {
-        outline: 2px solid var(--acc)
-      }
-
-      /* layout */
-      .wrap {
-        flex: 1;
-        display: flex;
-        min-height: 0;
-        position: relative
-      }
-
-      nav {
-        width: 250px;
-        flex: none;
-        border-right: 1px solid var(--line);
-        background: var(--panel);
-        overflow: auto;
-        padding: 12px 10px 20px
-      }
-
-      nav h4 {
-        margin: 16px 8px 6px;
-        font-size: .72em;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        color: var(--dim)
-      }
-
-      nav h4:first-child {
-        margin-top: 2px
-      }
-
-      .ni {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        width: 100%;
-        text-align: left;
-        border: 0;
-        background: none;
-        padding: 6px 10px;
-        border-radius: 8px;
-        color: var(--text)
-      }
-
-      .ni:hover {
-        background: var(--panel2)
-      }
-
-      .ni.on {
-        background: var(--acc);
-        color: var(--accfg);
-        font-weight: 700
-      }
-
-      .ni small {
-        color: var(--dim)
-      }
-
-      .ni.on small {
-        color: inherit;
-        opacity: .75
-      }
-
-      .ni .t {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap
-      }
-
-      main {
-        flex: 1;
-        min-width: 0;
-        overflow: auto;
-        scroll-behavior: smooth;
-        position: relative
-      }
-
-      .bar {
-        position: sticky;
-        top: 0;
-        z-index: 5;
-        display: flex;
-        gap: 6px;
-        align-items: center;
-        padding: 8px 18px;
-        background: linear-gradient(var(--bg) 70%, transparent);
-      }
-
-      .crumb {
-        color: var(--dim);
-        font-size: .85em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        margin-left: 4px
-      }
-
-      .page {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 6px 22px 80px
-      }
-
-      h1.pt {
-        font-size: 2em;
-        line-height: 1.2;
-        margin: .2em 0 .3em
-      }
-
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin: 6px 0 14px;
-        align-items: center
-      }
-
-      .chip {
-        border: 1px solid var(--line);
-        background: var(--panel2);
-        border-radius: 99px;
-        padding: 1px 11px;
-        font-size: .84em;
-        color: var(--text)
-      }
-
-      .chip:hover {
-        border-color: var(--acc);
-        color: var(--acc2)
-      }
-
-      .chip.l {
-        border-style: dashed
-      }
-
-      .lab {
-        font-size: .78em;
-        color: var(--dim);
-        text-transform: uppercase;
-        letter-spacing: .08em;
-        margin-right: 2px
-      }
-
-      .toc {
-        border: 1px solid var(--line);
-        background: var(--panel);
-        border-radius: 12px;
-        padding: 6px 14px;
-        margin: 8px 0 20px
-      }
-
-      .toc summary {
-        cursor: pointer;
-        font-weight: 700;
-        padding: 4px 0
-      }
-
-      .toc ol {
-        margin: 6px 0 8px;
-        padding-left: 20px;
-        columns: 2;
-        column-gap: 28px
-      }
-
-      .toc li {
-        break-inside: avoid;
-        padding: 1px 0
-      }
-
-      .toc li.s {
-        margin-left: 16px;
-        font-size: .93em
-      }
-
-      .toc a {
-        text-decoration: none;
-        cursor: pointer
-      }
-
-      .toc a:hover {
-        text-decoration: underline
-      }
-
-      .art {
-        overflow-wrap: break-word
-      }
-
-      .art h2,
-      .art h3,
-      .art h4 {
-        line-height: 1.25;
-        scroll-margin-top: 56px
-      }
-
-      .art h2 {
-        font-size: 1.5em;
-        margin: 1.6em 0 .5em;
-        padding-bottom: .25em;
-        border-bottom: 2px solid var(--line)
-      }
-
-      .art h3 {
-        font-size: 1.2em;
-        margin: 1.3em 0 .4em;
-        color: var(--acc2)
-      }
-
-      .art h4 {
-        font-size: 1.05em;
-        margin: 1.1em 0 .3em
-      }
-
-      .art a[data-p],
-      .art a[data-a] {
-        color: var(--link);
-        cursor: pointer;
-        text-decoration: none;
-        border-bottom: 1px dotted currentColor
-      }
-
-      .art a[data-p]:hover,
-      .art a[data-a]:hover {
-        border-bottom-style: solid
-      }
-
-      .art a[target=_blank]::after {
-        content: " ↗";
-        font-size: .8em
-      }
-
-      .art ul,
-      .art ol {
-        padding-left: 1.5em
-      }
-
-      .art li {
-        margin: .15em 0
-      }
-
-      .art blockquote {
-        margin: 1em 0;
-        padding: .4em 1em;
-        border-left: 4px solid var(--acc);
-        background: var(--panel);
-        border-radius: 0 10px 10px 0
-      }
-
-      .art code,
-      .art pre {
-        background: var(--panel2);
-        border: 1px solid var(--line);
-        border-radius: 6px;
-        padding: 0 5px;
-        font: .9em Consolas, monospace
-      }
-
-      .art pre {
-        padding: 10px;
-        overflow: auto
-      }
-
-      .art p.cap {
-        color: var(--dim);
-        font-style: italic;
-        font-size: .9em
-      }
-
-      .tw {
-        overflow-x: auto;
-        margin: 1em 0;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        background: var(--panel)
-      }
-
-      .art table {
-        border-collapse: collapse;
-        width: 100%;
-        font-size: .94em
-      }
-
-      .art th,
-      .art td {
-        min-width: 3.2em;
-        overflow-wrap: break-word;
-        padding: 6px 10px;
-        border-bottom: 1px solid var(--line);
-        border-right: 1px solid var(--line);
-        vertical-align: top
-      }
-
-      .art th:last-child,
-      .art td:last-child {
-        border-right: 0
-      }
-
-      .art tr:last-child td {
-        border-bottom: 0
-      }
-
-      .art th {
-        background: var(--panel2);
-        text-align: left
-      }
-
-      .art tr:nth-child(even) td {
-        background: rgba(127, 127, 127, .05)
-      }
-
-      .art table table {
-        font-size: 1em
-      }
-
-      .foot {
-        margin-top: 40px;
-        padding-top: 14px;
-        border-top: 1px solid var(--line);
-        color: var(--dim);
-        font-size: .85em
-      }
-
-      .empty {
-        padding: 40px 10px;
-        text-align: center;
-        color: var(--dim)
-      }
-
-      /* home */
-      .hero {
-        margin: 6px 0 22px;
-        padding: 26px 26px 22px;
-        border-radius: 18px;
-        background: radial-gradient(120% 140% at 0 0, rgba(255, 176, 32, .2), transparent 60%), var(--panel);
-        border: 1px solid var(--line)
-      }
-
-      .hero h1 {
-        margin: 0 0 4px;
-        font-size: 2.2em;
-        line-height: 1.1
-      }
-
-      .hero h1 em {
-        font-style: normal;
-        color: var(--acc)
-      }
-
-      .hero p {
-        margin: 0 0 14px;
-        color: var(--dim);
-        max-width: 60ch
-      }
-
-      .hero .big {
-        position: relative;
-        max-width: 520px
-      }
-
-      .hero input {
-        width: 100%;
-        height: 44px;
-        border-radius: 12px;
-        border: 1px solid var(--line);
-        background: var(--bg);
-        padding: 0 14px;
-        font-size: 1.05em;
-        outline: none
-      }
-
-      .hero input:focus {
-        border-color: var(--acc)
-      }
-
-      .stats {
-        margin-top: 12px;
-        font-size: .84em;
-        color: var(--dim)
-      }
-
-      .sec {
-        margin: 26px 0 10px;
-        font-size: 1.05em;
-        font-weight: 800;
-        letter-spacing: .04em;
-        text-transform: uppercase;
-        color: var(--dim);
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline
-      }
-
-      .sec button {
-        border: 0;
-        background: none;
-        color: var(--link);
-        font-size: .8em;
-        text-transform: none;
-        letter-spacing: 0
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-        gap: 10px
-      }
-
-      .card {
-        display: block;
-        text-align: left;
-        border: 1px solid var(--line);
-        background: var(--panel);
-        border-radius: 12px;
-        padding: 12px 14px;
-        min-height: 64px;
-        transition: .12s
-      }
-
-      .card:hover {
-        border-color: var(--acc);
-        transform: translateY(-1px)
-      }
-
-      .card b {
-        display: block;
-        font-size: 1.02em
-      }
-
-      .card small {
-        display: block;
-        color: var(--dim);
-        line-height: 1.35;
-        margin-top: 2px
-      }
-
-      .card .ic {
-        font-size: 1.4em;
-        display: block;
-        margin-bottom: 2px
-      }
-
-      .pills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 7px
-      }
-
-      .pill {
-        border: 1px solid var(--line);
-        background: var(--panel);
-        border-radius: 10px;
-        padding: 5px 12px
-      }
-
-      .pill:hover {
-        border-color: var(--acc);
-        color: var(--acc2)
-      }
-
-      .az {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
-        margin: 10px 0 14px
-      }
-
-      .az button {
-        min-width: 30px;
-        height: 30px;
-        border: 1px solid var(--line);
-        background: var(--panel);
-        border-radius: 7px;
-        padding: 0 6px
-      }
-
-      .az button.on {
-        background: var(--acc);
-        color: var(--accfg);
-        border-color: var(--acc);
-        font-weight: 700
-      }
-
-      .az button:disabled {
-        opacity: .3;
-        cursor: default
-      }
-
-      .flt {
-        width: 100%;
-        max-width: 420px;
-        height: 36px;
-        border-radius: 9px;
-        border: 1px solid var(--line);
-        background: var(--panel);
-        padding: 0 12px;
-        outline: none
-      }
-
-      .flt:focus {
-        border-color: var(--acc)
-      }
-
-      .list {
-        list-style: none;
-        padding: 0;
-        margin: 8px 0;
-        columns: 2 280px;
-        column-gap: 24px
-      }
-
-      .list li {
-        break-inside: avoid;
-        margin: 0 0 2px
-      }
-
-      .list button {
-        display: block;
-        width: 100%;
-        text-align: left;
-        border: 0;
-        background: none;
-        padding: 6px 10px;
-        border-radius: 8px
-      }
-
-      .list button:hover {
-        background: var(--panel2)
-      }
-
-      .list small {
-        display: block;
-        color: var(--dim);
-        line-height: 1.35;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap
-      }
-
-      #toast {
-        position: absolute;
-        left: 50%;
-        bottom: 22px;
-        transform: translateX(-50%) translateY(20px);
-        background: var(--panel2);
-        border: 1px solid var(--acc);
-        color: var(--text);
-        padding: 9px 16px;
-        border-radius: 10px;
-        opacity: 0;
-        pointer-events: none;
-        transition: .2s;
-        z-index: 60;
-        max-width: 90vw;
-        text-align: center
-      }
-
-      #toast.on {
-        opacity: 1;
-        transform: translateX(-50%)
-      }
-
-      #top {
-        position: absolute;
-        right: 18px;
-        bottom: 18px;
-        z-index: 20;
-        display: none;
-        border-radius: 99px;
-        width: 40px;
-        height: 40px;
-        background: var(--acc);
-        color: var(--accfg);
-        border: 0;
-        font-weight: 900;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, .4)
-      }
-
-      .spin {
-        display: flex;
-        justify-content: center;
-        padding: 60px
-      }
-
-      .spin i {
-        width: 30px;
-        height: 30px;
-        border: 3px solid var(--line);
-        border-top-color: var(--acc);
-        border-radius: 50%;
-        animation: r 1s linear infinite
-      }
-
-      @keyframes r {
-        to {
-          transform: rotate(360deg)
-        }
-      }
-
-      .rtl {
-        direction: rtl;
-        text-align: right
-      }
-
-      .rtl ul,
-      .rtl ol {
-        padding-left: 0;
-        padding-right: 1.5em
-      }
-
-      #scrim {
-        display: none
-      }
-
-      .narrow #menu {
-        display: inline-flex
-      }
-
-      .narrow nav {
-        position: absolute;
-        z-index: 25;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        transform: translateX(-102%);
-        transition: .2s;
-        box-shadow: 12px 0 30px rgba(0, 0, 0, .45);
-        width: 272px
-      }
-
-      #win.nav nav {
-        transform: none
-      }
-
-      #win.nav #scrim {
-        display: block;
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, .45);
-        z-index: 24
-      }
-
-      .narrow .brand span {
-        display: none
-      }
-
-      .narrow kbd,
-      .narrow #fsz {
-        display: none !important
-      }
-
-      .narrow .page {
-        padding: 6px 14px 80px
-      }
-
-      .narrow .bar {
-        padding: 8px 14px
-      }
-
-      .narrow .toc ol {
-        columns: 1
-      }
-
-      .narrow .hero {
-        padding: 18px
-      }
-
-      .narrow .hero h1 {
-        font-size: 1.7em
-      }
-
-      .tiny #lang {
-        max-width: 110px
-      }
-
-      .tiny .sbox {
-        min-width: 90px
-      }
-    </style>
-  </head>
-  <body>
-    <div id="win">
-      <div id="tb">
-        <span class="ti">Tycoon <b>Gaming</b> Wiki </span>
-        <button class="wb" id="setb" title="Window settings">⚙</button>
-        <button class="wb" id="opb" title="Transparency">◑</button>
-        <button class="wb" id="mnb" title="Minimise">—</button>
-        <button class="wb" id="mxb" title="Maximise / restore">▢</button>
-        <button class="wb" id="pinb" title="Keep on screen">📌</button>
-        <button class="wb x" id="closeb" title="Close (F1 to reopen)">✕</button>
-      </div>
-      <header>
-        <button class="ib" id="menu" title="Menu" aria-label="Menu">☰</button>
-        <button class="brand" id="home" title="Wiki home">
-          <i>T</i>
-          <span>Tycoon <em>Wiki</em>
-          </span>
-        </button>
-        <div class="sbox">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="8.5" cy="8.5" r="5.5" />
-            <path d="M13 13l5 5" stroke-linecap="round" />
-          </svg>
-          <input id="q" type="text" placeholder="Search guides, jobs, items…" autocomplete="off" spellcheck="false" aria-label="Search the wiki">
-          <kbd id="kb">/</kbd>
-          <button id="sx" title="Clear">✕</button>
-          <div id="res"></div>
-        </div>
-        <select id="lang" title="Language" aria-label="Language"></select>
-        <button class="ib" id="fsz" title="Text size">A <small>±</small>
-        </button>
-        <button class="ib" id="thm" title="Light / dark">◐</button>
-      </header>
-      <div class="wrap">
-        <div id="scrim"></div>
-        <nav id="nav"></nav>
-        <main id="main">
-          <div class="spin">
-            <i></i>
-          </div>
-        </main>
-      </div>
-      <div id="set">
-        <h5>When I click outside the window</h5>
-        <label>
-          <input type="radio" name="oc" value="close">
-          <span>
-            <b>Hide it</b>
-            <small>Press F1 to bring it back</small>
-          </span>
-        </label>
-        <label>
-          <input type="radio" name="oc" value="pin">
-          <span>
-            <b>Keep it on screen</b>
-            <small>Gives control back to the game</small>
-          </span>
-        </label>
-        <label>
-          <input type="radio" name="oc" value="none">
-          <span>
-            <b>Do nothing</b>
-            <small>Stays open, game clicks are blocked</small>
-          </span>
-        </label>
-        <button class="ib" id="rpos">↩ Reset window position</button>
-      </div>
-      <button id="top" title="Back to top">↑</button>
-      <div id="toast"></div>
-      <i class="rs" data-d="l"></i>
-      <i class="rs" data-d="r"></i>
-      <i class="rs" data-d="t"></i>
-      <i class="rs" data-d="b"></i>
-      <i class="rs" data-d="tl"></i>
-      <i class="rs" data-d="tr"></i>
-      <i class="rs" data-d="bl"></i>
-      <i class="rs" data-d="br"></i>
-    </div>
-    <script>
-      (function() {
-          'use strict';
-          var $ = function(i) {
-            return document.getElementById(i);
-          };
-          var KEY = 'ttwiki_v1',
-            ST = {
-              lang: 'EN',
-              fs: 15,
-              theme: 'dark',
-              recent: [],
-              win: {},
-              outside: 'close'
-            };
-          try {
-            var r = JSON.parse(localStorage.getItem(KEY) || 'null');
-            if (r)
-              for (var k in ST)
-                if (r[k] !== undefined && typeof r[k] === typeof ST[k]) ST[k] = r[k];
-          } catch (e) {}
-
-          function save() {
-            try {
-              localStorage.setItem(KEY, JSON.stringify(ST));
-            } catch (e) {}
-          }
-
-          function post(m) {
-            if (window.parent !== window) window.parent.postMessage(m, '*');
-          }
-
-          function esc(s) {
-            return String(s).replace(/[&<>"]/g, function(c) {
-              return {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;'
-              } [c];
-            });
-          }
-
-          function rx(s) {
-            return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          }
-          var META = null,
-            PACK = {},
-            IDX = {},
-            LOADING = {},
-            CUR = {
-              lang: 'EN',
-              key: null
-            },
-            HIST = 0;
-          var DATA = 'data/';
-          // ---------- theme / size ----------
-          function applyLook() {
-            document.documentElement.setAttribute('data-theme', ST.theme);
-            document.documentElement.style.setProperty('--fs', ST.fs + 'px');
-          }
-          applyLook();
-          $('thm').onclick = function() {
-            ST.theme = ST.theme === 'dark' ? 'light' : 'dark';
-            applyLook();
-            save();
-          };
-          $('fsz').onclick = function() {
-            ST.fs = ST.fs >= 19 ? 14 : ST.fs + 1;
-            applyLook();
-            save();
-            toast('Text size ' + ST.fs + 'px');
-          };
-          $('pinb').onclick = function() {
-            post({
-              type: 'pin'
-            });
-          };
-          $('closeb').onclick = function() {
-            post({
-              type: 'close'
-            });
-          };
-          var tt = 0;
-
-          function toast(m) {
-            var t = $('toast');
-            t.textContent = m;
-            t.classList.add('on');
-            clearTimeout(tt);
-            tt = setTimeout(function() {
-              t.classList.remove('on');
-            }, 2600);
-          }
-          // ---------- window ----------
-          var W = $('win'),
-            SA = window.parent === window,
-            FULL = /[?&]full=1/.test(location.search),
-            G = ST.win;
-          if (FULL) document.body.classList.add('standalone');
-          else if (SA) {
-            document.body.classList.add('desk');
-            $('pinb').style.display = 'none';
-            $('closeb').style.display = 'none';
-          }
-
-          function vw() {
-            return window.innerWidth;
-          }
-
-          function vh() {
-            return window.innerHeight;
-          }
-
-          function applyWin() {
-            if (FULL) return;
-            var w, h, x, y;
-            if (G.max) {
-              x = 0;
-              y = 0;
-              w = vw();
-              h = vh();
-            } else {
-              w = clamp(+G.w || Math.min(880, vw() - 40), Math.min(380, vw()), vw());
-              h = clamp(+G.h || Math.min(600, vh() - 40), Math.min(260, vh()), vh());
-              x = clamp(G.x === undefined ? (vw() - w) / 2 : +G.x, 0, Math.max(0, vw() - w));
-              y = clamp(G.y === undefined ? (vh() - h) / 2 : +G.y, 0, Math.max(0, vh() - h));
-            }
-            W.style.left = x + 'px';
-            W.style.top = y + 'px';
-            W.style.width = w + 'px';
-            W.style.height = h + 'px';
-            W.classList.toggle('max', !!G.max);
-            W.classList.toggle('min', !!G.min);
-            $('mxb').classList.toggle('on', !!G.max);
-            $('mnb').classList.toggle('on', !!G.min);
-            W.style.opacity = (G.op || 100) / 100;
-          }
-
-          function clamp(v, a, b) {
-            return Math.min(b, Math.max(a, v));
-          }
-
-          function sized() {
-            var w = W.offsetWidth;
-            W.classList.toggle('narrow', w < 760);
-            W.classList.toggle('tiny', w < 520);
-            if (w >= 760) W.classList.remove('nav');
-          }
-          $('setb').onclick = function(e) {
-            e.stopPropagation();
-            $('set').classList.toggle('on');
-          };
-          Array.prototype.forEach.call(document.querySelectorAll('#set input'), function(r) {
-            r.checked = r.value === ST.outside;
-            r.onchange = function() {
-              ST.outside = r.value;
-              save();
-              toast(r.value === 'close' ? 'Clicking outside will hide the wiki (F1 to reopen)' : r.value === 'pin' ? 'Clicking outside will keep it on screen' : 'Clicking outside will do nothing');
-            };
-          });
-          $('rpos').onclick = function() {
-            delete G.x;
-            delete G.y;
-            G.max = false;
-            G.min = false;
-            applyWin();
-            save();
-            $('set').classList.remove('on');
-            toast('Window centred');
-          };
-          W.addEventListener('mousedown', function(e) {
-            if (!e.target.closest('#set') && e.target.id !== 'setb') $('set').classList.remove('on');
-          });
-          document.addEventListener('mousedown', function(e) {
-            if (e.button !== 0 || drag || SA || FULL) return;
-            if (W.contains(e.target)) return;
-            if (ST.outside === 'close') post({
-              type: 'close'
-            });
-            else if (ST.outside === 'pin') post({
-              type: 'pin'
-            });
-          });
-          $('mnb').onclick = function() {
-            G.min = !G.min;
-            applyWin();
-            save();
-          };
-          $('mxb').onclick = function() {
-            G.max = !G.max;
-            G.min = false;
-            applyWin();
-            save();
-            sized();
-          };
-          $('opb').onclick = function() {
-            var o = G.op || 100;
-            G.op = o >= 100 ? 85 : o >= 85 ? 70 : 100;
-            applyWin();
-            save();
-            toast('Window opacity ' + G.op + '%');
-          };
-          var drag = null;
-          $('tb').addEventListener('pointerdown', function(e) {
-            if (e.target.closest('.wb') || G.max || e.button !== 0) return;
-            var r = W.getBoundingClientRect();
-            drag = {
-              t: 'm',
-              sx: e.clientX,
-              sy: e.clientY,
-              x: r.left,
-              y: r.top
-            };
-            this.setPointerCapture(e.pointerId);
-            this.classList.add('drag');
-            document.body.classList.add('dragging');
-          });
-          $('tb').addEventListener('dblclick', function(e) {
-            if (e.target.closest('.wb')) return;
-            G.max = !G.max;
-            G.min = false;
-            applyWin();
-            save();
-            sized();
-          });
-          Array.prototype.forEach.call(document.querySelectorAll('.rs'), function(h) {
-            h.addEventListener('pointerdown', function(e) {
-              if (G.max || e.button !== 0) return;
-              e.preventDefault();
-              var r = W.getBoundingClientRect();
-              drag = {
-                t: 'r',
-                d: h.getAttribute('data-d'),
-                sx: e.clientX,
-                sy: e.clientY,
-                x: r.left,
-                y: r.top,
-                w: r.width,
-                h: r.height
-              };
-              h.setPointerCapture(e.pointerId);
-              document.body.classList.add('dragging');
-            });
-          });
-          window.addEventListener('pointermove', function(e) {
-            if (!drag) return;
-            var dx = e.clientX - drag.sx,
-              dy = e.clientY - drag.sy;
-            if (drag.t === 'm') {
-              G.x = clamp(drag.x + dx, -W.offsetWidth + 120, vw() - 80);
-              G.y = clamp(drag.y + dy, 0, vh() - 34);
-            } else {
-              var d = drag.d,
-                MW = 380,
-                MH = 260,
-                x = drag.x,
-                y = drag.y,
-                w = drag.w,
-                h = drag.h;
-              if (d.indexOf('r') > -1) w = clamp(drag.w + dx, MW, vw() - x);
-              if (d.indexOf('b') > -1) h = clamp(drag.h + dy, MH, vh() - y);
-              if (d.indexOf('l') > -1) {
-                var nw = clamp(drag.w - dx, MW, drag.x + drag.w);
-                x = drag.x + drag.w - nw;
-                w = nw;
-              }
-              if (d.indexOf('t') > -1) {
-                var nh = clamp(drag.h - dy, MH, drag.y + drag.h);
-                y = drag.y + drag.h - nh;
-                h = nh;
-              }
-              G.x = x;
-              G.y = y;
-              G.w = w;
-              G.h = h;
-            }
-            W.style.left = G.x + 'px';
-            W.style.top = G.y + 'px';
-            if (drag.t === 'r') {
-              W.style.width = G.w + 'px';
-              W.style.height = G.h + 'px';
-            }
-            sized();
-          });
-          window.addEventListener('pointerup', function() {
-            if (!drag) return;
-            drag = null;
-            $('tb').classList.remove('drag');
-            document.body.classList.remove('dragging');
-            applyWin();
-            save();
-          });
-          window.addEventListener('resize', function() {
-            applyWin();
-            sized();
-          });
-          applyWin();
-          sized();
-          if (window.ResizeObserver) new ResizeObserver(sized).observe(W);
-          // ---------- data ----------
-          function jget(u) {
-            return fetch(u).then(function(r) {
-              if (!r.ok) throw new Error(r.status);
-              return r.json();
-            });
-          }
-
-          function ensurePack(L) {
-            if (PACK[L]) return Promise.resolve(PACK[L]);
-            if (LOADING[L]) return LOADING[L];
-            return LOADING[L] = jget(DATA + L + '.json').then(function(d) {
-              var by = {},
-                low = {};
-              d.pages.forEach(function(p) {
-                by[p.k] = p;
-                low[p.k.toLowerCase()] = p.k;
-                p.L = L;
-              });
-              PACK[L] = {
-                pages: d.pages,
-                by: by,
-                low: low,
-                texted: false
-              };
-              delete LOADING[L];
-              return PACK[L];
-            });
-          }
-
-          function langOf(k) {
-            var i = k.indexOf(':');
-            if (i > 0) {
-              var p = k.slice(0, i).toUpperCase();
-              if (META.langs.some(function(l) {
-                  return l.code === p;
-                })) return p;
-            }
-            return 'EN';
-          }
-
-          function baseOf(k) {
-            var L = langOf(k);
-            return L === 'EN' ? k : k.slice(k.indexOf(':') + 1);
-          }
-
-          function mk(L, t) {
-            return (L === 'EN' ? '' : L + ':') + t;
-          }
-
-          function findKey(L, t) {
-            var pk = PACK[L];
-            if (!pk) return null;
-            var k = mk(L, t);
-            if (pk.by[k]) return k;
-            var lk = pk.low[k.toLowerCase()];
-            if (lk) return lk;
-            var a = META.aliases[k] || META.aliases[lk || ''];
-            if (a && PACK[langOf(a)] && PACK[langOf(a)].by[a]) return a;
-            return null;
-          }
-
-          function ensureText(L) {
-            var pk = PACK[L];
-            if (!pk || pk.texted) return;
-            pk.pages.forEach(function(p) {
-              p.x = (p.t + ' \n' + p.h.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/\s+/g, ' ')).toLowerCase();
-            });
-            pk.texted = true;
-          }
-
-          function resolve(t, L) {
-            var m = /^([A-Za-z]{2}(?:-[A-Za-z]{2})?):(.*)$/.exec(t),
-              tl = null,
-              base = t;
-            if (m && META.langs.some(function(l) {
-                return l.code === m[1].toUpperCase();
-              })) {
-              tl = m[1].toUpperCase();
-              base = m[2].trim();
-            }
-            var order = tl ? [tl] : (L === 'EN' ? ['EN'] : [L, 'EN']);
-            return order.reduce(function(pr, lg) {
-              return pr.then(function(f) {
-                if (f) return f;
-                return ensurePack(lg).then(function() {
-                  return findKey(lg, base);
-                });
-              });
-            }, Promise.resolve(null));
-          }
-          // ---------- routing ----------
-          function route(lang, type, arg, frag) {
-            return '#/' + lang + '/' + type + (arg !== undefined && arg !== null ? '/' + encodeURIComponent(arg) : '') + (frag ? '~' + encodeURIComponent(frag) : '');
-          }
-
-          function go(h) {
-            if (location.hash === h) render();
-            else location.hash = h;
-          }
-
-          function parse() {
-            var h = location.hash.replace(/^#\/?/, '');
-            var p = h.split('/');
-            var lang = (p[0] || ST.lang).toUpperCase();
-            var type = p[1] || 'home';
-            var rest = p.slice(2).join('/');
-            var frag = null;
-            if (rest.indexOf('~') > -1) {
-              frag = decodeURIComponent(rest.split('~')[1]);
-              rest = rest.split('~')[0];
-            }
-            var arg = rest ? decodeURIComponent(rest) : null;
-            return {
-              lang: lang,
-              type: type,
-              arg: arg,
-              frag: frag
-            };
-          }
-          window.addEventListener('hashchange', render);
-          // ---------- UI shell ----------
-          function buildLang() {
-            var s = $('lang');
-            s.innerHTML = META.langs.map(function(l) {
-                  return ' < option value = "'+l.code+'" > '+esc(l.native)+(/[^\u0000-\u024F]/.test(l.native)?'·
-                  '+esc(l.name):'
-                  ')+'('+l.count+') < /option>';}).join('');s.value=ST.lang;}
-                  $('lang').onchange = function() {
-                    switchLang($('lang').value);
-                  };
-
-                  function switchLang(L) {
-                    var cur = CUR,
-                      tr = null;
-                    if (cur.key) {
-                      var b = baseOf(cur.key).toLowerCase();
-                      tr = (META.tr[b] || {})[L] || null;
-                      if (!tr && cur.key) {
-                        var g = META.tr[b];
-                      }
-                    }
-                    ST.lang = L;
-                    save();
-                    if (tr) {
-                      go(route(L, 'p', tr));
-                    } else {
-                      if (cur.key && cur.lang !== L) toast('No ' + langName(L) + ' version of this page. Showing the ' + langName(L) + ' home.');
-                      go(route(L, 'home'));
-                    }
-                  }
-
-                  function langName(L) {
-                    var l = META.langs.filter(function(x) {
-                      return x.code === L;
-                    })[0];
-                    return l ? l.name : L;
-                  }
-                  $('home').onclick = function() {
-                    go(route(ST.lang, 'home'));
-                  };
-                  $('menu').onclick = function() {
-                    $('win').classList.toggle('nav');
-                  };
-                  $('scrim').onclick = function() {
-                    $('win').classList.remove('nav');
-                  };
-                  var HIDE = {
-                    WIP: 1,
-                    Browse: 1
-                  };
-
-                  function catsOf(L) {
-                    var pk = PACK[L],
-                      c = {};
-                    pk.pages.forEach(function(p) {
-                      p.c.forEach(function(x) {
-                        if (HIDE[x] || META.langs.some(function(l) {
-                            return l.code === x.toUpperCase();
-                          })) return;
-                        (c[x] = c[x] || []).push(p);
-                      });
-                    });
-                    return c;
-                  }
-
-                  function buildNav() {
-                    var L = ST.lang,
-                      pk = PACK[L],
-                      h = '';
-                    var cur = parse();
-
-                    function it(label, hash, on, n) {
-                      return ' < button class = "ni'+(on?' on':'')+'"
-                      data - h = "'+esc(hash)+'" > < span class = "t" > '+label+' < /span>'+(n!==undefined?' < small > '+n+' < /small>':'')+' < /button>';}
-                      h += ' < h4 > Explore < /h4>'+it('🏠 Home',route(L,'home'),cur.type==='home')+it('🔤 All pages A–Z',route(L,'all'),cur.type==='all',pk.pages.length)+it('🎲 Random page','#random',false);
-                      var cats = catsOf(L),
-                        names = Object.keys(cats).filter(function(c) {
-                          return cats[c].length > 1;
-                        }).sort(function(a, b) {
-                          return cats[b].length - cats[a].length;
-                        });
-                      if (names.length) {
-                        h += ' < h4 > Topics < /h4>';names.slice(0,14).forEach(function(c){h+=it(esc(c),route(L,'cat',c),cur.type==='cat'&&cur.arg===c,cats[c].length);});}
-                        if (ST.recent.length) {
-                          h += ' < h4 > Recently viewed < /h4>';ST.recent.slice(0,7).forEach(function(k){var l=langOf(k);h+=it(esc(baseOf(k))+(l!==L?' < span class = "tag" > '+l+' < /span>':''),route(l,'p',k),CUR.key===k);});}
-                          $('nav').innerHTML = h;
-                        }
-                        $('nav').addEventListener('click', function(e) {
-                          var b = e.target.closest('.ni');
-                          if (!b) return;
-                          $('win').classList.remove('nav');
-                          var h = b.getAttribute('data-h');
-                          if (h === '#random') return randomPage();
-                          location.hash = h;
-                        });
-
-                        function randomPage() {
-                          var pk = PACK[ST.lang],
-                            p = pk.pages[Math.floor(Math.random() * pk.pages.length)];
-                          go(route(ST.lang, 'p', p.k));
-                        }
-                        // ---------- rendering ----------
-                        function setMain(h, top) {
-                          var m = $('main');
-                          m.innerHTML = h;
-                          if (top !== false) m.scrollTop = 0;
-                          m.onscroll = function() {
-                            $('top').style.display = m.scrollTop > 600 ? 'block' : 'none';
-                          };
-                          $('top').style.display = 'none';
-                        }
-                        $('top').onclick = function() {
-                          $('main').scrollTo({
-                            top: 0
-                          });
-                        };
-
-                        function barHtml(crumb) {
-                          return ' < div class = "bar" > < button class = "ib"
-                          id = "bk"
-                          title = "Back (Alt+←)" > ← < /button> < button class = "ib"
-                          id = "fw"
-                          title = "Forward (Alt+→)" > → < /button> < span class = "crumb" > '+crumb+' < /span> < /div>';}
-
-                          function wireBar() {
-                            var b = $('bk'),
-                              f = $('fw');
-                            if (b) b.onclick = function() {
-                              history.back();
-                            };
-                            if (f) f.onclick = function() {
-                              history.forward();
-                            };
-                          }
-                          async function render() {
-                              if (!META) return;
-                              var r = parse();
-                              if (!META.langs.some(function(l) {
-                                  return l.code === r.lang;
-                                })) r.lang = 'EN';
-                              ST.lang = r.lang;
-                              save();
-                              $('lang').value = r.lang;
-                              document.documentElement.lang = r.lang.toLowerCase();
-                              try {
-                                await ensurePack(r.lang);
-                              } catch (e) {
-                                return setMain(' < div class = "empty" > < h2 > Couldn’ t load this language < /h2> < p > Check your connection and
-                                  try again. < /p> < button class = "ib"
-                                  onclick = "location.reload()" > Retry < /button> < /div>');}
-                                  if (r.type === 'p') {
-                                    await showPage(r);
-                                  } else if (r.type === 'all') showAll(r);
-                                  else if (r.type === 'cat') showCat(r);
-                                  else showHome(r); buildNav(); wireBar();
-                                }
-
-                                function chipRoute(L, type, arg) {
-                                  return route(L, type, arg);
-                                }
-
-                                function showHome(r) {
-                                  var L = r.lang,
-                                    pk = PACK[L],
-                                    cats = catsOf(L),
-                                    l = META.langs.filter(function(x) {
-                                      return x.code === L;
-                                    })[0];
-                                  CUR = {
-                                    lang: L,
-                                    key: null
-                                  };
-                                  var QUICK = [
-                                    ['Getting Started Guide', '🚚', 'Start here: trucking basics'],
-                                    ['Getting Started Guide Pilot', '✈️', 'Your first flight'],
-                                    ['Server Rules', '📜', 'What’s allowed and what isn’t'],
-                                    ['Commands', '⌨️', 'Chat commands & hotkeys'],
-                                    ['FAQ', '❓', 'Common questions'],
-                                    ['Changelogs', '🆕', 'What changed recently'],
-                                    ['Credits', '🤝', 'Who made it'],
-                                    ['Perks', '⭐', 'Premium & supporter perks']
-                                  ];
-                                  var h = barHtml('Home') + ' < div class = "page" > < div class = "hero" > < h1 > Tycoon < em > Gaming < /em> Wiki < /h1> < p > Guides
-                                  for every job, item, vehicle and location in Transport Tycoon. < /p> < div class = "big" > < input id = "hq"
-                                  placeholder = "What are you looking for? e.g. pilot, copper, rules"
-                                  autocomplete = "off" > < /div> < div class = "stats" > '+pk.pages.length+'
-                                  pages in '+esc(l.native)+'·
-                                  '+META.langs.length+'
-                                  languages· archived copy from February 2026 < /div> < /div>';
-                                  var qk = QUICK.map(function(q) {
-                                    var k = findKey(L, q[0]);
-                                    return k ? {
-                                      k: k,
-                                      i: q[1],
-                                      d: q[2],
-                                      t: PACK[L].by[k].t
-                                    } : null;
-                                  }).filter(Boolean);
-                                  if (qk.length) {
-                                    h += ' < div class = "sec" > Start here < /div> < div class = "grid" > '+qk.map(function(q){return ' < button class = "card"
-                                    data - go = "'+esc(q.k)+'" > < span class = "ic" > '+q.i+' < /span> < b > '+esc(q.t)+' < /b> < small > '+esc(q.d)+' < /small> < /button>';}).join('')+' < /div>';}
-                                    var jobs = cats['Jobs'] || cats['Job'] || [];
-                                    if (jobs.length) {
-                                      h += ' < div class = "sec" > Jobs < button data - cat = "Jobs" > See all < /button> < /div> < div class = "pills" > '+jobs.slice(0,40).map(function(p){return ' < button class = "pill"
-                                      data - go = "'+esc(p.k)+'" > '+esc(p.t)+' < /button>';}).join('')+' < /div>';}
-                                      var names = Object.keys(cats).filter(function(c) {
-                                        return cats[c].length > 1;
-                                      }).sort(function(a, b) {
-                                        return cats[b].length - cats[a].length;
-                                      });
-                                      if (names.length) {
-                                        h += ' < div class = "sec" > Browse by topic < /div> < div class = "grid" > '+names.slice(0,12).map(function(c){return ' < button class = "card"
-                                        data - cat = "'+esc(c)+'" > < b > '+esc(c)+' < /b> < small > '+cats[c].length+'
-                                        pages < /small> < /button>';}).join('')+' < /div>';}
-                                        var main = findKey(L, 'Tycoon Gaming Wiki');
-                                        h += ' < div class = "sec" > Everything < button data - all = "1" > A– Z index→ < /button> < /div>';
-                                        if (!qk.length && !names.length) {
-                                          h += ' < ul class = "list" > '+pk.pages.slice(0,200).map(function(p){return ' < li > < button data - go = "'+esc(p.k)+'" > '+esc(p.t)+' < small > '+esc(p.s)+' < /small> < /button> < /li>';}).join('')+' < /ul>';}
-                                          else if (main) {
-                                            h += ' < div class = "pills" > < button class = "pill"
-                                            data - go = "'+esc(main)+'" > Original wiki main page < /button> < /div>';}
-                                            if (L !== 'EN') h += ' < p class = "foot" > Not every page has been translated.Switch to < button class = "chip"
-                                            data - lang = "EN" > English < /button> for the complete wiki. < /p>';
-                                            h += ' < /div>';setMain(h);
-                                            var hq = $('hq');
-                                            hq.oninput = function() {
-                                              $('q').value = hq.value;
-                                              doSearch(hq.value);
-                                            };
-                                            hq.onkeydown = function(e) {
-                                              if (e.key === 'Enter') {
-                                                $('q').focus();
-                                              }
-                                            };
-                                          }
-
-                                          function showAll(r) {
-                                            var L = r.lang,
-                                              pk = PACK[L];
-                                            CUR = {
-                                              lang: L,
-                                              key: null
-                                            };
-                                            var sel = r.frag || '';
-                                            var letters = {};
-                                            pk.pages.forEach(function(p) {
-                                              var c = (p.t[0] || '#').toUpperCase();
-                                              if (!/\p{L}/u.test(c)) c = '#';
-                                              letters[c] = 1;
-                                            });
-                                            var ls = Object.keys(letters).sort();
-                                            var h = barHtml('All pages') + ' < div class = "page" > < h1 class = "pt" > All pages < /h1> < input class = "flt"
-                                            id = "fl"
-                                            placeholder = "Filter this list…" > < div class = "az" > < button data - l = ""
-                                            class = "'+(sel?'':'on')+'" > All < /button>'+ls.map(function(c){return ' < button data - l = "'+esc(c)+'"
-                                            class = "'+(sel===c?'on':'')+'" > '+esc(c)+' < /button>';}).join('')+' < /div> < ul class = "list"
-                                            id = "al" > < /ul> < div class = "foot"
-                                            id = "cnt" > < /div> < /div>';
-                                            setMain(h);
-
-                                            function draw() {
-                                              var f = ($('fl').value || '').toLowerCase(),
-                                                out = pk.pages.filter(function(p) {
-                                                  var c = (p.t[0] || '#').toUpperCase();
-                                                  if (!/\p{L}/u.test(c)) c = '#';
-                                                  return (!sel || c === sel) && (!f || p.t.toLowerCase().indexOf(f) > -1);
-                                                });
-                                              $('al').innerHTML = out.map(function(p) {
-                                                    return ' < li > < button data - go = "'+esc(p.k)+'" > '+esc(p.t)+' < small > '+esc(p.s)+' < /small> < /button> < /li>';}).join('');$('cnt').textContent=out.length+' pages';}
-                                                    $('fl').oninput = draw;
-                                                    draw();
-                                                    $('main').querySelector('.az').onclick = function(e) {
-                                                      var b = e.target.closest('button');
-                                                      if (!b) return;
-                                                      go(route(L, 'all', null, b.getAttribute('data-l')));
-                                                    };
-                                                  }
-
-                                                  function showCat(r) {
-                                                    var L = r.lang,
-                                                      cats = catsOf(L),
-                                                      ps = (cats[r.arg] || []).slice().sort(function(a, b) {
-                                                        return a.t.localeCompare(b.t);
-                                                      });
-                                                    CUR = {
-                                                      lang: L,
-                                                      key: null
-                                                    };
-                                                    var h = barHtml(' < a data - all = "1"
-                                                      style = "cursor:pointer" > Topics < /a> › '+esc(r.arg))+' < div class = "page" > < h1 class = "pt" > '+esc(r.arg)+' < /h1> < div class = "chips" > < span class = "lab" > '+ps.length+'
-                                                      pages < /span> < /div>'+(ps.length?' < ul class = "list"
-                                                      style = "columns:1 " > '+ps.map(function(p){return ' < li > < button data - go = "'+esc(p.k)+'" > < b > '+esc(p.t)+' < /b> < small > '+esc(p.s)+' < /small> < /button> < /li>';}).join('')+' < /ul>':' < div class = "empty" > No pages in this topic
-                                                      for this language.
-                                                      '+(L!=='
-                                                      EN '?' < br > < br > < button class = "chip"
-                                                      data - lang = "EN" > View in English < /button>':'')+' < /div>')+' < /div>';
-                                                      setMain(h);
-                                                    }
-                                                    async function showPage(r) {
-                                                        var L = r.lang,
-                                                          k = r.arg,
-                                                          pk = PACK[L];
-                                                        var p = pk.by[k];
-                                                        if (!p) {
-                                                          var kk = findKey(L, baseOf(k) === k ? k : baseOf(k));
-                                                          if (!kk && langOf(k) !== L) {
-                                                            var L2 = langOf(k);
-                                                            await ensurePack(L2);
-                                                            kk = PACK[L2].by[k] ? k : findKey(L2, baseOf(k));
-                                                            if (kk) {
-                                                              L = L2;
-                                                              pk = PACK[L2];
-                                                            }
-                                                          }
-                                                          if (kk) p = pk.by[kk];
-                                                        }
-                                                        if (!p) {
-                                                          CUR = {
-                                                            lang: L,
-                                                            key: null
-                                                          };
-                                                          return setMain(barHtml('Not found') + ' < div class = "page" > < div class = "empty" > < h2 > Page not found < /h2> < p > “'+esc(k)+'”
-                                                              isn’ t in this archive. < /p> < button class = "ib"
-                                                              data - home = "1" > Go to the home page < /button> < /div> < /div>');}
-                                                              if (p.L !== ST.lang) {
-                                                                ST.lang = p.L;
-                                                                $('lang').value = p.L;
-                                                              }
-                                                              CUR = {
-                                                                lang: p.L,
-                                                                key: p.k
-                                                              }; ST.recent = [p.k].concat(ST.recent.filter(function(x) {
-                                                                return x !== p.k;
-                                                              })).slice(0, 10); save(); document.title = p.t + ' · Tycoon Gaming Wiki';
-                                                              var html = p.h.replace(/ < table / g, ' < div class = "tw" > < table ').replace(/<\/table>/g,' < /table> < /div>');
-                                                                // chips: categories + other languages
-                                                                var chips = '';
-                                                                var pc = p.c.filter(function(c) {
-                                                                  return !HIDE[c] && !META.langs.some(function(l) {
-                                                                    return l.code === c.toUpperCase();
-                                                                  });
-                                                                });
-                                                                if (pc.length) chips += ' < span class = "lab" > Topics < /span>'+pc.map(function(c){return ' < button class = "chip"
-                                                                data - cat = "'+esc(c)+'" > '+esc(c)+' < /button>';}).join('');
-                                                                var tr = META.tr[baseOf(p.k).toLowerCase()] || {}, tl = Object.keys(tr).filter(function(x) {
-                                                                  return x !== p.L;
-                                                                });
-                                                                var langs = '';
-                                                                if (tl.length) langs = ' < div class = "chips" > < span class = "lab" > Also in < /span>'+tl.map(function(x){return ' < button class = "chip l"
-                                                                data - trk = "'+esc(tr[x])+'"
-                                                                title = "'+esc(langName(x))+'" > '+esc(META.langs.filter(function(l){return l.code===x;})[0].native)+' < /button>';}).join('')+' < /div>';
-                                                                var rtl = p.L === 'AR';
-                                                                var h = barHtml(esc(langName(p.L)) + ' › ' + esc(p.t)) + ' < div class = "page" > < h1 class = "pt" > '+esc(p.t)+' < /h1> < div class = "chips" > '+chips+' < /div>'+langs+' < div id = "tocbox" > < /div> < div class = "art'+(rtl?' rtl':'')+'"
-                                                                id = "art" > '+html+' < /div> < div class = "foot" > Archived copy of the Tycoon Gaming Wiki(February 2026).Information may be out of date. < /div> < /div>';
-                                                                setMain(h); buildToc();
-                                                                var a = $('art');
-                                                                if (r.frag) setTimeout(function() {
-                                                                  scrollToId(r.frag);
-                                                                }, 60);
-                                                              }
-
-                                                              function buildToc() {
-                                                                var hs = [].slice.call($('art').querySelectorAll('h2,h3')).filter(function(h) {
-                                                                  return h.textContent.trim();
-                                                                });
-                                                                if (hs.length < 3) return;
-                                                                var n = 0,
-                                                                  items = hs.map(function(h) {
-                                                                      if (!h.id) h.id = 'sec' + (n++);
-                                                                      return ' < li class = "'+(h.tagName==='H3'?'s':'')+'" > < a data - a = "'+esc(h.id)+'" > '+esc(h.textContent.trim())+' < /a> < /li>';}).join('');
-                                                                      $('tocbox').innerHTML = ' < details class = "toc"
-                                                                      '+(hs.length<=14?'
-                                                                      open ':'
-                                                                      ')+' > < summary > On this page('+hs.length+') < /summary> < ol style = "list-style:none;padding-left:0" > '+items+' < /ol> < /details>';}
-
-                                                                      function scrollToId(id) {
-                                                                        var el = document.getElementById(id) || document.getElementById(decodeURIComponent(id)) || document.getElementById(id.replace(/\./g, '%'));
-                                                                        if (!el) {
-                                                                          var all = $('main').querySelectorAll('[id]');
-                                                                          for (var i = 0; i < all.length; i++) {
-                                                                            if (all[i].id.replace(/[._]/g, '').toLowerCase() === id.replace(/[._]/g, '').toLowerCase()) {
-                                                                              el = all[i];
-                                                                              break;
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                        if (el) {
-                                                                          el.scrollIntoView({
-                                                                            behavior: 'smooth',
-                                                                            block: 'start'
-                                                                          });
-                                                                          el.style.transition = 'background .3s';
-                                                                          el.style.background = 'rgba(255,176,32,.25)';
-                                                                          setTimeout(function() {
-                                                                            el.style.background = '';
-                                                                          }, 1400);
-                                                                        }
-                                                                      }
-                                                                      // delegated clicks in main
-                                                                      $('main').addEventListener('click', async function(e) {
-                                                                        var t = e.target;
-                                                                        var a = t.closest('a[data-p]');
-                                                                        if (a) {
-                                                                          e.preventDefault();
-                                                                          var key = await resolve(a.getAttribute('data-p'), CUR.lang || ST.lang);
-                                                                          if (!key) return toast('That page isn’t in the archive.');
-                                                                          var L = langOf(key);
-                                                                          return go(route(L, 'p', key, a.getAttribute('data-f')));
-                                                                        }
-                                                                        a = t.closest('a[data-a]');
-                                                                        if (a) {
-                                                                          e.preventDefault();
-                                                                          return scrollToId(a.getAttribute('data-a'));
-                                                                        }
-                                                                        a = t.closest('a[target=_blank]');
-                                                                        if (a) {
-                                                                          var u = a.href;
-                                                                          try {
-                                                                            navigator.clipboard.writeText(u);
-                                                                            toast('Opening link · also copied to clipboard');
-                                                                          } catch (x) {}
-                                                                          return;
-                                                                        }
-                                                                        var b = t.closest('[data-go]');
-                                                                        if (b) {
-                                                                          return go(route(langOf(b.getAttribute('data-go')), 'p', b.getAttribute('data-go')));
-                                                                        }
-                                                                        b = t.closest('[data-cat]');
-                                                                        if (b) return go(route(ST.lang, 'cat', b.getAttribute('data-cat')));
-                                                                        b = t.closest('[data-all]');
-                                                                        if (b) return go(route(ST.lang, 'all'));
-                                                                        b = t.closest('[data-trk]');
-                                                                        if (b) {
-                                                                          var k = b.getAttribute('data-trk');
-                                                                          ST.lang = langOf(k);
-                                                                          save();
-                                                                          return go(route(langOf(k), 'p', k));
-                                                                        }
-                                                                        b = t.closest('[data-lang]');
-                                                                        if (b) {
-                                                                          return switchLang(b.getAttribute('data-lang'));
-                                                                        }
-                                                                        b = t.closest('[data-home]');
-                                                                        if (b) return go(route(ST.lang, 'home'));
-                                                                      });
-                                                                      // ---------- search ----------
-                                                                      var sel = -1,
-                                                                        sres = [],
-                                                                        stimer = 0,
-                                                                        allLang = false;
-
-                                                                      function toks(q) {
-                                                                        return q.toLowerCase().split(/\s+/).filter(Boolean);
-                                                                      }
-
-                                                                      function searchPacks(q, langs) {
-                                                                        var T = toks(q),
-                                                                          out = [];
-                                                                        if (!T.length) return out;
-                                                                        var ql = q.toLowerCase().trim();
-                                                                        langs.forEach(function(L) {
-                                                                          var pk = PACK[L];
-                                                                          if (!pk) return;
-                                                                          ensureText(L);
-                                                                          pk.pages.forEach(function(p) {
-                                                                            var tl = p.t.toLowerCase(),
-                                                                              s = 0;
-                                                                            if (tl === ql) s = 1000;
-                                                                            else if (tl.indexOf(ql) === 0) s = 800;
-                                                                            else if (tl.indexOf(ql) > -1) s = 600;
-                                                                            else if (T.every(function(t) {
-                                                                                return tl.indexOf(t) > -1;
-                                                                              })) s = 500;
-                                                                            else if (T.every(function(t) {
-                                                                                return p.x.indexOf(t) > -1;
-                                                                              })) {
-                                                                              s = 100;
-                                                                              var c = 0;
-                                                                              T.forEach(function(t) {
-                                                                                var i = -1,
-                                                                                  n = 0;
-                                                                                while ((i = p.x.indexOf(t, i + 1)) > -1 && n < 20) n++;
-                                                                                c += n;
-                                                                              });
-                                                                              s += Math.min(c, 60);
-                                                                            }
-                                                                            if (p.c.some(function(c) {
-                                                                                return c.toLowerCase() === ql;
-                                                                              })) s = Math.max(s, 300);
-                                                                            if (s) out.push({
-                                                                              p: p,
-                                                                              s: s - Math.min(p.t.length, 40) * .01
-                                                                            });
-                                                                          });
-                                                                        });
-                                                                        out.sort(function(a, b) {
-                                                                          return b.s - a.s;
-                                                                        });
-                                                                        return out;
-                                                                      }
-
-                                                                      function snippet(p, q) {
-                                                                        var T = toks(q),
-                                                                          x = p.x.slice(p.t.length + 2),
-                                                                          txt = p.h.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
-                                                                        var best = -1;
-                                                                        for (var i = 0; i < T.length; i++) {
-                                                                          var j = txt.toLowerCase().indexOf(T[i]);
-                                                                          if (j > -1) {
-                                                                            best = j;
-                                                                            break;
-                                                                          }
-                                                                        }
-                                                                        var s = best > -1 ? txt.slice(Math.max(0, best - 50), best + 110) : txt.slice(0, 150);
-                                                                        var o = esc(s);
-                                                                        T.forEach(function(t) {
-                                                                              o = o.replace(new RegExp('(' + rx(esc(t)) + ')', 'ig'), ' < mark > $1 < /mark>');});return(best>50?'… ':'')+o;}function markT(t, q) {
-                                                                                    var o = esc(t);
-                                                                                    toks(q).forEach(function(w) {
-                                                                                          o = o.replace(new RegExp('(' + rx(esc(w)) + ')', 'ig'), ' < mark > $1 < /mark>');});return o;}function doSearch(q) {
-                                                                                                q = q.trim();
-                                                                                                $('sx').style.display = q ? 'block' : 'none';
-                                                                                                $('kb').style.display = q ? 'none' : '';
-                                                                                                var box = $('res');
-                                                                                                if (!q) {
-                                                                                                  box.style.display = 'none';
-                                                                                                  return;
-                                                                                                }
-                                                                                                var langs = allLang ? META.langs.map(function(l) {
-                                                                                                  return l.code;
-                                                                                                }) : [ST.lang];
-                                                                                                Promise.all(langs.map(ensurePack)).then(function() {
-                                                                                                      if ($('q').value.trim() !== q) return;
-                                                                                                      sres = searchPacks(q, langs);
-                                                                                                      sel = sres.length ? 0 : -1;
-                                                                                                      var top = sres.slice(0, 12);
-                                                                                                      var h = ' < div class = "rmeta" > < span > '+sres.length+'
-                                                                                                      result '+(sres.length===1?'
-                                                                                                      ':'
-                                                                                                      s ')+(allLang?' in all languages ':' in '+esc(langName(ST.lang)))+' < /span> < button id = "sall" > '+(allLang?'
-                                                                                                      Only '+esc(langName(ST.lang)):'
-                                                                                                      Search all languages ')+' < /button> < /div>';
-                                                                                                      if (!top.length) h += ' < div class = "empty" > Nothing found
-                                                                                                      for“ '+esc(q)+'”. < br > Try a shorter or different word '+(allLang?'
-                                                                                                      ':', or search all languages ')+'. < /div>';
-                                                                                                      top.forEach(function(r, i) {
-                                                                                                        h += ' < button class = "rr'+(i===0?' on':'')+'"
-                                                                                                        data - i = "'+i+'" > < b > '+markT(r.p.t,q)+(r.p.L!==ST.lang||allLang?' < span class = "tag" > '+r.p.L+' < /span>':'')+(r.p.c.filter(function(c){return !HIDE[c]&&c.length>2;})[0]?' < span class = "tag" > '+esc(r.p.c.filter(function(c){return !HIDE[c]&&c.length>2;})[0])+' < /span>':'')+' < /b> < small > '+snippet(r.p,q)+' < /small> < /button>';});
-                                                                                                        if (sres.length > 12) h += ' < div class = "rmeta" > < span > Showing the best 12— refine your search to narrow it down. < /span> < /div>';
-                                                                                                        box.innerHTML = h;
-                                                                                                        box.style.display = 'block';
-                                                                                                      });
-                                                                                                    }
-                                                                                                    $('res').addEventListener('mousedown', function(e) {
-                                                                                                      e.preventDefault();
-                                                                                                    }); $('res').addEventListener('click', function(e) {
-                                                                                                      var b = e.target.closest('.rr');
-                                                                                                      if (b) {
-                                                                                                        openRes(+b.getAttribute('data-i'));
-                                                                                                        return;
-                                                                                                      }
-                                                                                                      if (e.target.id === 'sall') {
-                                                                                                        allLang = !allLang;
-                                                                                                        doSearch($('q').value);
-                                                                                                        $('q').focus();
-                                                                                                      }
-                                                                                                    });
-
-                                                                                                    function openRes(i) {
-                                                                                                      var r = sres[i];
-                                                                                                      if (!r) return;
-                                                                                                      $('res').style.display = 'none';
-                                                                                                      $('q').blur();
-                                                                                                      go(route(r.p.L, 'p', r.p.k));
-                                                                                                    }
-                                                                                                    $('q').addEventListener('input', function() {
-                                                                                                      clearTimeout(stimer);
-                                                                                                      var v = this.value;
-                                                                                                      stimer = setTimeout(function() {
-                                                                                                        doSearch(v);
-                                                                                                      }, 110);
-                                                                                                    }); $('q').addEventListener('focus', function() {
-                                                                                                      if (this.value.trim()) doSearch(this.value);
-                                                                                                    }); $('q').addEventListener('blur', function() {
-                                                                                                      setTimeout(function() {
-                                                                                                        $('res').style.display = 'none';
-                                                                                                      }, 120);
-                                                                                                    }); $('q').addEventListener('keydown', function(e) {
-                                                                                                      var rows = $('res').querySelectorAll('.rr');
-                                                                                                      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-                                                                                                        e.preventDefault();
-                                                                                                        if (!rows.length) return;
-                                                                                                        sel = (sel + (e.key === 'ArrowDown' ? 1 : -1) + rows.length) % rows.length;
-                                                                                                        rows.forEach(function(r, i) {
-                                                                                                          r.classList.toggle('on', i === sel);
-                                                                                                        });
-                                                                                                        rows[sel].scrollIntoView({
-                                                                                                          block: 'nearest'
-                                                                                                        });
-                                                                                                      } else if (e.key === 'Enter') {
-                                                                                                        e.preventDefault();
-                                                                                                        if (sel > -1) openRes(sel);
-                                                                                                      } else if (e.key === 'Escape') {
-                                                                                                        this.value = '';
-                                                                                                        doSearch('');
-                                                                                                        this.blur();
-                                                                                                      }
-                                                                                                    }); $('sx').onclick = function() {
-                                                                                                      $('q').value = '';
-                                                                                                      doSearch('');
-                                                                                                      $('q').focus();
-                                                                                                    }; document.addEventListener('keydown', function(e) {
-                                                                                                      var tag = (e.target.tagName || '').toLowerCase();
-                                                                                                      if (e.key === '/' && tag !== 'input' && tag !== 'select') {
-                                                                                                        e.preventDefault();
-                                                                                                        $('q').focus();
-                                                                                                        $('q').select();
-                                                                                                      } else if (e.altKey && e.key === 'ArrowLeft') {
-                                                                                                        history.back();
-                                                                                                      } else if (e.altKey && e.key === 'ArrowRight') {
-                                                                                                        history.forward();
-                                                                                                      }
-                                                                                                    });
-                                                                                                    // ---------- boot ----------
-                                                                                                    function guessLang() {
-                                                                                                      try {
-                                                                                                        var n = (navigator.language || 'en').toUpperCase();
-                                                                                                        if (n === 'PT-BR') return 'PT-BR';
-                                                                                                        if (n === 'ZH-CN' || n.indexOf('ZH') === 0) return 'ZH-CN';
-                                                                                                        var s = n.slice(0, 2);
-                                                                                                        if (s === 'DA') s = 'DK';
-                                                                                                        if (s === 'KO') s = 'KR';
-                                                                                                        if (s === 'CZ') s = 'CS';
-                                                                                                        return s;
-                                                                                                      } catch (e) {
-                                                                                                        return 'EN';
-                                                                                                      }
-                                                                                                    }
-                                                                                                    jget(DATA + 'meta.json').then(function(m) {
-                                                                                                      META = m;
-                                                                                                      if (!location.hash) {
-                                                                                                        var g = guessLang(),
-                                                                                                          has = function(c) {
-                                                                                                            return META.langs.some(function(l) {
-                                                                                                              return l.code === c;
-                                                                                                            });
-                                                                                                          };
-                                                                                                        if (!localStorage.getItem(KEY) && has(g) && g !== 'EN') ST.lang = g;
-                                                                                                      }
-                                                                                                      if (!META.langs.some(function(l) {
-                                                                                                          return l.code === ST.lang;
-                                                                                                        })) ST.lang = 'EN';
-                                                                                                      buildLang();
-                                                                                                      if (!location.hash) location.replace(route(ST.lang, 'home'));
-                                                                                                      else render();
-                                                                                                      ensurePack('EN').then(function() {
-                                                                                                        ensureText('EN');
-                                                                                                      });
-                                                                                                    }).catch(function() {
-                                                                                                      $('main').innerHTML = ' < div class = "empty" > < h2 > Couldn’ t load the wiki data < /h2> < p > Make sure the < code > data < /code> folder is uploaded next to  < code > index.html < /code>, then reload. < /p> < /div>';});
-                                                                                                    })();
-    </script>
-  </body>
-</html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tycoon Gaming Wiki</title>
+<style>
+:root{--bg:#12151a;--panel:#1a1e25;--panel2:#222731;--line:#2d333f;--text:#e7eaf0;--dim:#97a0b0;--acc:#ffb020;--acc2:#ffd27a;--accfg:#1a1200;--link:#6cb6ff;--ok:#5ad08a;--fs:15px}
+:root[data-theme=light]{--bg:#f4f1ea;--panel:#fffdf8;--panel2:#efe9dc;--line:#ddd4c2;--text:#231f18;--dim:#6b6354;--acc:#d98a00;--acc2:#a86a00;--accfg:#fff;--link:#0a58b8;--ok:#1e8a50}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:transparent;color:var(--text);font:var(--fs)/1.6 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;overflow:hidden}
+body.standalone{background:var(--bg);pointer-events:auto}
+body.desk{background:radial-gradient(120% 90% at 50% 0,#243044,#0d1118);pointer-events:auto}
+:root[data-theme=light] body.desk{background:radial-gradient(120% 90% at 50% 0,#cfd8e6,#8d9bb0)}
+#win{position:absolute;display:flex;flex-direction:column;pointer-events:auto;background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.65),0 0 0 1px rgba(0,0,0,.5);overflow:hidden;min-width:0}
+body.standalone #win{inset:0;border:0;border-radius:0;box-shadow:none}
+body.standalone #tb{display:none}
+#win.max{border-radius:0}
+#win.min{height:auto!important;min-height:0}
+#win.min header,#win.min .wrap,#win.min .rs{display:none}
+#tb{display:flex;align-items:center;gap:8px;height:34px;flex:none;padding:0 6px 0 12px;background:linear-gradient(var(--panel2),var(--panel));border-bottom:1px solid var(--line);cursor:grab;touch-action:none;user-select:none}
+#tb.drag{cursor:grabbing}
+#set{position:absolute;right:8px;top:40px;width:272px;z-index:60;display:none;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.5);padding:10px 12px}
+#set.on{display:block}#set h5{margin:0 0 6px;font-size:.78em;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+#set label{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border-radius:8px;cursor:pointer}#set label:hover{background:var(--panel2)}
+#set input{margin-top:5px;accent-color:var(--acc)}#set small{display:block;color:var(--dim);line-height:1.3}
+#set .ib{width:100%;margin-top:8px;justify-content:flex-start}
+#tb .ti{font-weight:700;font-size:.86em;letter-spacing:.05em;text-transform:uppercase;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
+#tb .ti b{color:var(--acc)}
+.wb{width:28px;height:24px;border:0;border-radius:6px;background:none;color:var(--dim);font-size:13px;line-height:1;display:grid;place-items:center}
+.wb:hover{background:var(--panel2);color:var(--text)}.wb.x:hover{background:#d9433a;color:#fff}.wb.on{color:var(--acc)}
+.rs{position:absolute;z-index:50;touch-action:none}
+.rs[data-d=r]{right:-3px;top:10px;bottom:10px;width:8px;cursor:ew-resize}.rs[data-d=l]{left:-3px;top:10px;bottom:10px;width:8px;cursor:ew-resize}
+.rs[data-d=b]{bottom:-3px;left:10px;right:10px;height:8px;cursor:ns-resize}.rs[data-d=t]{top:-3px;left:10px;right:10px;height:8px;cursor:ns-resize}
+.rs[data-d=br]{right:-3px;bottom:-3px;width:18px;height:18px;cursor:nwse-resize}.rs[data-d=bl]{left:-3px;bottom:-3px;width:18px;height:18px;cursor:nesw-resize}
+.rs[data-d=tr]{right:-3px;top:-3px;width:18px;height:18px;cursor:nesw-resize}.rs[data-d=tl]{left:-3px;top:-3px;width:18px;height:18px;cursor:nwse-resize}
+body.standalone .rs{display:none}
+body.dragging{user-select:none}body.dragging #win *{pointer-events:none}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--link)}
+::selection{background:var(--acc);color:var(--accfg)}
+/* header */
+header{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--panel);border-bottom:1px solid var(--line);flex:none;position:relative;z-index:30}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-size:.95em;white-space:nowrap;cursor:pointer;border:0;background:none;padding:2px 4px}
+.brand i{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--acc);color:var(--accfg);font-style:normal;font-weight:900}
+.brand span em{font-style:normal;color:var(--acc)}
+.ib{border:1px solid var(--line);background:var(--panel2);border-radius:8px;min-width:32px;height:32px;padding:0 8px;display:inline-flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap}
+.ib:hover:not(:disabled){border-color:var(--acc);color:var(--acc2)}
+.ib:disabled{opacity:.35;cursor:default}
+#menu{display:none}
+.sbox{position:relative;flex:1;min-width:120px;max-width:560px;margin:0 auto}
+#q{width:100%;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--bg);padding:0 38px 0 34px;outline:none}
+#q:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,176,32,.18)}
+.sbox svg{position:absolute;left:10px;top:9px;width:16px;height:16px;color:var(--dim);pointer-events:none}
+.sbox kbd{position:absolute;right:8px;top:6px;border:1px solid var(--line);border-radius:5px;padding:0 6px;font:12px/20px monospace;color:var(--dim);pointer-events:none}
+#sx{position:absolute;right:6px;top:5px;display:none;width:24px;height:24px;border:0;border-radius:6px;background:var(--panel2)}
+#res{position:absolute;left:0;right:0;top:40px;max-height:min(70vh,520px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,.45);display:none;z-index:40}
+.rr{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:none;padding:9px 14px}
+.rr:last-child{border-bottom:0}
+.rr.on,.rr:hover{background:var(--panel2)}
+.rr b{display:block;font-weight:600}.rr small{display:block;color:var(--dim);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rr mark{background:rgba(255,176,32,.28);color:inherit;border-radius:3px;padding:0 1px}
+.rmeta{padding:7px 14px;font-size:.82em;color:var(--dim);display:flex;gap:10px;justify-content:space-between;align-items:center;background:var(--panel2);position:sticky;top:0}
+.rmeta button{border:0;background:none;color:var(--link);padding:0;text-decoration:underline}
+.tag{display:inline-block;font-size:.72em;font-weight:700;letter-spacing:.04em;padding:0 6px;border-radius:5px;background:var(--panel2);border:1px solid var(--line);color:var(--dim);margin-left:6px;vertical-align:1px}
+#lang{height:32px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);padding:0 6px;max-width:230px;cursor:pointer}
+#lang:focus{outline:2px solid var(--acc)}
+/* layout */
+.wrap{flex:1;display:flex;min-height:0;position:relative}
+nav{width:250px;flex:none;border-right:1px solid var(--line);background:var(--panel);overflow:auto;padding:12px 10px 20px}
+nav h4{margin:16px 8px 6px;font-size:.72em;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+nav h4:first-child{margin-top:2px}
+.ni{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;text-align:left;border:0;background:none;padding:6px 10px;border-radius:8px;color:var(--text)}
+.ni:hover{background:var(--panel2)}.ni.on{background:var(--acc);color:var(--accfg);font-weight:700}
+.ni small{color:var(--dim)}.ni.on small{color:inherit;opacity:.75}
+.ni .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+main{flex:1;min-width:0;overflow:auto;scroll-behavior:smooth;position:relative}
+.bar{position:sticky;top:0;z-index:5;display:flex;gap:6px;align-items:center;padding:8px 18px;background:linear-gradient(var(--bg) 70%,transparent);}
+.crumb{color:var(--dim);font-size:.85em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:4px}
+.page{max-width:900px;margin:0 auto;padding:6px 22px 80px}
+h1.pt{font-size:2em;line-height:1.2;margin:.2em 0 .3em}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px;align-items:center}
+.chip{border:1px solid var(--line);background:var(--panel2);border-radius:99px;padding:1px 11px;font-size:.84em;color:var(--text)}
+.chip:hover{border-color:var(--acc);color:var(--acc2)}
+.chip.l{border-style:dashed}
+.lab{font-size:.78em;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-right:2px}
+.toc{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px 14px;margin:8px 0 20px}
+.toc summary{cursor:pointer;font-weight:700;padding:4px 0}
+.toc ol{margin:6px 0 8px;padding-left:20px;columns:2;column-gap:28px}.toc li{break-inside:avoid;padding:1px 0}.toc li.s{margin-left:16px;font-size:.93em}
+.toc a{text-decoration:none;cursor:pointer}.toc a:hover{text-decoration:underline}
+.art{overflow-wrap:break-word}
+.art h2,.art h3,.art h4{line-height:1.25;scroll-margin-top:56px}
+.art h2{font-size:1.5em;margin:1.6em 0 .5em;padding-bottom:.25em;border-bottom:2px solid var(--line)}
+.art h3{font-size:1.2em;margin:1.3em 0 .4em;color:var(--acc2)}
+.art h4{font-size:1.05em;margin:1.1em 0 .3em}
+.art a[data-p],.art a[data-a]{color:var(--link);cursor:pointer;text-decoration:none;border-bottom:1px dotted currentColor}
+.art a[data-p]:hover,.art a[data-a]:hover{border-bottom-style:solid}
+.art a[target=_blank]::after{content:" ↗";font-size:.8em}
+.art ul,.art ol{padding-left:1.5em}.art li{margin:.15em 0}
+.art blockquote{margin:1em 0;padding:.4em 1em;border-left:4px solid var(--acc);background:var(--panel);border-radius:0 10px 10px 0}
+.art code,.art pre{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:0 5px;font:.9em Consolas,monospace}
+.art pre{padding:10px;overflow:auto}
+.art p.cap{color:var(--dim);font-style:italic;font-size:.9em}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.art table{border-collapse:collapse;width:100%;font-size:.94em}
+.art th,.art td{min-width:3.2em;overflow-wrap:break-word;padding:6px 10px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);vertical-align:top}
+.art th:last-child,.art td:last-child{border-right:0}
+.art tr:last-child td{border-bottom:0}
+.art th{background:var(--panel2);text-align:left}
+.art tr:nth-child(even) td{background:rgba(127,127,127,.05)}
+.art table table{font-size:1em}
+.foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);color:var(--dim);font-size:.85em}
+.empty{padding:40px 10px;text-align:center;color:var(--dim)}
+/* home */
+.hero{margin:6px 0 22px;padding:26px 26px 22px;border-radius:18px;background:radial-gradient(120% 140% at 0 0,rgba(255,176,32,.2),transparent 60%),var(--panel);border:1px solid var(--line)}
+.hero h1{margin:0 0 4px;font-size:2.2em;line-height:1.1}.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p{margin:0 0 14px;color:var(--dim);max-width:60ch}
+.hero .big{position:relative;max-width:520px}
+.hero input{width:100%;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0 14px;font-size:1.05em;outline:none}
+.hero input:focus{border-color:var(--acc)}
+.stats{margin-top:12px;font-size:.84em;color:var(--dim)}
+.sec{margin:26px 0 10px;font-size:1.05em;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);display:flex;justify-content:space-between;align-items:baseline}
+.sec button{border:0;background:none;color:var(--link);font-size:.8em;text-transform:none;letter-spacing:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.card{display:block;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:12px 14px;min-height:64px;transition:.12s}
+.card:hover{border-color:var(--acc);transform:translateY(-1px)}
+.card b{display:block;font-size:1.02em}.card small{display:block;color:var(--dim);line-height:1.35;margin-top:2px}
+.card .ic{font-size:1.4em;display:block;margin-bottom:2px}
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:5px 12px}.pill:hover{border-color:var(--acc);color:var(--acc2)}
+.az{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0 14px}
+.az button{min-width:30px;height:30px;border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:0 6px}
+.az button.on{background:var(--acc);color:var(--accfg);border-color:var(--acc);font-weight:700}
+.az button:disabled{opacity:.3;cursor:default}
+.flt{width:100%;max-width:420px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--panel);padding:0 12px;outline:none}.flt:focus{border-color:var(--acc)}
+.list{list-style:none;padding:0;margin:8px 0;columns:2 280px;column-gap:24px}
+.list li{break-inside:avoid;margin:0 0 2px}
+.list button{display:block;width:100%;text-align:left;border:0;background:none;padding:6px 10px;border-radius:8px}
+.list button:hover{background:var(--panel2)}
+.list small{display:block;color:var(--dim);line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#toast{position:absolute;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--panel2);border:1px solid var(--acc);color:var(--text);padding:9px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:60;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%)}
+#top{position:absolute;right:18px;bottom:18px;z-index:20;display:none;border-radius:99px;width:40px;height:40px;background:var(--acc);color:var(--accfg);border:0;font-weight:900;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.spin{display:flex;justify-content:center;padding:60px}.spin i{width:30px;height:30px;border:3px solid var(--line);border-top-color:var(--acc);border-radius:50%;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}
+.rtl{direction:rtl;text-align:right}
+.rtl ul,.rtl ol{padding-left:0;padding-right:1.5em}
+#scrim{display:none}
+.narrow #menu{display:inline-flex}
+.narrow nav{position:absolute;z-index:25;left:0;top:0;bottom:0;transform:translateX(-102%);transition:.2s;box-shadow:12px 0 30px rgba(0,0,0,.45);width:272px}
+#win.nav nav{transform:none}
+#win.nav #scrim{display:block;position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:24}
+.narrow .brand span{display:none}
+.narrow kbd,.narrow #fsz{display:none!important}
+.narrow .page{padding:6px 14px 80px}.narrow .bar{padding:8px 14px}
+.narrow .toc ol{columns:1}.narrow .hero{padding:18px}.narrow .hero h1{font-size:1.7em}
+.tiny #lang{max-width:110px}.tiny .sbox{min-width:90px}
+</style></head><body>
+<div id="win">
+<div id="tb"><span class="ti">Tycoon <b>Gaming</b> Wiki</span><button class="wb" id="setb" title="Window settings">⚙</button><button class="wb" id="opb" title="Transparency">◑</button><button class="wb" id="mnb" title="Minimise">—</button><button class="wb" id="mxb" title="Maximise / restore">▢</button><button class="wb" id="pinb" title="Keep on screen">📌</button><button class="wb x" id="closeb" title="Close (F1 to reopen)">✕</button></div>
+<header>
+ <button class="ib" id="menu" title="Menu" aria-label="Menu">☰</button>
+ <button class="brand" id="home" title="Wiki home"><i>T</i><span>Tycoon <em>Wiki</em></span></button>
+ <div class="sbox">
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l5 5" stroke-linecap="round"/></svg>
+  <input id="q" type="text" placeholder="Search guides, jobs, items…" autocomplete="off" spellcheck="false" aria-label="Search the wiki">
+  <kbd id="kb">/</kbd><button id="sx" title="Clear">✕</button>
+  <div id="res"></div>
+ </div>
+ <select id="lang" title="Language" aria-label="Language"></select>
+ <button class="ib" id="fsz" title="Text size">A<small>±</small></button>
+ <button class="ib" id="thm" title="Light / dark">◐</button>
+</header>
+<div class="wrap">
+ <div id="scrim"></div>
+ <nav id="nav"></nav>
+ <main id="main"><div class="spin"><i></i></div></main>
+</div>
+<div id="set"><h5>When I click outside the window</h5>
+ <label><input type="radio" name="oc" value="close"><span><b>Hide it</b><small>Press F1 to bring it back</small></span></label>
+ <label><input type="radio" name="oc" value="pin"><span><b>Keep it on screen</b><small>Gives control back to the game</small></span></label>
+ <label><input type="radio" name="oc" value="none"><span><b>Do nothing</b><small>Stays open, game clicks are blocked</small></span></label>
+ <button class="ib" id="rpos">↩ Reset window position</button></div>
+<button id="top" title="Back to top">↑</button>
+<div id="toast"></div>
+<i class="rs" data-d="l"></i><i class="rs" data-d="r"></i><i class="rs" data-d="t"></i><i class="rs" data-d="b"></i><i class="rs" data-d="tl"></i><i class="rs" data-d="tr"></i><i class="rs" data-d="bl"></i><i class="rs" data-d="br"></i>
+</div>
+<script>
+(function(){'use strict';
+var $=function(i){return document.getElementById(i);};
+var KEY='ttwiki_v1',ST={lang:'EN',fs:15,theme:'dark',recent:[],win:{},outside:'close'};
+try{var r=JSON.parse(localStorage.getItem(KEY)||'null');if(r)for(var k in ST)if(r[k]!==undefined&&typeof r[k]===typeof ST[k])ST[k]=r[k];}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(ST));}catch(e){}}
+function post(m){if(window.parent!==window)window.parent.postMessage(m,'*');}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function rx(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+var META=null,PACK={},IDX={},LOADING={},CUR={lang:'EN',key:null},HIST=0;
+var DATA='data/';
+// ---------- theme / size ----------
+function applyLook(){document.documentElement.setAttribute('data-theme',ST.theme);document.documentElement.style.setProperty('--fs',ST.fs+'px');}
+applyLook();
+$('thm').onclick=function(){ST.theme=ST.theme==='dark'?'light':'dark';applyLook();save();};
+$('fsz').onclick=function(){ST.fs=ST.fs>=19?14:ST.fs+1;applyLook();save();toast('Text size '+ST.fs+'px');};
+$('pinb').onclick=function(){post({type:'pin'});};$('closeb').onclick=function(){post({type:'close'});};
+var tt=0;function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on');},2600);}
+// ---------- window ----------
+var W=$('win'),SA=window.parent===window,FULL=/[?&]full=1/.test(location.search),G=ST.win;
+if(FULL)document.body.classList.add('standalone');else if(SA){document.body.classList.add('desk');$('pinb').style.display='none';$('closeb').style.display='none';}
+function vw(){return window.innerWidth;}function vh(){return window.innerHeight;}
+function applyWin(){if(FULL)return;var w,h,x,y;
+ if(G.max){x=0;y=0;w=vw();h=vh();}
+ else{w=clamp(+G.w||Math.min(880,vw()-40),Math.min(380,vw()),vw());h=clamp(+G.h||Math.min(600,vh()-40),Math.min(260,vh()),vh());x=clamp(G.x===undefined?(vw()-w)/2:+G.x,0,Math.max(0,vw()-w));y=clamp(G.y===undefined?(vh()-h)/2:+G.y,0,Math.max(0,vh()-h));}
+ W.style.left=x+'px';W.style.top=y+'px';W.style.width=w+'px';W.style.height=h+'px';
+ W.classList.toggle('max',!!G.max);W.classList.toggle('min',!!G.min);$('mxb').classList.toggle('on',!!G.max);$('mnb').classList.toggle('on',!!G.min);
+ W.style.opacity=(G.op||100)/100;}
+function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+function sized(){var w=W.offsetWidth;W.classList.toggle('narrow',w<760);W.classList.toggle('tiny',w<520);if(w>=760)W.classList.remove('nav');}
+$('setb').onclick=function(e){e.stopPropagation();$('set').classList.toggle('on');};
+Array.prototype.forEach.call(document.querySelectorAll('#set input'),function(r){r.checked=r.value===ST.outside;r.onchange=function(){ST.outside=r.value;save();toast(r.value==='close'?'Clicking outside will hide the wiki (F1 to reopen)':r.value==='pin'?'Clicking outside will keep it on screen':'Clicking outside will do nothing');};});
+$('rpos').onclick=function(){delete G.x;delete G.y;G.max=false;G.min=false;applyWin();save();$('set').classList.remove('on');toast('Window centred');};
+W.addEventListener('mousedown',function(e){if(!e.target.closest('#set')&&e.target.id!=='setb')$('set').classList.remove('on');});
+document.addEventListener('mousedown',function(e){if(e.button!==0||drag||SA||FULL)return;if(W.contains(e.target))return;
+ if(ST.outside==='close')post({type:'close'});else if(ST.outside==='pin')post({type:'pin'});});
+$('mnb').onclick=function(){G.min=!G.min;applyWin();save();};
+$('mxb').onclick=function(){G.max=!G.max;G.min=false;applyWin();save();sized();};
+$('opb').onclick=function(){var o=G.op||100;G.op=o>=100?85:o>=85?70:100;applyWin();save();toast('Window opacity '+G.op+'%');};
+var drag=null;
+$('tb').addEventListener('pointerdown',function(e){if(e.target.closest('.wb')||G.max||e.button!==0)return;var r=W.getBoundingClientRect();drag={t:'m',sx:e.clientX,sy:e.clientY,x:r.left,y:r.top};this.setPointerCapture(e.pointerId);this.classList.add('drag');document.body.classList.add('dragging');});
+$('tb').addEventListener('dblclick',function(e){if(e.target.closest('.wb'))return;G.max=!G.max;G.min=false;applyWin();save();sized();});
+Array.prototype.forEach.call(document.querySelectorAll('.rs'),function(h){h.addEventListener('pointerdown',function(e){if(G.max||e.button!==0)return;e.preventDefault();var r=W.getBoundingClientRect();drag={t:'r',d:h.getAttribute('data-d'),sx:e.clientX,sy:e.clientY,x:r.left,y:r.top,w:r.width,h:r.height};h.setPointerCapture(e.pointerId);document.body.classList.add('dragging');});});
+window.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-drag.sx,dy=e.clientY-drag.sy;
+ if(drag.t==='m'){G.x=clamp(drag.x+dx,-W.offsetWidth+120,vw()-80);G.y=clamp(drag.y+dy,0,vh()-34);}
+ else{var d=drag.d,MW=380,MH=260,x=drag.x,y=drag.y,w=drag.w,h=drag.h;
+  if(d.indexOf('r')>-1)w=clamp(drag.w+dx,MW,vw()-x);
+  if(d.indexOf('b')>-1)h=clamp(drag.h+dy,MH,vh()-y);
+  if(d.indexOf('l')>-1){var nw=clamp(drag.w-dx,MW,drag.x+drag.w);x=drag.x+drag.w-nw;w=nw;}
+  if(d.indexOf('t')>-1){var nh=clamp(drag.h-dy,MH,drag.y+drag.h);y=drag.y+drag.h-nh;h=nh;}
+  G.x=x;G.y=y;G.w=w;G.h=h;}
+ W.style.left=G.x+'px';W.style.top=G.y+'px';if(drag.t==='r'){W.style.width=G.w+'px';W.style.height=G.h+'px';}sized();});
+window.addEventListener('pointerup',function(){if(!drag)return;drag=null;$('tb').classList.remove('drag');document.body.classList.remove('dragging');applyWin();save();});
+window.addEventListener('resize',function(){applyWin();sized();});
+applyWin();sized();
+if(window.ResizeObserver)new ResizeObserver(sized).observe(W);
+// ---------- data ----------
+function jget(u){return fetch(u).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();});}
+function ensurePack(L){if(PACK[L])return Promise.resolve(PACK[L]);if(LOADING[L])return LOADING[L];
+ return LOADING[L]=jget(DATA+L+'.json').then(function(d){var by={},low={};d.pages.forEach(function(p){by[p.k]=p;low[p.k.toLowerCase()]=p.k;p.L=L;});PACK[L]={pages:d.pages,by:by,low:low,texted:false};delete LOADING[L];return PACK[L];});}
+function langOf(k){var i=k.indexOf(':');if(i>0){var p=k.slice(0,i).toUpperCase();if(META.langs.some(function(l){return l.code===p;}))return p;}return 'EN';}
+function baseOf(k){var L=langOf(k);return L==='EN'?k:k.slice(k.indexOf(':')+1);}
+function mk(L,t){return(L==='EN'?'':L+':')+t;}
+function findKey(L,t){var pk=PACK[L];if(!pk)return null;var k=mk(L,t);if(pk.by[k])return k;var lk=pk.low[k.toLowerCase()];if(lk)return lk;var a=META.aliases[k]||META.aliases[lk||''];if(a&&PACK[langOf(a)]&&PACK[langOf(a)].by[a])return a;return null;}
+function ensureText(L){var pk=PACK[L];if(!pk||pk.texted)return;pk.pages.forEach(function(p){p.x=(p.t+' \n'+p.h.replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/\s+/g,' ')).toLowerCase();});pk.texted=true;}
+function resolve(t,L){var m=/^([A-Za-z]{2}(?:-[A-Za-z]{2})?):(.*)$/.exec(t),tl=null,base=t;
+ if(m&&META.langs.some(function(l){return l.code===m[1].toUpperCase();})){tl=m[1].toUpperCase();base=m[2].trim();}
+ var order=tl?[tl]:(L==='EN'?['EN']:[L,'EN']);
+ return order.reduce(function(pr,lg){return pr.then(function(f){if(f)return f;return ensurePack(lg).then(function(){return findKey(lg,base);});});},Promise.resolve(null));}
+// ---------- routing ----------
+function route(lang,type,arg,frag){return '#/'+lang+'/'+type+(arg!==undefined&&arg!==null?'/'+encodeURIComponent(arg):'')+(frag?'~'+encodeURIComponent(frag):'');}
+function go(h){if(location.hash===h)render();else location.hash=h;}
+function parse(){var h=location.hash.replace(/^#\/?/,'');var p=h.split('/');var lang=(p[0]||ST.lang).toUpperCase();var type=p[1]||'home';var rest=p.slice(2).join('/');var frag=null;if(rest.indexOf('~')>-1){frag=decodeURIComponent(rest.split('~')[1]);rest=rest.split('~')[0];}var arg=rest?decodeURIComponent(rest):null;return{lang:lang,type:type,arg:arg,frag:frag};}
+window.addEventListener('hashchange',render);
+// ---------- UI shell ----------
+function buildLang(){var s=$('lang');s.innerHTML=META.langs.map(function(l){return '<option value="'+l.code+'">'+esc(l.native)+(/[^\u0000-\u024F]/.test(l.native)?' · '+esc(l.name):'')+' ('+l.count+')</option>';}).join('');s.value=ST.lang;}
+$('lang').onchange=function(){switchLang($('lang').value);};
+function switchLang(L){var cur=CUR,tr=null;
+ if(cur.key){var b=baseOf(cur.key).toLowerCase();tr=(META.tr[b]||{})[L]||null;if(!tr&&cur.key){var g=META.tr[b];}}
+ ST.lang=L;save();
+ if(tr){go(route(L,'p',tr));}else{if(cur.key&&cur.lang!==L)toast('No '+langName(L)+' version of this page. Showing the '+langName(L)+' home.');go(route(L,'home'));}}
+function langName(L){var l=META.langs.filter(function(x){return x.code===L;})[0];return l?l.name:L;}
+$('home').onclick=function(){go(route(ST.lang,'home'));};
+$('menu').onclick=function(){$('win').classList.toggle('nav');};
+$('scrim').onclick=function(){$('win').classList.remove('nav');};
+var HIDE={WIP:1,Browse:1};
+function catsOf(L){var pk=PACK[L],c={};pk.pages.forEach(function(p){p.c.forEach(function(x){if(HIDE[x]||META.langs.some(function(l){return l.code===x.toUpperCase();}))return;(c[x]=c[x]||[]).push(p);});});return c;}
+function buildNav(){var L=ST.lang,pk=PACK[L],h='';
+ var cur=parse();
+ function it(label,hash,on,n){return '<button class="ni'+(on?' on':'')+'" data-h="'+esc(hash)+'"><span class="t">'+label+'</span>'+(n!==undefined?'<small>'+n+'</small>':'')+'</button>';}
+ h+='<h4>Explore</h4>'+it('🏠 Home',route(L,'home'),cur.type==='home')+it('🔤 All pages A–Z',route(L,'all'),cur.type==='all',pk.pages.length)+it('🎲 Random page','#random',false);
+ var cats=catsOf(L),names=Object.keys(cats).filter(function(c){return cats[c].length>1;}).sort(function(a,b){return cats[b].length-cats[a].length;});
+ if(names.length){h+='<h4>Topics</h4>';names.slice(0,14).forEach(function(c){h+=it(esc(c),route(L,'cat',c),cur.type==='cat'&&cur.arg===c,cats[c].length);});}
+ if(ST.recent.length){h+='<h4>Recently viewed</h4>';ST.recent.slice(0,7).forEach(function(k){var l=langOf(k);h+=it(esc(baseOf(k))+(l!==L?'<span class="tag">'+l+'</span>':''),route(l,'p',k),CUR.key===k);});}
+ $('nav').innerHTML=h;}
+$('nav').addEventListener('click',function(e){var b=e.target.closest('.ni');if(!b)return;$('win').classList.remove('nav');var h=b.getAttribute('data-h');if(h==='#random')return randomPage();location.hash=h;});
+function randomPage(){var pk=PACK[ST.lang],p=pk.pages[Math.floor(Math.random()*pk.pages.length)];go(route(ST.lang,'p',p.k));}
+// ---------- rendering ----------
+function setMain(h,top){var m=$('main');m.innerHTML=h;if(top!==false)m.scrollTop=0;m.onscroll=function(){$('top').style.display=m.scrollTop>600?'block':'none';};$('top').style.display='none';}
+$('top').onclick=function(){$('main').scrollTo({top:0});};
+function barHtml(crumb){return '<div class="bar"><button class="ib" id="bk" title="Back (Alt+←)">←</button><button class="ib" id="fw" title="Forward (Alt+→)">→</button><span class="crumb">'+crumb+'</span></div>';}
+function wireBar(){var b=$('bk'),f=$('fw');if(b)b.onclick=function(){history.back();};if(f)f.onclick=function(){history.forward();};}
+async function render(){
+ if(!META)return;var r=parse();
+ if(!META.langs.some(function(l){return l.code===r.lang;}))r.lang='EN';
+ ST.lang=r.lang;save();$('lang').value=r.lang;document.documentElement.lang=r.lang.toLowerCase();
+ try{await ensurePack(r.lang);}catch(e){return setMain('<div class="empty"><h2>Couldn’t load this language</h2><p>Check your connection and try again.</p><button class="ib" onclick="location.reload()">Retry</button></div>');}
+ if(r.type==='p'){await showPage(r);}
+ else if(r.type==='all')showAll(r);
+ else if(r.type==='cat')showCat(r);
+ else showHome(r);
+ buildNav();wireBar();}
+function chipRoute(L,type,arg){return route(L,type,arg);}
+function showHome(r){var L=r.lang,pk=PACK[L],cats=catsOf(L),l=META.langs.filter(function(x){return x.code===L;})[0];CUR={lang:L,key:null};
+ var QUICK=[['Getting Started Guide','🚚','Start here: trucking basics'],['Getting Started Guide Pilot','✈️','Your first flight'],['Server Rules','📜','What’s allowed and what isn’t'],['Commands','⌨️','Chat commands & hotkeys'],['FAQ','❓','Common questions'],['Changelogs','🆕','What changed recently'],['Credits','🤝','Who made it'],['Perks','⭐','Premium & supporter perks']];
+ var h=barHtml('Home')+'<div class="page"><div class="hero"><h1>Tycoon <em>Gaming</em> Wiki</h1><p>Guides for every job, item, vehicle and location in Transport Tycoon.</p><div class="big"><input id="hq" placeholder="What are you looking for? e.g. pilot, copper, rules" autocomplete="off"></div><div class="stats">'+pk.pages.length+' pages in '+esc(l.native)+' · '+META.langs.length+' languages · archived copy from February 2026</div></div>';
+ var qk=QUICK.map(function(q){var k=findKey(L,q[0]);return k?{k:k,i:q[1],d:q[2],t:PACK[L].by[k].t}:null;}).filter(Boolean);
+ if(qk.length){h+='<div class="sec">Start here</div><div class="grid">'+qk.map(function(q){return '<button class="card" data-go="'+esc(q.k)+'"><span class="ic">'+q.i+'</span><b>'+esc(q.t)+'</b><small>'+esc(q.d)+'</small></button>';}).join('')+'</div>';}
+ var jobs=cats['Jobs']||cats['Job']||[];
+ if(jobs.length){h+='<div class="sec">Jobs <button data-cat="Jobs">See all</button></div><div class="pills">'+jobs.slice(0,40).map(function(p){return '<button class="pill" data-go="'+esc(p.k)+'">'+esc(p.t)+'</button>';}).join('')+'</div>';}
+ var names=Object.keys(cats).filter(function(c){return cats[c].length>1;}).sort(function(a,b){return cats[b].length-cats[a].length;});
+ if(names.length){h+='<div class="sec">Browse by topic</div><div class="grid">'+names.slice(0,12).map(function(c){return '<button class="card" data-cat="'+esc(c)+'"><b>'+esc(c)+'</b><small>'+cats[c].length+' pages</small></button>';}).join('')+'</div>';}
+ var main=findKey(L,'Tycoon Gaming Wiki');
+ h+='<div class="sec">Everything <button data-all="1">A–Z index →</button></div>';
+ if(!qk.length&&!names.length){h+='<ul class="list">'+pk.pages.slice(0,200).map(function(p){return '<li><button data-go="'+esc(p.k)+'">'+esc(p.t)+'<small>'+esc(p.s)+'</small></button></li>';}).join('')+'</ul>';}
+ else if(main){h+='<div class="pills"><button class="pill" data-go="'+esc(main)+'">Original wiki main page</button></div>';}
+ if(L!=='EN')h+='<p class="foot">Not every page has been translated. Switch to <button class="chip" data-lang="EN">English</button> for the complete wiki.</p>';
+ h+='</div>';setMain(h);
+ var hq=$('hq');hq.oninput=function(){$('q').value=hq.value;doSearch(hq.value);};hq.onkeydown=function(e){if(e.key==='Enter'){$('q').focus();}};}
+function showAll(r){var L=r.lang,pk=PACK[L];CUR={lang:L,key:null};var sel=r.frag||'';
+ var letters={};pk.pages.forEach(function(p){var c=(p.t[0]||'#').toUpperCase();if(!/\p{L}/u.test(c))c='#';letters[c]=1;});
+ var ls=Object.keys(letters).sort();
+ var h=barHtml('All pages')+'<div class="page"><h1 class="pt">All pages</h1><input class="flt" id="fl" placeholder="Filter this list…"><div class="az"><button data-l="" class="'+(sel?'':'on')+'">All</button>'+ls.map(function(c){return '<button data-l="'+esc(c)+'" class="'+(sel===c?'on':'')+'">'+esc(c)+'</button>';}).join('')+'</div><ul class="list" id="al"></ul><div class="foot" id="cnt"></div></div>';
+ setMain(h);
+ function draw(){var f=($('fl').value||'').toLowerCase(),out=pk.pages.filter(function(p){var c=(p.t[0]||'#').toUpperCase();if(!/\p{L}/u.test(c))c='#';return(!sel||c===sel)&&(!f||p.t.toLowerCase().indexOf(f)>-1);});
+  $('al').innerHTML=out.map(function(p){return '<li><button data-go="'+esc(p.k)+'">'+esc(p.t)+'<small>'+esc(p.s)+'</small></button></li>';}).join('');$('cnt').textContent=out.length+' pages';}
+ $('fl').oninput=draw;draw();
+ $('main').querySelector('.az').onclick=function(e){var b=e.target.closest('button');if(!b)return;go(route(L,'all',null,b.getAttribute('data-l')));};}
+function showCat(r){var L=r.lang,cats=catsOf(L),ps=(cats[r.arg]||[]).slice().sort(function(a,b){return a.t.localeCompare(b.t);});CUR={lang:L,key:null};
+ var h=barHtml('<a data-all="1" style="cursor:pointer">Topics</a> › '+esc(r.arg))+'<div class="page"><h1 class="pt">'+esc(r.arg)+'</h1><div class="chips"><span class="lab">'+ps.length+' pages</span></div>'+(ps.length?'<ul class="list" style="columns:1 ">'+ps.map(function(p){return '<li><button data-go="'+esc(p.k)+'"><b>'+esc(p.t)+'</b><small>'+esc(p.s)+'</small></button></li>';}).join('')+'</ul>':'<div class="empty">No pages in this topic for this language.'+(L!=='EN'?'<br><br><button class="chip" data-lang="EN">View in English</button>':'')+'</div>')+'</div>';
+ setMain(h);}
+async function showPage(r){var L=r.lang,k=r.arg,pk=PACK[L];var p=pk.by[k];
+ if(!p){var kk=findKey(L,baseOf(k)===k?k:baseOf(k));if(!kk&&langOf(k)!==L){var L2=langOf(k);await ensurePack(L2);kk=PACK[L2].by[k]?k:findKey(L2,baseOf(k));if(kk){L=L2;pk=PACK[L2];}}if(kk)p=pk.by[kk];}
+ if(!p){CUR={lang:L,key:null};return setMain(barHtml('Not found')+'<div class="page"><div class="empty"><h2>Page not found</h2><p>“'+esc(k)+'” isn’t in this archive.</p><button class="ib" data-home="1">Go to the home page</button></div></div>');}
+ if(p.L!==ST.lang){ST.lang=p.L;$('lang').value=p.L;}
+ CUR={lang:p.L,key:p.k};ST.recent=[p.k].concat(ST.recent.filter(function(x){return x!==p.k;})).slice(0,10);save();
+ document.title=p.t+' · Tycoon Gaming Wiki';
+ var html=p.h.replace(/<table/g,'<div class="tw"><table').replace(/<\/table>/g,'</table></div>');
+ // chips: categories + other languages
+ var chips='';var pc=p.c.filter(function(c){return !HIDE[c]&&!META.langs.some(function(l){return l.code===c.toUpperCase();});});if(pc.length)chips+='<span class="lab">Topics</span>'+pc.map(function(c){return '<button class="chip" data-cat="'+esc(c)+'">'+esc(c)+'</button>';}).join('');
+ var tr=META.tr[baseOf(p.k).toLowerCase()]||{},tl=Object.keys(tr).filter(function(x){return x!==p.L;});
+ var langs='';if(tl.length)langs='<div class="chips"><span class="lab">Also in</span>'+tl.map(function(x){return '<button class="chip l" data-trk="'+esc(tr[x])+'" title="'+esc(langName(x))+'">'+esc(META.langs.filter(function(l){return l.code===x;})[0].native)+'</button>';}).join('')+'</div>';
+ var rtl=p.L==='AR';
+ var h=barHtml(esc(langName(p.L))+' › '+esc(p.t))+'<div class="page"><h1 class="pt">'+esc(p.t)+'</h1><div class="chips">'+chips+'</div>'+langs+'<div id="tocbox"></div><div class="art'+(rtl?' rtl':'')+'" id="art">'+html+'</div><div class="foot">Archived copy of the Tycoon Gaming Wiki (February 2026). Information may be out of date.</div></div>';
+ setMain(h);buildToc();
+ var a=$('art');if(r.frag)setTimeout(function(){scrollToId(r.frag);},60);}
+function buildToc(){var hs=[].slice.call($('art').querySelectorAll('h2,h3')).filter(function(h){return h.textContent.trim();});if(hs.length<3)return;
+ var n=0,items=hs.map(function(h){if(!h.id)h.id='sec'+(n++);return '<li class="'+(h.tagName==='H3'?'s':'')+'"><a data-a="'+esc(h.id)+'">'+esc(h.textContent.trim())+'</a></li>';}).join('');
+ $('tocbox').innerHTML='<details class="toc"'+(hs.length<=14?' open':'')+'><summary>On this page ('+hs.length+')</summary><ol style="list-style:none;padding-left:0">'+items+'</ol></details>';}
+function scrollToId(id){var el=document.getElementById(id)||document.getElementById(decodeURIComponent(id))||document.getElementById(id.replace(/\./g,'%'));if(!el){var all=$('main').querySelectorAll('[id]');for(var i=0;i<all.length;i++){if(all[i].id.replace(/[._]/g,'').toLowerCase()===id.replace(/[._]/g,'').toLowerCase()){el=all[i];break;}}}
+ if(el){el.scrollIntoView({behavior:'smooth',block:'start'});el.style.transition='background .3s';el.style.background='rgba(255,176,32,.25)';setTimeout(function(){el.style.background='';},1400);}}
+// delegated clicks in main
+$('main').addEventListener('click',async function(e){var t=e.target;
+ var a=t.closest('a[data-p]');if(a){e.preventDefault();var key=await resolve(a.getAttribute('data-p'),CUR.lang||ST.lang);if(!key)return toast('That page isn’t in the archive.');var L=langOf(key);return go(route(L,'p',key,a.getAttribute('data-f')));}
+ a=t.closest('a[data-a]');if(a){e.preventDefault();return scrollToId(a.getAttribute('data-a'));}
+ a=t.closest('a[target=_blank]');if(a){var u=a.href;try{navigator.clipboard.writeText(u);toast('Opening link · also copied to clipboard');}catch(x){}return;}
+ var b=t.closest('[data-go]');if(b){return go(route(langOf(b.getAttribute('data-go')),'p',b.getAttribute('data-go')));}
+ b=t.closest('[data-cat]');if(b)return go(route(ST.lang,'cat',b.getAttribute('data-cat')));
+ b=t.closest('[data-all]');if(b)return go(route(ST.lang,'all'));
+ b=t.closest('[data-trk]');if(b){var k=b.getAttribute('data-trk');ST.lang=langOf(k);save();return go(route(langOf(k),'p',k));}
+ b=t.closest('[data-lang]');if(b){return switchLang(b.getAttribute('data-lang'));}
+ b=t.closest('[data-home]');if(b)return go(route(ST.lang,'home'));});
+// ---------- search ----------
+var sel=-1,sres=[],stimer=0,allLang=false;
+function toks(q){return q.toLowerCase().split(/\s+/).filter(Boolean);}
+function searchPacks(q,langs){var T=toks(q),out=[];if(!T.length)return out;var ql=q.toLowerCase().trim();
+ langs.forEach(function(L){var pk=PACK[L];if(!pk)return;ensureText(L);pk.pages.forEach(function(p){var tl=p.t.toLowerCase(),s=0;
+  if(tl===ql)s=1000;else if(tl.indexOf(ql)===0)s=800;else if(tl.indexOf(ql)>-1)s=600;else if(T.every(function(t){return tl.indexOf(t)>-1;}))s=500;
+  else if(T.every(function(t){return p.x.indexOf(t)>-1;})){s=100;var c=0;T.forEach(function(t){var i=-1,n=0;while((i=p.x.indexOf(t,i+1))>-1&&n<20)n++;c+=n;});s+=Math.min(c,60);}
+  if(p.c.some(function(c){return c.toLowerCase()===ql;}))s=Math.max(s,300);
+  if(s)out.push({p:p,s:s-Math.min(p.t.length,40)*.01});});});
+ out.sort(function(a,b){return b.s-a.s;});return out;}
+function snippet(p,q){var T=toks(q),x=p.x.slice(p.t.length+2),txt=p.h.replace(/<[^>]+>/g,' ').replace(/&amp;/g,'&').replace(/&nbsp;/g,' ').replace(/\s+/g,' ');var best=-1;for(var i=0;i<T.length;i++){var j=txt.toLowerCase().indexOf(T[i]);if(j>-1){best=j;break;}}
+ var s=best>-1?txt.slice(Math.max(0,best-50),best+110):txt.slice(0,150);var o=esc(s);T.forEach(function(t){o=o.replace(new RegExp('('+rx(esc(t))+')','ig'),'<mark>$1</mark>');});return(best>50?'… ':'')+o;}
+function markT(t,q){var o=esc(t);toks(q).forEach(function(w){o=o.replace(new RegExp('('+rx(esc(w))+')','ig'),'<mark>$1</mark>');});return o;}
+function doSearch(q){q=q.trim();$('sx').style.display=q?'block':'none';$('kb').style.display=q?'none':'';var box=$('res');
+ if(!q){box.style.display='none';return;}
+ var langs=allLang?META.langs.map(function(l){return l.code;}):[ST.lang];
+ Promise.all(langs.map(ensurePack)).then(function(){if($('q').value.trim()!==q)return;sres=searchPacks(q,langs);sel=sres.length?0:-1;var top=sres.slice(0,12);
+  var h='<div class="rmeta"><span>'+sres.length+' result'+(sres.length===1?'':'s')+(allLang?' in all languages':' in '+esc(langName(ST.lang)))+'</span><button id="sall">'+(allLang?'Only '+esc(langName(ST.lang)):'Search all languages')+'</button></div>';
+  if(!top.length)h+='<div class="empty">Nothing found for “'+esc(q)+'”.<br>Try a shorter or different word'+(allLang?'':', or search all languages')+'.</div>';
+  top.forEach(function(r,i){h+='<button class="rr'+(i===0?' on':'')+'" data-i="'+i+'"><b>'+markT(r.p.t,q)+(r.p.L!==ST.lang||allLang?'<span class="tag">'+r.p.L+'</span>':'')+(r.p.c.filter(function(c){return !HIDE[c]&&c.length>2;})[0]?'<span class="tag">'+esc(r.p.c.filter(function(c){return !HIDE[c]&&c.length>2;})[0])+'</span>':'')+'</b><small>'+snippet(r.p,q)+'</small></button>';});
+  if(sres.length>12)h+='<div class="rmeta"><span>Showing the best 12 — refine your search to narrow it down.</span></div>';
+  box.innerHTML=h;box.style.display='block';});}
+$('res').addEventListener('mousedown',function(e){e.preventDefault();});
+$('res').addEventListener('click',function(e){var b=e.target.closest('.rr');if(b){openRes(+b.getAttribute('data-i'));return;}if(e.target.id==='sall'){allLang=!allLang;doSearch($('q').value);$('q').focus();}});
+function openRes(i){var r=sres[i];if(!r)return;$('res').style.display='none';$('q').blur();go(route(r.p.L,'p',r.p.k));}
+$('q').addEventListener('input',function(){clearTimeout(stimer);var v=this.value;stimer=setTimeout(function(){doSearch(v);},110);});
+$('q').addEventListener('focus',function(){if(this.value.trim())doSearch(this.value);});
+$('q').addEventListener('blur',function(){setTimeout(function(){$('res').style.display='none';},120);});
+$('q').addEventListener('keydown',function(e){var rows=$('res').querySelectorAll('.rr');
+ if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(!rows.length)return;sel=(sel+(e.key==='ArrowDown'?1:-1)+rows.length)%rows.length;rows.forEach(function(r,i){r.classList.toggle('on',i===sel);});rows[sel].scrollIntoView({block:'nearest'});}
+ else if(e.key==='Enter'){e.preventDefault();if(sel>-1)openRes(sel);}
+ else if(e.key==='Escape'){this.value='';doSearch('');this.blur();}});
+$('sx').onclick=function(){$('q').value='';doSearch('');$('q').focus();};
+document.addEventListener('keydown',function(e){var tag=(e.target.tagName||'').toLowerCase();
+ if(e.key==='/'&&tag!=='input'&&tag!=='select'){e.preventDefault();$('q').focus();$('q').select();}
+ else if(e.altKey&&e.key==='ArrowLeft'){history.back();}else if(e.altKey&&e.key==='ArrowRight'){history.forward();}});
+// ---------- boot ----------
+function guessLang(){try{var n=(navigator.language||'en').toUpperCase();if(n==='PT-BR')return 'PT-BR';if(n==='ZH-CN'||n.indexOf('ZH')===0)return 'ZH-CN';var s=n.slice(0,2);if(s==='DA')s='DK';if(s==='KO')s='KR';if(s==='CZ')s='CS';return s;}catch(e){return 'EN';}}
+jget(DATA+'meta.json').then(function(m){META=m;
+ if(!location.hash){var g=guessLang(),has=function(c){return META.langs.some(function(l){return l.code===c;});};
+  if(!localStorage.getItem(KEY)&&has(g)&&g!=='EN')ST.lang=g;}
+ if(!META.langs.some(function(l){return l.code===ST.lang;}))ST.lang='EN';
+ buildLang();
+ if(!location.hash)location.replace(route(ST.lang,'home'));else render();
+ ensurePack('EN').then(function(){ensureText('EN');});
+}).catch(function(){$('main').innerHTML='<div class="empty"><h2>Couldn’t load the wiki data</h2><p>Make sure the <code>data</code> folder is uploaded next to <code>index.html</code>, then reload.</p></div>';});
+})();
+</script></body></html>

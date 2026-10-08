@@ -1,0 +1,1107 @@
+---
+title: API
+---
+<div> </div>
+<h1 id="Transport_Tycoon_API">Transport Tycoon API</h1>
+<p>The api for TT follows a few standard principles:
+</p>
+<ul><li>Certain routes will return different data based on server</li>
+<li>Every server requires a different URL to fetch data from, instead of one standardized URL</li>
+<li>Legacy routes use the <code><b>/status</b></code> path in urls. <code>v1.api.tycoon</code> addresses are automatically routed with <code>/status</code>.</li></ul>
+<h2 id="Available_servers">Available servers</h2>
+<p><span>Note</span>: Secondary address listings are the cfx.re proxy- usage is the same.
+</p>
+<table class="wt">
+<tbody><tr>
+<th><b>Address</b>
+</th>
+<th><b>Server Name</b>
+</th>
+<th><b>Additional Information</b>
+</th></tr>
+<tr>
+<td><b>v1.api.tycoon.community/main (currently unavailable)</b>
+<p>tycoon-2epova.users.cfx.re/status
+</p>
+</td>
+<td>Server 1
+</td>
+<td>
+</td></tr>
+<tr>
+<td><b>v1.api.tycoon.community/beta (currently unavailable)</b>
+<p>tycoon-njyvop.users.cfx.re/status
+</p>
+</td>
+<td>Server 2 (Beta)
+</td>
+<td>Beta server, data could end up being different compared to other servers
+</td></tr>
+<tr>
+<td><b>lite.tycoon.community</b>
+<p>tycoon-dgpvx3.users.cfx.re
+</p>
+</td>
+<td>[LITE] Transportation
+</td>
+<td>Runs a different gamemode, does not respond to standard Transport Tycoon API calls. <code>sessionmanager/players.json</code> will fetch a list of players.
+</td></tr></tbody></table>
+<h3 id="Server_list_CDN_file">Server list CDN file</h3>
+<p>Tycoon's CDN hosts a permanent JSON file that returns a list of servers, their player information endpoint, and a template for formatting API URL calls to each server. In addition to the main Transport Tycoon servers, it also includes information for the [LITE] Transportation server.
+The file is available at <code><a href="https://cdn.tycoon.community/servers.json" rel="noopener" target="_blank">https://cdn.tycoon.community/servers.json</a></code>.
+</p>
+<h2 id="Private_Keys">Private Keys</h2>
+<p>TL;DR: Create a new private key using <code>/api private new</code>
+</p><p>Add charges using <code>/api private refill</code> (adds 1000 charges for $1M)
+</p><p>Add <code>x</code> charges using <code>/api private refill &lt;x&gt;</code> (adds &lt;x&gt; charges for $1000 * <code>x</code>)
+</p><p>The API requires a private key to access most features.
+</p><p>Each private key has a limited amount of API calls (also called charges), which are consumed every time an API call is made using the key. Additional charges can be purchased in game using the <code>/api private refill</code> command at the cost of $1000 (in-game money) per charge. Any user can generate a private key (Make sure you keep it safe). To generate a private key, use the <code>/api private new</code> command in game. If you already have a private key generated, the old one will be deleted and a new one will take its place. When you generate a private key for the first time, it will come with some free charges allowing you to test the API for free. The API key can be copied using the <code>/api private copy</code> command, which will display the key for you to copy to your clipboard. Any user with a linked Discord account will receive a Discord role upon refilling their keys.
+</p>
+<p>A depiction of the public/private key relationship</p>
+<h3 id="Donating_API_charges">Donating API charges</h3>
+<p>When using services created by other players, they usually use their own private key. If you wish to support them, you can donate charges to them with <code>/api donate &lt;user id&gt; &lt;amount&gt;</code>
+</p>
+<dl><dd>where
+<dl><dd><code>&lt;user id&gt;</code> is the ID of the player whose key is being used for a given service</dd>
+<dd><code>&lt;amount&gt;</code> is the amount of charges you want to donate (each charge is $1000).
+<dl><dd>The minimum amount of charges you can donate is 1000.</dd></dl></dd></dl></dd></dl>
+<p>If the receiving player is online and in the same server as you, they will get a notification of receipt. 
+</p>
+<h2 id="Public_Keys">Public Keys</h2>
+<p>Public keys are keys that can be used to access a players account information without needing that player's private key and charges.
+</p><p>The public key is not valid by itself and must be included alongside a valid private key
+</p><p>The public key can be be used as an authorization/identification token, changing the target account from the private key's owner to the public key's owner for commands whose data is determined by public/private key ownership (i.e deadliest_catch, faction endpoints) or, allowing access to data for accounts with <a data-f="Privacy_related_options" data-p="API">API locks</a> in place.
+</p><p>To generate a public key, use <code>/api public generate</code>
+</p>
+<h2 id="Privacy_related_options">Privacy related options</h2>
+<p>You may restrict access to your own data with the <code>/api lock</code> command in-game. When your API information is locked, data is inaccessible to anyone requesting it unless the request includes your public or private key.
+</p>
+<h2 id="API_Endpoints">API Endpoints</h2>
+<h3 id="General_notes">General notes</h3>
+<ul><li>Private keys should be sent as headers, like such: <code>X-Tycoon-Key: [api-key]</code></li>
+<li>Public keys are sent with the <code>X-Tycoon-Public-Key: [public-key]</code> header</li>
+<li>Each endpoint here will mention if a private key is required to be used. Note that currently, every route which requires a key will only use 1 charge per request.</li>
+<li>Typically, this data is returned as JSON, unless explicitly mentioned.</li>
+<li>Most routes will have a response header called <code>X-Tycoon-Charges</code>, which will give you the number of private key charges remaining after the request.</li></ul>
+<h4 id="Standard_status_codes">Standard status codes</h4>
+<ul><li>400 Bad Request - invalid endpoint</li>
+<li>401 Unauthorized - A private key is required for the route</li>
+<li>402 Payment Required - No API charges remaining</li>
+<li>403 Forbidden - Invalid private key or invalid public key</li>
+<li>404 Not Found - Invalid API route</li></ul>
+<hr/>
+<h3 id="Endpoints_List">Endpoints List</h3>
+<h4 id="GET_.2Fendpoints.json"><span id="GET_/endpoints.json"></span><code>GET /endpoints.json</code></h4>
+<p>Returns all available endpoints of the target server. This returned value should always be the same regardless of which server it's used on (excluding beta and/or event).<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>[
+ ...
+ "/faction/balance.json",
+ "/charges.json",
+ ...
+]
+</pre>
+<h3 id="Main_endpoints">Main endpoints</h3>
+<h4 id="GET_.2Falive"><span id="GET_/alive"></span><code>GET /alive</code></h4>
+<p>This endpoint is simply designed to be used as a status check for the API.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>204 NO CONTENT</code></li>
+<li><b>Requires private key</b>: <code>false</code></li></ul>
+<h4 id="GET_.2Fcharges.json"><span id="GET_/charges.json"></span><code>GET /charges.json</code></h4>
+<p>Used to check how many charges are left on the specific key. Will not use an API charge.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+An array where index 0 is the amount of charges remaining
+</p>
+<pre>[xxxx]
+</pre>
+<h4 id="GET_.2Feconomy.csv"><span id="GET_/economy.csv"></span><code>GET /economy.csv</code></h4>
+<p>Fetches general info about the economy of TT, such as the amount of billionaires, etc.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>false</code></li></ul>
+<p><b>Response data:</b>
+The response is a large CSV file separated with semicolons, with a lot of data about the economy in Transport Tycoon.
+</p>
+<pre>Time;Debt;Money;Debts;Millionaires;Billionaires;Users;Players
+1580811614;14255411890;1106983649214;10361;14458;179;316329;40
+</pre>
+<h4 id="GET_.2Fskillrotation.json"><span id="GET_/skillrotation.json"></span><code>GET /skillrotation.json</code></h4>
+<h4 id="GET_.2Fsotd.json"><span id="GET_/sotd.json"></span><code>GET /sotd.json</code></h4>
+<p>Fetches the current skill rotation for the servers<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "aptitude": "trucking/postop", // Skill component 
+ "short": "PostOP",
+ "bonus": 33, // Bonus Percentage (25-50)
+ "skill": "PostOP" // Name of the skill it applies to
+}
+</pre>
+<h4 id="GET_.2Fracing.2Ftracks.json"><span id="GET_/racing/tracks.json"></span><code>GET /racing/tracks.json</code></h4>
+<p>Fetches general info about TT races.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ ...
+ {
+ "index": 1,
+ "name": "TTfred",
+ "wr": {
+ "vehicle": "On Foot",
+ "time": 759614,
+ "date": 1644171709000.0,
+ "name": "IFS™"
+ },
+ "class": "Cars",
+ "length": 28167,
+ "type": "ground"
+ },
+ ...
+}
+</pre>
+<h4 id="GET_.2Fdealership.json"><span id="GET_/dealership.json"></span><code>GET /dealership.json</code></h4>
+<p>Fetches data about the current dealership rotation.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "Premium": [
+ {
+ "name": "Patriot Stretch",
+ "price": 500000,
+ "model": "patriot2"
+ },
+ ...
+ ],
+ "Offroad": [
+ {
+ "name": "Bifta",
+ "price": 5000,
+ "model": "bifta"
+ },
+ ...
+ ],
+ ...
+}
+</pre>
+<h3 id="Server-specific_endpoints">Server-specific endpoints</h3>
+<h4 id="GET_.2Fweather.json"><span id="GET_/weather.json"></span><code>GET /weather.json</code></h4>
+<p>Fetches info about the current weather on the server, including how long until it changes.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "minute": 36,
+ "hour": 16, 
+ "weather": "CLEAR" // The current weather on the server
+}
+</pre>
+<h4 id="GET_.2Fforecast.json"><span id="GET_/forecast.json"></span><code>GET /forecast.json</code></h4>
+<p>Fetches info about the current forecast on the server.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>[
+ 'CLEAR', 'OVERCAST',
+ 'EXTRASUNNY', 'CLEARING',
+ 'RAIN', 'RAIN',
+ 'RAIN', 'CLOUDS',
+ 'FOGGY'
+]
+</pre>
+<h4 id="GET_.2Fairline.json"><span id="GET_/airline.json"></span><code>GET /airline.json</code></h4>
+<p>Returns the current active destinations for players doing airline.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "875": [ // Route number
+ "Velum", // Vehicle model / name
+ { // Destination
+ "z": 20.51197052002,
+ "y": 6583.7412109375,
+ "x": 2777.1384277344,
+ "h": 47.063835144043,
+ "airport": "MGA"
+ "name": "Mount Gordo Terminal 3"
+ },
+ false, // Boarding/arrived (set once the plane is unloading)
+ 41306 // vRP id
+ ]
+}
+</pre>
+<h4 id="GET_.2Fplayers.json"><span id="GET_/players.json"></span><code>GET /players.json</code></h4>
+<p>Fetches basic data about the current players on the server.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>false</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "players": [
+ [
+ "xxxx", // [0] user name
+ 895, // [1] source id
+ 41306 // [2] vRP id
+ ],
+ ]
+}
+</pre>
+<h4 id="GET_.2Fmap.2Fpositions.json"><span id="GET_/map/positions.json"></span><code>GET /map/positions.json</code></h4>
+<p>Fetches the data of players, including position and vehicle data, along with each player's last 30 locations separated by around 500 milliseconds.<br/>
+<b>Note: the position history doesn't seem to apply to every player, so make sure to check if this data exists first!</b><br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "players": [
+ [
+ "xxxx", // Player name
+ 820, // Source ID (FiveM assigned plyr ID)
+ 41306, // vRP id
+ { // Position
+ "z": 16.24852180480957, // Current X coordinate
+ "y": 5180.30029296875, // Current Y coordinate
+ "x": -2179.143798828125 // Current Z coordinate
+ },
+ { // Vehicle Data
+ "vehicle_type": "helicopter",
+ "vehicle_name": "Maverick",
+ "vehicle_label": "MAVERICK",
+ "vehicle_class": 15, // Vehicle class id, see https://docs.fivem.net/natives/?_0x29439776AAA00A62
+ "vehicle_spawn": "maverick",
+ "owned_vehicles": {
+ "trailer": "drybulktr",
+ "cab": "urnext",
+ "car": "rc350"
+ },
+ "vehicle_model": -1660661558, // Model hash
+ "trailer": "",
+ "has_trailer": false
+ },
+ { // Job data
+ "group": "firefighter",
+ "name": "Firefighter"
+ },
+ [ // Incremental position history
+ [
+ 78, // Incremental index
+ 3612.8, // X
+ 3766.1, // Y
+ 32.3 // Z
+ ],
+ [
+ 79,
+ 3612.8,
+ 3766.1,
+ 32.3
+ ],
+ ...
+ ]
+ ]
+ ],
+ "caches": 6648,
+ "requests": 6834
+}</pre>
+<h4 id="GET_.2Fwidget.2Fplayers.json"><span id="GET_/widget/players.json"></span><code>GET /widget/players.json</code></h4>
+<p>Fetches basic data about the current players on the server.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>false</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "server": {
+ "number": "1",
+ "dxp": [
+ true, // Dxp active
+ "xxxx", // Dxp host
+ 22474824, // Time remaining
+ 0, // Extra DXP time
+ 6325176 // How long the Dxp has been active
+ ],
+ "limit": 128, // Player limit
+ "region": "OS",
+ "uptime": "14h 25m",
+ "beta": "",
+ "motd": "",
+ "name": ""
+ },
+ "players": [
+ [
+ "xxxx", // Username
+ 895, // Source ID (FiveM assigned plyr ID)
+ 434912, // vRP id
+ "img", // Avatar url
+ false, // Staff
+ "Train Conductor", // Job
+ false // Donator
+ ]
+ ]
+}
+</pre>
+<hr/>
+<h3 id="Global_endpoints">Global endpoints</h3>
+<p>These endpoints <i>should</i> return data regardless of the server they are run on (excluding Beta and [LITE]). These endpoints are related to user data.
+</p>
+<h4 id="GET_.2Ftop10.2F.5BstatName.5D"><span id="GET_/top10/[statName]"></span><code>GET /top10/[statName]</code></h4>
+<p>Fetches the top 10 info for the specific stat. Available stats:<br/>
+</p>
+<pre>firefighter_streak_record
+omni_void_leaderboard
+ems_streak_record
+ems_deliveries
+houses_crafted
+toll_paid
+trap_paid
+drops_collected
+quarry_excavate
+quarry_coop
+quarry_deliver
+quarry_solo
+vehicles_crafted
+eastereggs_pickup
+maid_maxscans
+maid_ticket
+</pre>
+<p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "code": "200",
+ "stat": "toll_paid",
+ "top": [
+ {
+ "amount": 14765137,
+ "username": "xxxxx",
+ "user_id": 41306
+ },
+ ...
+ ]
+}
+</pre>
+<h4 id="GET_.2Fracing.2Fmap.2F.5Bid.5D"><span id="GET_/racing/map/[id]"></span><code>GET /racing/map/[id]</code></h4>
+<p>Fetches the name and blip information about a race.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "finish": {
+ "blip": 26739008,
+ "x": -2169.2763671875,
+ "z": 16.877534866333,
+ "y": 5195.4794921875,
+ "h": 0.68444913625717
+ },
+ "checkpoints": [
+ { ... },
+ ...
+ ],
+ "start": {
+ ...
+ },
+ "name": "TTfred"
+}
+</pre>
+<h4 id="GET_.2Fconfig.2F.5BresourceName.5D"><span id="GET_/config/[resourceName]"></span><code>GET /config/[resourceName]</code></h4>
+<p>Pulls the config.lua of specific server resources which support this. Available resources:
+</p>
+<table class="wt">
+<tbody><tr>
+<th><b>Type/Job</b>
+</th>
+<th><b>Config Path</b>
+</th></tr>
+<tr>
+<td>Bus Job</td>
+<td>omni_busdriver
+</td></tr>
+<tr>
+<td>Business</td>
+<td>omni_businesses
+</td></tr>
+<tr>
+<td>Garbage Collector</td>
+<td>omni_garbage
+</td></tr>
+<tr>
+<td>Heli Job</td>
+<td>omni_helitour
+</td></tr>
+<tr>
+<td>EMS/Paramedic</td>
+<td>omni_paramedic
+</td></tr>
+<tr>
+<td>Conductor</td>
+<td>omni_pax
+</td></tr>
+<tr>
+<td>Postop Ground</td>
+<td>omni_postop_ground
+</td></tr>
+<tr>
+<td>Postop Air</td>
+<td>omni_postop_air
+</td></tr>
+<tr>
+<td>Self Storages</td>
+<td>omni_self_storage
+</td></tr>
+<tr>
+<td>Houses, Stuff in Houses, Stats Names</td>
+<td>vrp
+</td></tr>
+<tr>
+<td>RTS Ground (Vehicles, Locations)</td>
+<td>rts_ground
+</td></tr>
+<tr>
+<td>Tycoons Custom Vehicle Classes</td>
+<td>custom-vehicle-classes
+</td></tr></tbody></table>
+<p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>false</code></li></ul>
+<p><b>Response data:</b>
+The lua file which configures the given resource.
+</p>
+<pre>--[[ omni_businesses CONFIG 1/1 (sh_businesses.lua) ]]--
+BUSINESSES = {
+ {
+ name = "Jonny Tung",
+ id = "biz_tung",
+ cost = 25*10^6,
+ reqlvl = {"@business.business.&gt;61"},
+ visuallvl = "62",
+ position = {name = "Jonny Tung", x = -902.894836, y = -227.015121, z = 39.818169, h = 331.733337}, -- glitchdetector (3)
+ special = {
+ {type = "special", name = "Location", x = -905.682617, y = -232.291809, z = 39.818180, h = 137.194992},
+ {type = "garage", name = "Garage", x = -900.111206, y = -201.733612, z = 38.247940, h = 71.658554}, -- glitchdetector (3)
+ },
+ }
+ ...
+</pre>
+<h4 id="GET_.2Fsnowflake2user.2F.5BdiscordId.5D"><span id="GET_/snowflake2user/[discordId]"></span><code>GET /snowflake2user/[discordId]</code></h4>
+<p>Converts the discord snowflake into a vRP id, for use in other endpoints.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "code": "200",
+ "user_id": 41306,
+ "discord_id": 138725221749358592,
+ "type": "linked"
+}
+</pre>
+<h4 id="GET_.2Fstreak.2F.5BvRPid.5D"><span id="GET_/streak/[vRPid]"></span><code>GET /streak/[vRPid]</code></h4>
+<p>Get users streak.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "data": {
+ "days": 72,
+ "record": 49,
+ "streak": 49
+ },
+ "code": "200",
+ "user_id": 56112
+}
+</pre>
+<h4 id="GET_.2Fgetuserbiz.2F.5BvRPid.5D"><span id="GET_/getuserbiz/[vRPid]"></span><code>GET /getuserbiz/[vRPid]</code></h4>
+<p>Get users owned businesses.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "code": "200",
+ "businesses": {
+ "biz_vespucci_masks": 14 // [id]: level
+ },
+ "user_id": 41306
+}
+</pre>
+<h4 id="GET_.2Fownedvehicles.2F.5BvRPid.5D"><span id="GET_/ownedvehicles/[vRPid]"></span><code>GET /ownedvehicles/[vRPid]</code></h4>
+<p>Get users owned vehicles.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "code": "200",
+ "vehicles": {
+ "trailers2": ["trailer", 2750], // Model: array[class, inventory_size]
+ "vestra": ["aircraft", 30],
+ "bmx": ["bicycle", 10],
+ "neon": ["car", 10],
+ "hakuchou": ["bike", 10],
+ "hauler2": ["cab", 10]
+ },
+ "user_id": 41306
+}
+</pre>
+<h4 id="GET_.2Ftrunks.2F.5BvRPid.5D"><span id="GET_/trunks/[vRPid]"></span><code>GET /trunks/[vRPid]</code></h4>
+<p>Get users vehicle inventories.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "user_id": 256983,
+ "code": "200",
+ "trunks": [
+ {
+ "inventory": {},
+ "type": "aircraft",
+ "vehicle": "a320"
+ },
+ {
+ "inventory": {
+ "upgrade_kit_primo2": {
+ "amount": 1
+ },
+ "fridge_airline_meal": {
+ "amount": 668
+ }
+ },
+ "type": "aircraft",
+ "vehicle": "a330neo"
+ },
+ {
+ "inventory": {},
+ "type": "helicopter",
+ "vehicle": "volatus"
+ }
+ ]
+}
+</pre>
+<h4 id="GET_.2Fdeadliest_catch.json"><span id="GET_/deadliest_catch.json"></span><code>GET /deadliest_catch.json</code></h4>
+<p>Get users placed pots.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li>
+<li><b>Accepts Public Key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>[
+ ...,
+ {
+ "position": {
+ "y": -5161.54150390625,
+ "z": 0.21182405948638,
+ "x": 4909.94287109375
+ },
+ "age": 951507, // Seconds since pot was placed
+ "type": "crab"
+ },
+ ...
+]
+</pre>
+<h4 id="GET_.2Fstats.2F.5BvRPid.5D"><span id="GET_/stats/[vRPid]"></span><code>GET /stats/[vRPid]</code></h4>
+<p>Returns users stats
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ ...
+ {
+ "stat": "quarry_coop",
+ "name": "Contributed Quarry Deliveries",
+ "amount": 446
+ },
+ ...
+}
+</pre>
+<h4 id="GET_.2Fstorages.2F.5BvRPid.5D"><span id="GET_/storages/[vRPid]"></span><code>GET /storages/[vRPid]</code></h4>
+<p>Returns users storages
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "user_id": 256983,
+ "code": "200",
+ "storages": [
+ {
+ "inventory": {
+ "gut_knife_fade|132": {
+ "amount": 1
+ },
+ "liberty_voucher_goods": {
+ "amount": 168
+ }
+ },
+ "name": "bctp"
+ },
+ {
+ "inventory": {},
+ "name": "tsu"
+ }
+ ]
+}
+</pre>
+<h4 id="GET_.2Fracing.2Fraces.2F.5BvRPid.5D"><span id="GET_/racing/races/[vRPid]"></span><code>GET /racing/races/[vRPid]</code></h4>
+<p>Returns users racing stats
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ ...
+ {
+ "track_id": -1837157281,
+ "time": 50636,
+ "vehicle": "Visione",
+ "achieved": 1642359702000.0,
+ "user_id": 56112
+ },
+ ...
+}
+</pre>
+<h4 id="GET_.2Fdata.2F.5BvRPid.5D"><span id="GET_/data/[vRPid]"></span><code>GET /data/[vRPid]</code></h4>
+<p>Get users data, such as inventory, clothing, and more.<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{ // Too much data to display and annotate, try and experiment, and dont be afraid to ask around!
+ "code": "200",
+ "data_type": "data_offline",
+ "user_id": 41306,
+ "data": {
+ "inventory": {
+ "job_card|mechanic|Mechanic": {
+ "amount": 10
+ }
+ }
+ }
+ ...
+}
+</pre>
+<h4 id="GET_.2Fdataadv.2F.5BvRPid.5D"><span id="GET_/dataadv/[vRPid]"></span><code>GET /dataadv/[vRPid]</code></h4>
+<p>Get users data with more detailed item info (weight, name, etc).<br/>
+<b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre> 
+{
+ "amount": 185,
+ "weight": 0.0,
+ "name": "&lt;span style=\"color:lawngreen\"&gt;Sandwich&lt;/span&gt;"
+},
+</pre>
+<h4 id="GET_.2Fchest.2F.5BchestName.5D"><span id="GET_/chest/[chestName]"></span><code>GET /chest/[chestName]</code></h4>
+<p>Allows you to fetch the items inside of chests.<br/>
+<b>Chest naming scheme cheatsheat:</b>
+</p>
+<ul><li>Fetch vehicle storage: <code>u[vRPid]veh_[vehClass]_[model]</code></li>
+<li>Fetch home storage: <code>u[vRPid]home</code></li>
+<li>Fetch backpack storage: <code>u[vRPid]backpack</code></li>
+<li>Fetch faction storage: <code>self_storage:[vRPid]:faq_[factionId]:chest</code></li>
+<li>Other storage: <code>self_storage:[vRPid]:[storageId]:chest</code></li></ul>
+<p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "data": {
+ "refined_flint": {
+ "amount": 288
+ },
+ "scrap_gravel": {
+ "amount": 48
+ },
+ "tcargodust": {
+ "amount": 1650
+ },
+ "refined_sand": {
+ "amount": 504
+ }
+ },
+ "code": "200",
+ "data_type": "chest",
+ "chest": "self_storage:41306:faq_56:chest"
+}
+</pre>
+<h4 id="GET_.2Fwealth.2F.5BvRPid.5D"><span id="GET_/wealth/[vRPid]"></span><code>GET /wealth/[vRPid]</code></h4>
+<p>Returns users wealth
+</p><p><b>Note: User Must be online to obtain wealth Data</b>
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "user_id": 256983,
+ "wallet": 101256983,
+ "bank": 0,
+ "loan": 0,
+ "code": "200"
+}
+</pre>
+<h4 id="GET_.2Fiteminfo.2F.5Bitemid.5D"><span id="GET_/iteminfo/[itemid]"></span><code>GET /iteminfo/[itemid]</code></h4>
+<p>Returns item info
+</p>
+<ul><li>Item IDs returned by the API in requests such as DataAdv can be used as-is</li></ul>
+<p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "item_id": "itemid", // Same as input, always returned
+ "name": "Item Name",
+ "weight": 0.0,
+ "description": "Description", // As seen in the in-game M-menu (HTML included)
+ "exists": true // Does the requested item id resolve to an actual item?
+}
+</pre>
+<hr/>
+<h3 id="Faction_endpoints">Faction endpoints</h3>
+<p>This data also fits under the "Global endpoint" category, however, there are many faction-related endpoints, so it's simpler to combine them into one small section.<br/>
+Do note, all endpoints except <code>GET /getuserfaq/[vRPid]</code> are related to the faction the key creator or public key is in and may require a certain rank in the faction.
+</p>
+<h4 id="GET_.2Fgetuserfaq.2F.5BvRPid.5D"><span id="GET_/getuserfaq/[vRPid]"></span><code>GET /getuserfaq/[vRPid]</code></h4>
+<p>Returns the faction the user is in, if in any.<br/>
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "is_in_faction": true,
+ "faction_id": 56,
+ "code": "200",
+ "user_id": xxxxx
+}
+</pre>
+<h4 id="GET_.2Ffaction.2Fsize.json"><span id="GET_/faction/size.json"></span><code>GET /faction/size.json</code></h4>
+<p>Returns the amount of members in faction.<br/>
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li>
+<li><b>Accepts Public Key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>[787] // 0: Member count
+</pre>
+<h4 id="GET_.2Ffaction.2Fmembers.json"><span id="GET_/faction/members.json"></span><code>GET /faction/members.json</code></h4>
+<p>Returns the info of the members in a faction.<br/>
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li>
+<li><b>Accepts Public Key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre> { // Most of this data is self explanatory
+ "earned": 2199936,
+ "management": 0,
+ "user_id": 1,
+ "admin": 0,
+ "recruiter": 1,
+ "username": [ // Username as UTF-16 character codes
+ 67,
+ 111,
+ 108,
+ 108,
+ 105,
+ 110,
+ 115
+ ],
+ "joined": 1608662095000.0 // Timestamp of when the user joined
+ }
+]
+</pre>
+<h4 id="GET_.2Ffaction.2Fperks.json"><span id="GET_/faction/perks.json"></span><code>GET /faction/perks.json</code></h4>
+<p>Returns a list of a faction's perks<br/>
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li>
+<li><b>Accepts Public Key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>[
+ 55, // 0: Perk amount
+ [ // 1: Perk list
+ {
+ "item": "speedtrap", // internal name of the perk
+ "data": "{\"highscore\":318,\"tickets\":40063,\"earnings\":15831329}", // any additional data for the perk
+ "z": 28.75217247009277, // Z coordinate of the perk
+ "h": 138.98995971679688, // Heading of the perk (the direction the player was looking when it was bought, relevant for example for LSC - the vehicle will be pointing in that direction)
+ "x": 414.6909790039063, // X coordinate of the perk
+ "y": -563.3775634765625 // Y coordinate of the perk
+ },
+ {
+ "item": "garage",
+ "data": "[]",
+ "z": 29.29303169250488,
+ "h": 235.5667724609375,
+ "x": 338.087646484375,
+ "y": -624.13671875
+ },
+ {
+ "item": "fuel",
+ "data": "[]",
+ "z": 28.70517539978027,
+ "h": 145.23609924316406,
+ "x": 377.9873046875,
+ "y": -599.5159301757812
+ },
+ {
+ "item": "jobcenter",
+ "data": "[]",
+ "z": 28.79148483276367,
+ "h": 66.23631286621094,
+ "x": 340.0511169433594,
+ "y": -585.923828125
+ },
+ {
+ "item": "self_storage",
+ "data": "{\"size\":50000,\"permissions\":[]}",
+ "z": 24.75123977661132,
+ "h": 178.24429321289062,
+ "x": 520.58984375,
+ "y": -626.519287109375
+ },
+ {
+ "item": "market",
+ "data": "{\"market\":\"Equipment\"}",
+ "z": 30.14393806457519,
+ "h": 69.60488891601562,
+ "x": 239.1556854248047,
+ "y": -817.9368896484375
+ },
+ {
+ "item": "market",
+ "data": "{\"market\":\"Fishing / Diving\"}",
+ "z": 30.1818561553955,
+ "h": 70.5660400390625,
+ "x": 240.4462890625,
+ "y": -814.4369506835938
+ },
+ ...
+ ]
+ ]
+</pre>
+<h4 id="GET_.2Ffaction.2Fbalance.json"><span id="GET_/faction/balance.json"></span><code>GET /faction/balance.json</code></h4>
+<p>Returns the factions balance and tax<br/>
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li>
+<li><b>Accepts Public Key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>[107965.0] // 0: Faction balance
+[0.01] // 1: Faction tax
+</pre>
+<h4 id="GET_.2Ffaction.2Finfo.json"><span id="GET_/faction/info.json"></span><code>GET /faction/info.json</code></h4>
+<p>Returns some basic faction info<br/>
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li>
+<li><b>Accepts Public Key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "tag": "MedTech", // Tag - shown as part of users chat title
+ "faction_id": 518,
+ "name": "Medical Technologies", // Full faction name
+ "x": 176.86175537109375, // X coordinate of the faction
+ "y": -813.14013671875, // Y coordinate of the faction
+ "z": 31.19041442871093, // Z coordinate of the faction
+ "president": 337613, // vRP ID of the faction president
+ "members": 390, // amount of faction members
+ "capacity": 50 // maximum amount of members the faction can have
+}
+</pre>
+<hr/>
+<h3 id="Company_endpoints">Company endpoints</h3>
+<h4 id="GET_.2Fcompanies.2Frts.2Fground.json"><span id="GET_/companies/rts/ground.json"></span><code>GET /companies/rts/ground.json</code></h4>
+<p>Returns ground vehicles avaiblile to deliver<br/>
+Returns empty if not opened the menu
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li>
+<li><b>Accepts Public key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "vehicles": [
+ "brutus ",
+ "infernus",
+ "fugitive",
+ "romero",
+ "formula",
+ "zr350ta",
+ "iwagen",
+ "blazer3"
+ ]
+}
+</pre>
+<h4 id="GET_.2Fcompanies.2Fpigs.2Fparty.json"><span id="GET_/companies/pigs/party.json"></span><code>GET /companies/pigs/party.json</code></h4>
+<p>Returns information of ongoing pigs heist<br/>
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>true</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "master": { // Heist Leader
+ "source": 662, // Server player id
+ "ready": true,
+ "cut": 2 // Number of successful heists
+ },
+ "take": 0, // Total stolen money of current heist
+ "slaves": [
+ {
+ "source": 661, // Server player id
+ "ready": true,
+ "cut": 1 // Number of successful heist locations
+ }
+ ],
+ "kills": 0, // Number of A.I. enemies killed
+ "limit": 1024 // Total players allowed in a heist - hardcoded 1024
+}
+</pre>
+<hr/>
+<h3 id=".5BLITE.5D_endpoints"><span id="[LITE]_endpoints"></span>[LITE] endpoints</h3>
+<p>These endpoints are specific to the [LITE] Transportation server and are not shared with the main Transport Tycoon servers.
+</p>
+<h4 id="GET_sessionmanager.2Fplayers.json"><span id="GET_sessionmanager/players.json"></span><code>GET sessionmanager/players.json</code></h4>
+<p>Returns a list of players, similar to the main servers' <code>widget/players.json</code>.
+</p><p><b>Response:</b>
+</p>
+<ul><li><b>Code:</b> <code>200 OK</code></li>
+<li><b>Requires private key</b>: <code>false</code></li></ul>
+<p><b>Response data:</b>
+</p>
+<pre>{
+ "server": {
+ "number": "",
+ "dxp": [false],
+ "motd": "",
+ "beta": "",
+ "name": "[LITE] Transportation",
+ "region": "",
+ "uptime": "50h 12m",
+ "limit": 32
+ },
+ "players": [
+ [
+ "Username1",
+ "91", // Source ID? (FiveM-assigned player ID)
+ "91",
+ false,
+ false,
+ "Trucker", // Job
+ false
+ ],
+ ...
+ ]
+}
+</pre>
+<!-- 
+NewPP limit report
+Cached time: 20250906191627
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.922 seconds
+Real time usage: 0.235 seconds
+Preprocessor visited node count: 659/1000000
+Preprocessor generated node count: 2264/1000000
+Post‐expand include size: 628/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 25/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 12209/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00% 51.085 1 Template:Otherlang
+100.00% 51.085 1 -total
+-->
+<!-- Saved in parser cache with key mediawiki-f7_:pcache:idhash:1073-0!canonical and timestamp 20250906191627 and revision id 22967
+ -->

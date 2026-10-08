@@ -1,0 +1,165 @@
+---
+title: API
+categories:
+  - NL
+---
+<div> </div>
+<h2 id="Transport_Tycoon_API">Transport Tycoon API</h2>
+<p>Root API URI is het adres van de server
+</p><p>API is beschikbaar per server instantie
+</p>
+<h3 id="API_Keys">API Keys</h3>
+<p>TL;DR:
+Maak een nieuwe key met <b>/api key new</b>
+</p><p>Voeg charges toe met <b>/api key refill</b> (voegt 1000 charges voor $1M)
+</p><p><br/>
+De API vereist een API-sleutel om toegang te krijgen tot de meeste functies.
+</p><p>Elke sleutel heeft een beperkt aantal API Calls (ook wel charges genoemd), die elke keer dat een API Call wordt gedaan met de key wordt verbruikt.
+</p><p>Extra cahrges kunnen in de game worden gekocht met de <b>/api key refill</b> command voor de kost van $1000 (in-game geld) per charge.
+</p><p>Elke gebruiker kan een API Key genereren, deze key is de privésleutel van de gebruiker.
+</p><p>Om een key te genereren, gebruikt u de<b>/api key new</b> command in-game.
+</p><p>Als u al een key heeft gegenereerd, wordt de oude verwijderd en komt er een nieuwe in de plaats.
+</p><p>Wanneer u voor de eerste keer een key genereert, worden er enkele gratis charges voor in rekening gebracht, zodat u de API gratis kunt testen.
+</p><p>De API key kan worden gekopieerd met de <b>/api key copy</b> command. (Dit zal uw key op het scherm laten zien!)
+</p>
+<h3 id="Voor_developers">Voor developers</h3>
+<p>De API key moet worden geplaatst als een `X-Tycoon-Key` header.
+</p>
+<h3 id="Key_Gerelateerde_Endpoints">Key Gerelateerde Endpoints</h3>
+<p>/charges.json
+Geeft het resterende charges terug (geen charges verbruikt om te controleren)
+</p>
+<h3 id="Legenda">Legenda</h3>
+<pre>type name (gegevenstype en een eigenschapnaam)
+</pre>
+<pre>type? name (het gegevenstype kan variëren op basis van de gegevenscontext)
+</pre>
+<pre>type! name (gegevens bestaan mogelijk niet op basis van gegevenscontext)
+</pre>
+<p><b>Note:</b> Array-gegevenstypen bevatten geen benoemde eigenschappen, de namen die hier worden gebruikt, zijn ter verduidelijking
+</p>
+<h3 id="Krijg_wereldinformatie_voor_online_spelers">Krijg wereldinformatie voor online spelers</h3>
+<p>Retourneert een lijst met alle online spelers met positiegegevens.
+</p><p>Hun huidige vervoerswijze en enkele andere details zijn ook opgenomen.
+</p><p>Dit eindpunt wordt gebruikt om de live map van de server te produceren.
+</p>
+<pre>GET /status/map/positions.json
+object
+- int time
+- array[array player] data
+-- string name
+-- int source
+-- int user_id
+-- vec3 position
+-- object owned_vehicles
+--- object[string vehicle_type]!
+---- string vehicle_spawn
+-- object vehicle
+--- int vehicle_class
+--- string vehicle_type
+--- int! model
+--- string! vehicle_label
+--- string! vehicle_name
+--- bool? has_trailer
+--- string! trailer
+--- string! vehicle_spawn
+-- object job
+--- string group
+--- string name
+</pre>
+<h3 id="Krijg_servergegevens_en_online_spelers">Krijg servergegevens en online spelers</h3>
+<p>Retourneert de servernaam en details, evenals gegevens voor elke online speler.
+</p><p>Dit eindpunt wordt gebruikt om de serverlijst te produceren: <a href="http://connect.tycoon.community/" rel="noopener" target="_blank">http://connect.tycoon.community/</a>
+</p>
+<pre>GET /status/widget/players.json
+object
+- object server
+-- string name
+-- string motd
+-- string number
+-- string region
+-- string beta
+-- string uptime
+-- int limit
+- array[array player] players
+-- string name
+-- int source
+-- int user_id
+-- string? avatar
+-- bool staff
+-- string job_name
+-- bool whitelist
+</pre>
+<h3 id="Get_Online_Players">Get Online Players</h3>
+<p>Returns a list of online players
+</p>
+<pre>GET /status/players.json
+array players
+- string name
+- int? source
+- int user_id
+</pre>
+<h3 id="Airline_Routes">Airline Routes</h3>
+<p>Retourneert de actieve Airline Pilot-routes op de server
+</p>
+<pre>GET /status/airline.json
+object
+- object[string player] player
+-- string plane
+-- object destination
+--- float x
+--- float y
+--- float z
+--- float h
+--- string airport
+--- string name
+-- bool atTerminal
+</pre>
+<h3 id="Krijg_resourceconfiguraties">Krijg resourceconfiguraties</h3>
+<p>Dit kan worden gebruikt om gemakkelijk vectorgegevens voor routes enz. In bepaalde banen te krijgen
+Niet alle bronnen hebben zichtbare configuraties
+</p>
+<pre>GET /status/config/[resource]
+returns a raw .lua file dump
+</pre>
+<h3 id="Top10_Statistieken">Top10 Statistieken</h3>
+<p>Retourneert een lijst met de top 10 voor de stat in aflopende volgorde.<br/>
+Notitie: Gebruikersnamen zijn nogal onbetrouwbaar, dus de kans is groot dat ze een verkeerde indeling hebben of ongeldige tekens bevatten.
+</p><p>Enkele geldige statistieken:<br/>
+firefighter_streak_record<br/>
+omni_void_leaderboard<br/>
+ems_streak_record<br/>
+houses_crafted<br/>
+toll_paid<br/>
+drops_collected
+</p>
+<pre>GET /status/top10/[stat]
+object
+-array top
+-- int user_id
+-- string user_name
+-- int stat_count
+</pre>
+<!-- 
+NewPP limit report
+Cached time: 20240926113303
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.344 seconds
+Real time usage: 0.140 seconds
+Preprocessor visited node count: 130/1000000
+Preprocessor generated node count: 1298/1000000
+Post‐expand include size: 631/2097152 bytes
+Template argument size: 6/2097152 bytes
+Highest expansion depth: 4/40
+Expensive parser function count: 25/100
+Unstrip recursion depth: 0/20
+Unstrip post‐expand size: 0/5000000 bytes
+-->
+<!--
+Transclusion expansion time report (%,ms,calls,template)
+100.00% 44.534 1 Template:Otherlang
+100.00% 44.534 1 -total
+-->
+<!-- Saved in parser cache with key mediawiki-f7_:pcache:idhash:1611-0!canonical and timestamp 20240926113302 and revision id 9165
+ -->

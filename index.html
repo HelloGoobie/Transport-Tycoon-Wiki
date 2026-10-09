@@ -1632,6 +1632,8 @@
             it("🏠 Home", route(L, "home"), cur.type === "home") +
             it("🔤 All pages A–Z", route(L, "all"), cur.type === "all", pk.pages.length) +
             it("🎲 Random page", "#random", false);
+          var hw = findKey(L, "Halloween"); // only shows if the page exists in this language
+          if (hw) h += it("🎃 Halloween Event", route(L, "p", hw), CUR.key === hw);
           var cats = catsOf(L),
             names = Object.keys(cats)
               .filter(function (c) {

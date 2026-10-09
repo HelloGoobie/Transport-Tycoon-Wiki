@@ -83,6 +83,10 @@ Wiki links use `data-p="Page title"` rather than `href`. The title is the page's
 
 To make a page reachable under another name, add a redirect to [`content/aliases.json`](content/aliases.json), for example `"Car Dealer": "Vehicle Shop"`.
 
+## Job icons
+
+The Jobs tiles on the home page use one icon per job: `img/jobs/<job-title>.png`, where the file name is the job's title in lower case with spaces and symbols turned into `-` (`Airline Pilot` becomes `airline-pilot.png`, `EMS / Paramedic` becomes `ems-paramedic.png`). Use a square PNG with a transparent background, about 128x128. A job with no icon falls back to `img/jobs/default.png`. To keep a job off the home page list, add its title to `JOBHIDE` in `index.html`.
+
 ## Renaming or deleting a page
 
 Change `title:` in the header (and rename the file to match, if you like). Remember to update links to it (`data-p="..."`) in other pages. To delete a page, delete its file.

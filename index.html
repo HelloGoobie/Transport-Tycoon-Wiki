@@ -866,6 +866,39 @@
         display: block;
         margin-bottom: 2px;
       }
+      .jobs {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+        gap: 10px;
+      }
+      .jt {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 6px;
+        padding: 10px 6px 9px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
+        text-align: center;
+        transition: 0.12s;
+      }
+      .jt:hover {
+        border-color: var(--acc);
+        transform: translateY(-1px);
+      }
+      .jt img {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        flex: none;
+      }
+      .jt span {
+        font-size: 0.82em;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+      }
       .pills {
         display: flex;
         flex-wrap: wrap;
@@ -1608,6 +1641,15 @@
           $("win").classList.remove("nav");
         };
         var HIDE = { WIP: 1, Browse: 1 };
+        // Home page job tiles: icon = img/jobs/<job-title-as-slug>.png (default.png when a job has none).
+        var JOBIMG = "img/jobs/",
+          JOBHIDE = { "Beach Cleaner": 1 }; // jobs left off the home page list
+        function jobSlug(t) {
+          return t
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+        }
         function catsOf(L) {
           var pk = PACK.EN,
             c = {};
@@ -1805,15 +1847,26 @@
                 .join("") +
               "</div>";
           }
-          var jobs = cats["Jobs"] || cats["Job"] || [];
+          var jobs = (cats["Jobs"] || cats["Job"] || []).filter(function (p) {
+            return !JOBHIDE[p.t];
+          });
           if (jobs.length) {
             h +=
-              '<div class="sec">Jobs <button data-cat="Jobs">See all</button></div><div class="pills">' +
+              '<div class="sec">Jobs <button data-cat="Jobs">See all</button></div><div class="jobs">' +
               jobs
-                .slice(0, 40)
+                .slice(0, 60)
                 .map(function (p) {
                   return (
-                    '<button class="pill" data-go="' + esc(p.k) + '">' + esc(p.t) + "</button>"
+                    '<button class="jt" data-go="' +
+                    esc(p.k) +
+                    '"><img src="' +
+                    JOBIMG +
+                    jobSlug(p.t) +
+                    '.png" alt="" width="56" height="56" onerror="this.onerror=null;this.src=\'' +
+                    JOBIMG +
+                    'default.png\'"><span>' +
+                    esc(p.t) +
+                    "</span></button>"
                   );
                 })
                 .join("") +

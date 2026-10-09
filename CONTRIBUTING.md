@@ -16,13 +16,12 @@ That's it. When a maintainer merges the PR, the site rebuilds itself automatical
 
 ```
 content/
-  languages.json        the list of languages
+  languages.json        the languages the wiki can be translated into (see "Languages" below)
   aliases.json          redirects (old name -> real page name)
-  EN/                   English pages
+  EN/                   all wiki pages (English only)
     Jobs/Airline Pilot.html
     Items/...
     Other/Credits.html
-  DE/ PL/ FR/ ...       translations, one folder per language code
 data/                   GENERATED. Do not edit by hand.
 tools/build.py          builds data/ from content/
 index.html              the wiki app
@@ -46,7 +45,7 @@ categories:
 
 - The **header** (between the `---` lines) has the page `title` and a list of `categories`.
 - Everything below it is the page body, written in simple **HTML**.
-- Other languages use the same format. The file lives in that language's folder (for example `content/DE/...`) and the `title` is the page name **without** the language prefix.
+- Pages are written in **English only**. Other languages are produced automatically (see "Languages" below), so please don't add translated copies.
 
 ### HTML you can use
 
@@ -62,7 +61,7 @@ categories:
 | Link to a section on the same page | `<a data-a="Section_Name">text</a>` |
 | External link | `<a href="https://example.com" target="_blank" rel="noopener">text</a>` |
 
-Wiki links use `data-p="Page title"` rather than `href`. The title is the page's `title:` header. In a translation, link to the translated page the same way.
+Wiki links use `data-p="Page title"` rather than `href`. The title is the page's `title:` header.
 
 ### Not allowed
 
@@ -80,7 +79,7 @@ Wiki links use `data-p="Page title"` rather than `href`. The title is the page's
    ---
    <p>Page text...</p>
    ```
-3. Titles must be unique within a language. Don't use `/ \ : * ? " < > |` in the **file name** (the title itself can contain them).
+3. Titles must be unique. Don't use `/ \ : * ? " < > |` in the **file name** (the title itself can contain them).
 
 To make a page reachable under another name, add a redirect to [`content/aliases.json`](content/aliases.json), for example `"Car Dealer": "Vehicle Shop"`.
 
@@ -88,10 +87,21 @@ To make a page reachable under another name, add a redirect to [`content/aliases
 
 Change `title:` in the header (and rename the file to match, if you like). Remember to update links to it (`data-p="..."`) in other pages. To delete a page, delete its file.
 
-## Adding a language
+## Languages
 
-1. Add the language to [`content/languages.json`](content/languages.json) (`code`, English `name`, `native` name).
-2. Create `content/<CODE>/` and add pages.
+The wiki only stores English. Visitors pick a language from the dropdown (or open a link such as `#/DE/p/Credits`) and the page text is translated automatically in their browser by a free web translator, then remembered in that browser so it is only translated once. A banner on translated pages says so and has a **Show original** button.
+
+To offer another language, add it to [`content/languages.json`](content/languages.json):
+
+```json
+{ "code": "SV", "name": "Swedish", "native": "Svenska", "tl": "sv" }
+```
+
+- `code`: the short code used in links (`#/SV/...`).
+- `tl`: the language code the translator understands.
+- `"rtl": true`: add this for right-to-left languages such as Arabic or Hebrew.
+
+Tips for writing translation-friendly pages: use full sentences, and wrap text that must never be translated (commands, key binds, exact in-game names) in `<code>...</code>`. Text inside `<code>`, `<pre>` and `<kbd>`, or inside an element with `translate="no"`, is left alone.
 
 ## Working locally (optional)
 

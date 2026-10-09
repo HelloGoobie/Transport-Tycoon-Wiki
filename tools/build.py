@@ -5,9 +5,10 @@
     python3 tools/build.py --check    # validate only, and fail if data/ is out of date
 
 Source layout (see CONTRIBUTING.md):
-    content/languages.json            language list (code / English name / native name)
+    content/languages.json            languages the wiki can be translated INTO (code / names / translator code / rtl)
     content/aliases.json              redirects: "Old title" -> "Real title"
-    content/<LANG>/<Topic>/<Page>.html  one file per wiki page
+    content/EN/<Topic>/<Page>.html    one file per wiki page. Pages are written in English only;
+                                      other languages are translated automatically in the browser.
 
 Only the standard library is used.
 """
@@ -136,19 +137,25 @@ def snippet(body):
 
 # --------------------------------------------------------------------------- loading
 def load_content():
-    """Return (languages, aliases, pages) where pages is {lang: [page dicts]}. Raises on bad input."""
+    """Return (languages, aliases, pages) where pages is {"EN": [page dicts]}. Raises on bad input."""
     errors = []
     langs = json.load(open(os.path.join(CONTENT, "languages.json"), encoding="utf8"))
     aliases = json.load(open(os.path.join(CONTENT, "aliases.json"), encoding="utf8"))
     codes = {l["code"] for l in langs}
-    pages = {c: [] for c in codes}
+    for l in langs:
+        for need in ("code", "name", "native", "tl"):
+            if not l.get(need):
+                errors.append(f"content/languages.json: language {l.get('code', '?')} is missing '{need}'")
+    if len(codes) != len(langs):
+        errors.append("content/languages.json: duplicate language code")
+    pages = {"EN": []}
     seen = {}
     for lang in sorted(os.listdir(CONTENT)):
         d = os.path.join(CONTENT, lang)
         if not os.path.isdir(d):
             continue
-        if lang not in codes:
-            errors.append(f"content/{lang}/: not listed in content/languages.json")
+        if lang != "EN":
+            errors.append(f"content/{lang}/: only English pages live in content/EN/. Other languages are translated automatically.")
             continue
         for dp, _, fs in os.walk(d):
             for fn in sorted(fs):
@@ -166,7 +173,7 @@ def load_content():
                     errors.append(f"{rel}: {e}")
                 if len(re.sub(r"<[^>]+>", "", body).strip()) < 1:
                     errors.append(f"{rel}: page has no text")
-                key = title if lang == "EN" else f"{lang}:{title}"
+                key = title
                 if key.lower() in seen:
                     errors.append(f"{rel}: duplicate of {seen[key.lower()]} (same title)")
                     continue
@@ -185,18 +192,11 @@ def build_outputs(langs, aliases, pages):
             continue
         ps = sorted(ps, key=lambda p: (p["t"].lower(), p["k"]))
         out[f"{code}.json"] = dump({"lang": code, "pages": [{k: p[k] for k in ("k", "t", "c", "h", "s")} for p in ps]})
-    groups = collections.defaultdict(dict)
-    for code, ps in pages.items():
-        for p in ps:
-            groups[p["t"].lower()][code] = p["k"]
-    tr = {b: dict(sorted(g.items(), key=lambda kv: (kv[0] != "EN", kv[0]))) for b, g in sorted(groups.items()) if len(g) > 1}
     catc = collections.Counter(c for p in pages.get("EN", []) for c in p["c"])
-    present = [l for l in langs if pages.get(l["code"])]
-    present.sort(key=lambda l: (l["code"] != "EN", -len(pages[l["code"]]), l["code"]))
+    ordered = sorted(langs, key=lambda l: (l["code"] != "EN", l["name"].lower()))
     meta = {
-        "langs": [{"code": l["code"], "name": l["name"], "native": l["native"], "count": len(pages[l["code"]])} for l in present],
+        "langs": [dict({"code": l["code"], "name": l["name"], "native": l["native"], "tl": l["tl"]}, **({"rtl": True} if l.get("rtl") else {})) for l in ordered],
         "aliases": aliases,
-        "tr": tr,
         "cats": sorted(catc.items(), key=lambda kv: (-kv[1], kv[0])),
     }
     out["meta.json"] = dump(meta)
@@ -242,7 +242,7 @@ def main():
     if a.check:
         stale = [fn for fn, txt in out.items() if not os.path.exists(os.path.join(DATA, fn)) or open(os.path.join(DATA, fn), encoding="utf8").read() != txt]
         extra = [f for f in os.listdir(DATA) if f.endswith(".json") and f not in out] if os.path.isdir(DATA) else []
-        print(f"{total} pages OK in {len(out) - 1} languages.")
+        print(f"{total} pages OK (English), translatable into {len(langs) - 1} languages.")
         if stale or extra:
             print("data/ is out of date: " + ", ".join(stale + extra) + "\nRun: python3 tools/build.py", file=sys.stderr)
             return 2
@@ -254,7 +254,7 @@ def main():
     for f in os.listdir(DATA):
         if f.endswith(".json") and f not in out:
             os.remove(os.path.join(DATA, f))
-    print(f"Built {total} pages in {len(out) - 1} languages -> data/")
+    print(f"Built {total} pages (English), translatable into {len(langs) - 1} languages -> data/")
     return 0
 
 

@@ -1,992 +1,282 @@
 ---
 title: Binds
 ---
-<div> </div>
-<h1 id="Binding.2C_what.27s_that.3F"><span id="Binding,_what's_that?"></span>Binding, what's that?</h1>
-<p><b>Binding</b> is a process of connecting a KEY (keyboard / mouse / pad) with various functions (<a data-p="Commands">Commands</a>). Mostly used to ease, improve and speed up various processes on the Transport Tycoon servers. It can be used to bind standard chat commands such as /help, but it can also be used in more advanced ways like to bind items and vRP functions.
+<h1 id="binding_whats_that">Binding, what's that?</h1>
+<p><b>Binding</b> is a process of connecting a KEY (keyboard / mouse / pad) with various functions (<a data-p="Commands">Commands</a>). Mostly used to ease, improve and speed up various processes on the Transport Tycoon servers. It can be used to bind standard chat commands such as /help, but it can also be used in more advanced ways like to bind items and vRP functions.</p>
+<h1 id="how_to_bind"><strong>How to bind?</strong></h1>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>Certain Transport Tycoon related binds are also available in your GTA settings: <b>P (or ESC key) → Settings → Key Bindings → FiveM</b>.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>reminder</p></td>
+</tr>
+</tbody>
+</table>
+<p>Press <strong>F8</strong> - the ingame console should open - then fill in the bind template given below depending on your need and paste it in the console.<br />
+<br />
+To bind <em>something</em> to a <strong>KEY</strong></p>
+<ul>
+<li><b>bind KEY_TYPE KEY "FUNCTION OPTION MODIFIER"</b></li>
+</ul>
+<p>To unbind a <strong>KEY</strong></p>
+<ul>
+<li><b>unbind KEY_TYPE KEY</b></li>
+</ul>
+<p>List of all binded <strong>KEYs</strong> (works only on a <strong>canary</strong> build of FiveM)</p>
+<ul>
+<li><b>bind</b></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>List of binds can also be accessed in <b>%appdata%/CitizenFX</b> in the file named <b>fivem.cfg</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
+<p><br />
 </p>
-<h1 id="How_to_bind.3F"><span id="How_to_bind?"></span><b>How to bind?</b></h1>
-<div>Certain Transport Tycoon related binds are also available in your GTA settings: <b>P (or ESC key) → Settings → Key Bindings → FiveM</b>. </div>
-<p>Press <b>F8</b> - the ingame console should open - then fill in the bind template given below depending on your need and paste it in the console.
-<br/>
-<br/>To bind <i>something</i> to a <b>KEY</b>
-</p>
-<ul><li><b><big>bind KEY_TYPE KEY "FUNCTION OPTION MODIFIER"</big></b></li></ul>
-<p>To unbind a <b>KEY</b>
-</p>
-<ul><li><b><big>unbind KEY_TYPE KEY</big></b></li></ul>
-<p>List of all binded <b>KEYs</b> (works only on a <b>canary</b> build of FiveM)
-</p>
-<ul><li><b><big>bind</big></b></li></ul>
-<div>List of binds can also be accessed in <b>%appdata%/CitizenFX</b> in the file named <b>fivem.cfg</b></div>
-<div><big><i><b>Disclaimer: To bind multiple functions on one KEY do it all at once using <b>;</b> between binds, ALSO remember to unbind your bind before binding other commands to the same KEY otherwise you might get flagged for flooding and get kicked / suspended!!! Also try not to hold/spam the bounded KEY as you also might get kicked for that.</b></i></big></div>
-<div><b>Example: bind keyboard k "rm_backpack;item gut_knife gut -1"</b></div>
-<h2 id="KEY_TYPE_.26_KEY"><span id="KEY_TYPE_&amp;_KEY"></span>KEY_TYPE &amp; KEY</h2>
-<p>KEY_TYPE is a parameter describing input devices, such as a keyboard (KEYBOARD), mouse buttons (MOUSE_BUTTON), or mouse wheel (MOUSE_WHEEL).
-<br/>KEY is an parameter for a key. Numbers (1,2,3...) and letters (a,b,c...) can be used by just pressing your wanted KEY, but for majority of keys their full name needs to be entered, for example: <b>,</b> = COMMA; <b>=</b> = EQUALS; <b>/</b> = SLASH; left click = MOUSE_LEFT.
-<b><br/>Refer to <a href="https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/" rel="noopener" target="_blank">FiveM Docs</a> for full list of KEY_TYPEs &amp; KEYs</b>
-</p>
-<div><b>Do not open FiveM Docs page in-game!</b></div>
-<h2 id="FUNCTION">FUNCTION</h2>
-<p>Enter your wanted function here, keep in mind that function is a command so any ingame command can be used here, for more info refer to Bind Data Table/Functions or <a data-p="Commands">Commands Page</a>. <br/><b>Remember to use " " when using more than one word in a bind!</b>
-</p>
-<h2 id="OPTION">OPTION</h2>
-<p>Option is used with /item command such as "item gut_knife gut" or "item prefix_pack_3 use" as a parameter deciding what an item will do. <br/> Refer to Bind Data Table for a list of all options and their description or to check which item has which options.
-</p>
-<h2 id="MODIFIER">MODIFIER</h2>
-<p>Mostly used with /item command, simulates the press of a button. -1 is Left Arrow; 0 or none is Enter; 1 is Right Arrow.
-</p>
-<h1 id="Bind_Data_Table">Bind Data Table</h1>
-<div><div id="tabber-86cdbe608bf38e31b421cb0eaa0aa59c">
-<div>
-<p> <b><big>Disclaimer: Any chat <a data-p="Commands">command</a> can be used as function and vice versa</big></b>
-</p><table class="wt">
-<tbody><tr>
-<th><b>Function</b>
-</th>
-<th><b>Info</b>
-</th></tr>
-<tr>
-<td><b>"item ITEM_ID OPTION MODIFIER"</b>
-</td>
-<td><b>Use OPTION of ITEM_ID's with possible MODIFIER</b> <br/>For example: "item exp_token|piloting|piloting convert -1"
-</td></tr>
-<tr>
-<td>rm_toggleLock
-</td>
-<td>Toggle Vehicle Lock
-</td></tr>
-<tr>
-<td>rm_apark
-</td>
-<td>Auto-Park
-</td></tr>
-<tr>
-<td>rm_spawnJetski
-</td>
-<td>Spawn Jetski
-</td></tr>
-<tr>
-<td>rm_spawnBicycle
-</td>
-<td>Spawn Bicycle
-</td></tr>
-<tr>
-<td>rm_toggleengine
-</td>
-<td>Toggle ON/OFF Engine
-</td></tr>
-<tr>
-<td>rm_trunk
-</td>
-<td>Open Vehicle Trunk
-</td></tr>
-<tr>
-<td>rm_vehicle
-</td>
-<td>Open Vehicle Menu
-</td></tr>
-<tr>
-<td>rm_vehiclecards
-</td>
-<td>Open Vehicle Cards Menu
-</td></tr>
-<tr>
-<td>rm_backpack
-</td>
-<td>Open Backpack
-</td></tr>
-<tr>
-<td>rm_inventory
-</td>
-<td>Open Inventory
-</td></tr>
-<tr>
-<td>rm_point
-</td>
-<td>Point
-</td></tr>
-<tr>
-<td>driver_menu
-</td>
-<td>Open Driver Menu
-</td></tr>
-<tr>
-<td>timer_start
-</td>
-<td>Timer: Start
-</td></tr>
-<tr>
-<td>timer_resume
-</td>
-<td>Timer: Resume
-</td></tr>
-<tr>
-<td>timer_stop
-</td>
-<td>Timer: Stop
-</td></tr>
-<tr>
-<td>timer_pause
-</td>
-<td>Timer: Pause
-</td></tr>
-<tr>
-<td>dev_pos
-</td>
-<td>Open Position Menu (requires being in a Company)
-</td></tr>
-<tr>
-<td>seat -1
-</td>
-<td>Shuffle to Driver Seat
-</td></tr>
-<tr>
-<td>vrp-openAtm
-</td>
-<td>Open Portable Atm
-</td></tr>
-<tr>
-<td>vrp-take_pills
-</td>
-<td>Take Pills [OUTDATED]
-</td></tr>
-<tr>
-<td>vrp-apply_bandages
-</td>
-<td>Apply Bandage
-</td></tr>
-<tr>
-<td>vrp-reopen
-</td>
-<td>Re-Open Transformer Menu
-</td></tr>
-<tr>
-<td>watermark
-</td>
-<td>Turn off Beta watermark
-</td></tr></tbody></table>
-</div>
-<div>
-<p> <big><b>Disclaimer: To get an item's ID not located on this list use <a data-p="API">API</a> /data/ or /dataadv/</b></big>
-</p><div><div id="tabber-e5de406e80b570486d731482200c0d99">
-<div>
-<table class="wt">
-<tbody><tr>
-<th><b>Item Name</b>
-</th>
-<th><b>ITEM_ID</b>
-</th>
-<th><b>Options</b>
-</th></tr>
-<tr>
-<td>Repair Kit
-</td>
-<td>repairkit
-</td>
-<td>use | give | trash
-</td></tr>
-<tr>
-<td>Prospecting: Firearm
-</td>
-<td>prosp_junk_9
-</td>
-<td>clean | trash
-</td></tr>
-<tr>
-<td>Gut Knife
-</td>
-<td>gut_knife
-</td>
-<td>gut | give | trash
-</td></tr>
-<tr>
-<td>Digi-Scanner
-</td>
-<td>digiscanner
-</td>
-<td>equip | give | trash
-</td></tr>
-<tr>
-<td>☆ StatTrak™ Gut Knife
-</td>
-<td>gut_knife_st
-</td>
-<td>gut | give | trash
-</td></tr>
-<tr>
-<td>☆ StatTrak™ Gut Knife | Autotronic
-</td>
-<td>gut_knife_fade
-</td>
-<td>gut | give | trash
-</td></tr>
-<tr>
-<td>☆ StatTrak™ Gut Knife | Tiger Tooth
-</td>
-<td>gut_knife_tiger
-</td>
-<td>gut | give | trash
-</td></tr>
-<tr>
-<td>☆ StatTrak™ Gut Knife | Weightless
-</td>
-<td>gut_knife_lore
-</td>
-<td>gut | give | trash
-</td></tr>
-<tr>
-<td>☆ StatTrak™ Gut Knife | Grinder
-</td>
-<td>gut_knife_auto
-</td>
-<td>gut | give | trash
-</td></tr>
-<tr>
-<td>Crab pot
-</td>
-<td>pot_crab
-</td>
-<td>place | give | trash
-</td></tr>
-<tr>
-<td>Lobster Pot
-</td>
-<td>pot_lobster
-</td>
-<td>place | give | trash
-</td></tr>
-<tr>
-<td>Rotten Potato
-</td>
-<td>rotten_potato
-</td>
-<td>debug | freecam | give | heal | ironman | toggle / UI | wheels
-</td></tr>
-<tr>
-<td>Spyglass
-</td>
-<td>spyglass
-</td>
-<td>eye | give | trash
-</td></tr>
-<tr>
-<td>Fidget Spinner
-</td>
-<td>fidget_spinner
-</td>
-<td>spin | give | trash
-</td></tr>
-<tr>
-<td>Bandage
-</td>
-<td>bandages
-</td>
-<td>apply | give | trash
-</td></tr>
-<tr>
-<td>Blessing Pack [Series 1]
-</td>
-<td>prefix_pack_1
-</td>
-<td>use
-</td></tr>
-<tr>
-<td>Blessing Pack [Series 2]
-</td>
-<td>prefix_pack_2
-</td>
-<td>use
-</td></tr>
-<tr>
-<td>Blessing Pack [Series 3]
-</td>
-<td>prefix_pack_3
-</td>
-<td>use
-</td></tr>
-<tr>
-<td>Cursed Dice
-</td>
-<td>prefix_pack_1_reset
-</td>
-<td>use
-</td></tr>
-<tr>
-<td>Bag-o-Engines
-</td>
-<td>engine_bag
-</td>
-<td>give | trash | open
-</td></tr>
-<tr>
-<td>Treasure Chest [Low-grade]
-</td>
-<td>chest_tier1
-</td>
-<td>give | trash | open
-</td></tr>
-<tr>
-<td>Treasure Chest [Medium-grade]
-</td>
-<td>chest_tier2
-</td>
-<td>give | trash | open | break
-</td></tr>
-<tr>
-<td>Treasure Chest [High-grade]
-</td>
-<td>chest_tier3
-</td>
-<td>give | trash | open | break
-</td></tr>
-<tr>
-<td>(A random vehicle card)
-</td>
-<td>vehicle_card
-</td>
-<td>give | spawn | trash
-</td></tr>
-<tr>
-<td>(A random <a data-p="Rts">R.T.S.</a> vehicle card)
-</td>
-<td>rts_card
-</td>
-<td>give | spawn | trash
-</td></tr></tbody></table>
-</div>
-<div>
-<table class="wt">
-<tbody><tr>
-<th><b>EXP Token</b>
-</th>
-<th><b>ITEM_ID</b>
-</th>
-<th><b>Options</b>
-</th></tr>
-<tr>
-<td>Airline Piloting
-</td>
-<td>exp_token|piloting|piloting
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Cargo Piloting
-</td>
-<td>exp_token|piloting|cargos
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Helicopter Piloting
-</td>
-<td>exp_token|piloting|heli
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Trucking
-</td>
-<td>exp_token|trucking|trucking
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>PostOP
-</td>
-<td>exp_token|trucking|postop
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Garbage Collecting
-</td>
-<td>exp_token|trucking|garbage
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Strength
-</td>
-<td>exp_token|physical|strength
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>EMS
-</td>
-<td>exp_token|ems|ems
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Firefighter
-</td>
-<td>exp_token|ems|fire
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Train Conductor
-</td>
-<td>exp_token|train|train
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Player
-</td>
-<td>exp_token|player|player
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Business
-</td>
-<td>exp_token|business|business
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Gambling
-</td>
-<td>exp_token|casino|casino
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Bus
-</td>
-<td>exp_token|train|bus
-</td>
-<td>convert | trash
-</td></tr>
-<tr>
-<td>Hunting
-</td>
-<td>exp_token|hunting|skill
-</td>
-<td>convert | trash
-</td></tr></tbody></table>
-</div>
-<div>
-<table class="wt">
-<tbody><tr>
-<th><b>Job Card</b>
-</th>
-<th><b>ITEM_ID</b>
-</th>
-<th><b>Options</b>
-</th></tr>
-<tr>
-<td>Airline Pilot
-</td>
-<td>job_card|pilot
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Cargo Pilot
-</td>
-<td>job_card|cargopilot
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Helicopter Pilot
-</td>
-<td>job_card|helicopterpilot
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Trucker
-</td>
-<td>job_card|trucker
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Mechanic
-</td>
-<td>job_card|mechanic
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>EMS
-</td>
-<td>job_card|emergency
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Fisherman
-</td>
-<td>job_card|fisher
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Hunter
-</td>
-<td>job_card|hunter
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Police (Unobtainable)
-</td>
-<td>job_card|police
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Street Racer
-</td>
-<td>job_card|racer
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Farmer
-</td>
-<td>job_card|farmer
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>PostOP
-</td>
-<td>job_card|postop
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Train Conductor
-</td>
-<td>job_card|conductor
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Firefighter
-</td>
-<td>job_card|firefighter
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Bus Driver
-</td>
-<td>job_card|busdriver
-</td>
-<td>give | trash | become | *[convert]
-</td></tr>
-<tr>
-<td>Garbage Collector
-</td>
-<td>job_card|garbage
-</td>
-<td>give | trash | become | *[convert]
-</td></tr></tbody></table>
-<b><big>* Replace [convert] with desired job card you want to convert to, for example: farmer, firefighter, racer, paramedic, etc..</big></b>
-</div></div></div>
-</div>
-<div>
-<div><div id="tabber-8c9424fcd9b16a7b83b0265fdb82f45e">
-<div>
-<table class="wt">
-<tbody><tr>
-<th><b>Option name</b>
-</th>
-<th><b>Used by</b>
-</th>
-<th><b>Info</b>
-</th>
-<th><b>Modifiers</b>
-</th></tr>
-<tr>
-<td>use
-</td>
-<td>Blessing Packs, Cursed Dice
-</td>
-<td>Uses X item
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>clean
-</td>
-<td>Prospecting: Firearm
-</td>
-<td>Cleans firearm and gives you a random weapon
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>give
-</td>
-<td>Most items in the game
-</td>
-<td>Gives X item to another player
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>trash
-</td>
-<td>Most items in the game
-</td>
-<td>Trashes X item
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>gut
-</td>
-<td>Gut Knifes
-</td>
-<td>Guts fishes
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>debug
-</td>
-<td>Rotten Potato
-</td>
-<td>Toggles debug mode on/off
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>freecam
-</td>
-<td>Rotten Potato
-</td>
-<td>Toggles freecam on/off
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>heal
-</td>
-<td>Rotten Potato
-</td>
-<td>Uses pills to get out of coma [OUTDATED]
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>ironman
-</td>
-<td>Rotten Potato
-</td>
-<td>Toggles ironman mode on/off
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>toggle / UI
-</td>
-<td>Rotten Potato
-</td>
-<td>Toggles UI on/off, can also be used without an item with /screenshot_mode or /toggle_ui
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>wheels
-</td>
-<td>Rotten Potato
-</td>
-<td>Spawns Bicycle
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>eye
-</td>
-<td>Spyglass
-</td>
-<td>Similar to freecam, toggles freecam on/off (shorten range)
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>spin
-</td>
-<td>Fidget Spinner
-</td>
-<td>Spins... what did you expect?
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>convert
-</td>
-<td>EXP Tokens
-</td>
-<td>Converts Tokens into Bonus EXP
-</td>
-<td>-1 = ALL | 0 or none = one
-</td></tr>
-<tr>
-<td>become
-</td>
-<td>Job Cards
-</td>
-<td>Changes your current job to corresponding job
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>place
-</td>
-<td>Pots (Lobster, Crab)
-</td>
-<td>Places X pot in the water if possible
-</td>
-<td>N/A
-</td></tr></tbody></table>
-</div>
-<div>
-<table class="wt">
-<tbody><tr>
-<th><b>Convert Option</b>
-</th>
-<th><b>Converts into</b>
-</th>
-<th><b>Info</b>
-</th></tr>
-<tr>
-<td>airline
-</td>
-<td>Airline Pilot
-</td>
-<td>Using it on Airline Pilot job card will work as "become"
-</td></tr>
-<tr>
-<td>bus
-</td>
-<td>Bus Driver
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>cargo
-</td>
-<td>Cargo Pilot
-</td>
-<td>Using it on Cargo Pilot job card will work as "become"
-</td></tr>
-<tr>
-<td>farmer
-</td>
-<td>Farmer
-</td>
-<td>Using it on Farmer job card will work as "become"
-</td></tr>
-<tr>
-<td>firefighter
-</td>
-<td>Firefighter
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>fisherman
-</td>
-<td>Fisherman
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>garbage
-</td>
-<td>Garbage Collector
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>helipilot
-</td>
-<td>Helicopter Pilot
-</td>
-<td>Using "pilot" on Helicopter Pilot job card will work as "become"
-</td></tr>
-<tr>
-<td>hunter
-</td>
-<td>Hunter
-</td>
-<td>Using it on Hunter job card will work as "become"
-</td></tr>
-<tr>
-<td>mechanic
-</td>
-<td>Mechanic
-</td>
-<td>N/A
-</td></tr>
-<tr>
-<td>paramedic
-</td>
-<td>EMS / Paramedic
-</td>
-<td>Using "EMS" on EMS / Paramedic job card will work as "become"
-</td></tr>
-<tr>
-<td>postop
-</td>
-<td>PostOP
-</td>
-<td>Using it on PostOP job card will work as "become"
-</td></tr>
-<tr>
-<td>racing
-</td>
-<td>Street Racer
-</td>
-<td>Using "racer" on Street Racer job card will work as "become"
-</td></tr>
-<tr>
-<td>train
-</td>
-<td>Train Conductor
-</td>
-<td>Using it on Train Conductor job card will work as "become"
-</td></tr>
-<tr>
-<td>trucker
-</td>
-<td>Trucker
-</td>
-<td>Using it on Trucker job card will work as "become"
-</td></tr></tbody></table>
-</div>
-<div>
-<table class="wt">
-<tbody><tr>
-<th><b>Modifier</b>
-</th>
-<th><b>Simulates</b>
-</th>
-<th><b>Info</b>
-</th></tr>
-<tr>
-<td>-1
-</td>
-<td>Left arrow
-</td>
-<td>In most cases means ALL
-</td></tr>
-<tr>
-<td>0 / none
-</td>
-<td>Enter
-</td>
-<td>In most cases means ONE
-</td></tr>
-<tr>
-<td>1
-</td>
-<td>Right arrow
-</td>
-<td>In most cases means ONE (IF not specified)
-</td></tr></tbody></table>
-</div></div></div>
-</div></div></div>
-<h1 id="Examples">Examples</h1>
-<div>
-<p><br/><b>Perfect bind for Airline Pilots</b> Converts all airline &amp; player tokens into BXP after pressing F2
-</p>
-<div>
-<div>bind keyboard F2 "item exp_token|piloting|piloting convert -1;item exp_token|player|player convert -1"</div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>'''''Disclaimer: To bind multiple functions on one KEY do it all at once using <b>;</b> between binds, ALSO remember to unbind your bind before binding other commands to the same KEY otherwise you might get flagged for flooding and get kicked / suspended</p></th>
+<th><p>! Also try not to hold/spam the bounded KEY as you also might get kicked for that.'''''</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>warn</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p><b>Example: bind keyboard k "rm_backpack;item gut_knife gut -1"</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="key_type_key">KEY_TYPE &amp; KEY</h2>
+<p>KEY_TYPE is a parameter describing input devices, such as a keyboard (KEYBOARD), mouse buttons (MOUSE_BUTTON), or mouse wheel (MOUSE_WHEEL).<br />
+KEY is an parameter for a key. Numbers (1,2,3...) and letters (a,b,c...) can be used by just pressing your wanted KEY, but for majority of keys their full name needs to be entered, for example: <b>,</b> = COMMA; <b>=</b> = EQUALS; <b>/</b> = SLASH; left click = MOUSE_LEFT. <strong><br />
+Refer to <a href="https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/">FiveM Docs</a> for full list of KEY_TYPEs &amp; KEYs</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p><b>Do not open FiveM Docs page in-game!</b></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>warn</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="function">FUNCTION</h2>
+<p>Enter your wanted function here, keep in mind that function is a command so any ingame command can be used here, for more info refer to Bind Data Table/Functions or <a data-p="Commands">Commands Page</a>.<br />
+<b>Remember to use " " when using more than one word in a bind!</b></p>
+<h2 id="option">OPTION</h2>
+<p>Option is used with /item command such as "item gut_knife gut" or "item prefix_pack_3 use" as a parameter deciding what an item will do.<br />
+Refer to Bind Data Table for a list of all options and their description or to check which item has which options.</p>
+<h2 id="modifier">MODIFIER</h2>
+<p>Mostly used with /item command, simulates the press of a button. -1 is Left Arrow; 0 or none is Enter; 1 is Right Arrow.</p>
+<h1 id="bind_data_table">Bind Data Table</h1>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>Binds</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h1 id="examples">Examples</h1>
+<div class="mw-collapsible mw-collapsed">
+<p><br />
+<b>Perfect bind for Airline Pilots</b> Converts all airline &amp; player tokens into BXP after pressing F2</p>
+<div class="mw-collapsible-content" style="width: 100%; height:100%; overflow:auto;">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>bind keyboard F2 "item exp_tokenpilotingpiloting convert -1;item exp_tokenplayerplayer convert -1"</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div>
-<p><br/>Convert one Gambling Token into Bonus EXP after pressing F1 on keyboard, no modifier means simulating Enter (option 1x):
-</p>
-<div>
-<div>bind keyboard F1 "item exp_token|casino|casino convert"</div>
+<div class="mw-collapsible mw-collapsed">
+<p><br />
+Convert one Gambling Token into Bonus EXP after pressing F1 on keyboard, no modifier means simulating Enter (option 1x):</p>
+<div class="mw-collapsible-content" style="width: 100%; height:100%; overflow:auto;">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>bind keyboard F1 "item exp_tokencasinocasino convert"</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div>
-<p><br/>Use rotten potato's freecam feature by pressing F2
-</p>
-<div>
-<div>bind keyboard F2 "item rotten_potato freecam"</div>
+<div class="mw-collapsible mw-collapsed">
+<p><br />
+Use rotten potato's freecam feature by pressing F2</p>
+<div class="mw-collapsible-content" style="width: 100%; height:100%; overflow:auto;">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>bind keyboard F2 "item rotten_potato freecam"</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div>
-<p><br/>Changes current job into a Mechanic after pressing . (DECIMAL) on numpad:
-</p>
-<div>
-<div>bind keyboard DECIMAL "item job_card|mechanic become"</div>
+<div class="mw-collapsible mw-collapsed">
+<p><br />
+Changes current job into a Mechanic after pressing . (DECIMAL) on numpad:</p>
+<div class="mw-collapsible-content" style="width: 100%; height:100%; overflow:auto;">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>bind keyboard DECIMAL "item job_cardmechanic become"</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div>
-<p><br/>Re-opens transformer after pressing L on keyboard:
-</p>
-<div>
-<div>bind keyboard L "vrp-reopen"</div>
+<div class="mw-collapsible mw-collapsed">
+<p><br />
+Re-opens transformer after pressing L on keyboard:</p>
+<div class="mw-collapsible-content" style="width: 100%; height:100%; overflow:auto;">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>bind keyboard L "vrp-reopen"</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div>
-<p><br/>Guts all fishes in player's inventory after pressing = (EQUALS) on keyboard:
-</p>
-<div>
-<div>bind keyboard EQUALS "item gut_knife gut"</div>
+<div class="mw-collapsible mw-collapsed">
+<p><br />
+Guts all fishes in player's inventory after pressing = (EQUALS) on keyboard:</p>
+<div class="mw-collapsible-content" style="width: 100%; height:100%; overflow:auto;">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>bind keyboard EQUALS "item gut_knife gut"</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div>
-<p><br/>Opens faction menu after pressing mouse button 4:
-</p>
-<div>
-<div>bind mouse_button MOUSE_EXTRABTN2 "faction"</div>
+<div class="mw-collapsible mw-collapsed">
+<p><br />
+Opens faction menu after pressing mouse button 4:</p>
+<div class="mw-collapsible-content" style="width: 100%; height:100%; overflow:auto;">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>bind mouse_button MOUSE_EXTRABTN2 "faction"</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<div>
-<p><br/>Converts all EXP Tokens into Bonus EXP after pressing K on keyboard:
-</p>
-<div>
-<div><span><b>Read before binding</b></span></div>
-<p><i>This option is also available through the custom FiveM Keybinds. Navigate there via P (or ESC key) → Settings → Key Bindings → FiveM</i>
-</p>
-<div>bind keyboard K "item exp_token| convert -1 all"</div>
+<div class="mw-collapsible mw-collapsed">
+<p><br />
+Converts all EXP Tokens into Bonus EXP after pressing K on keyboard:</p>
+<div class="mw-collapsible-content" style="width: 100%; height:100%; overflow:auto;">
+<div align="center">
+<p>&lt;span style="color: red;&gt;<strong>Read before binding</strong></p>
+</div>
+<p><i>This option is also available through the custom FiveM Keybinds. Navigate there via P (or ESC key) → Settings → Key Bindings → FiveM</i></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th><p>bind keyboard K "item exp_token convert -1 all"</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td><p>info</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<!-- 
-NewPP limit report
-Cached time: 20250903091737
-Cache expiry: 86400
-Dynamic content: false
-CPU time usage: 1.406 seconds
-Real time usage: 0.252 seconds
-Preprocessor visited node count: 475/1000000
-Preprocessor generated node count: 2150/1000000
-Post‐expand include size: 13825/2097152 bytes
-Template argument size: 3475/2097152 bytes
-Highest expansion depth: 5/40
-Expensive parser function count: 25/100
-Unstrip recursion depth: 1/20
-Unstrip post‐expand size: 13308/5000000 bytes
--->
-<!--
-Transclusion expansion time report (%,ms,calls,template)
-100.00% 126.127 1 -total
- 50.16% 63.263 1 Template:Binds
- 31.58% 39.827 1 Template:Otherlang
- 21.26% 26.810 1 Template:Binds/Items
- 17.32% 21.850 1 Template:Binds/Options
- 15.88% 20.025 13 Template:Note
- 4.42% 5.573 1 Template:Binds/Items/Popular_Items
- 4.01% 5.056 1 Template:Binds/Functions
- 3.93% 4.957 1 Template:Binds/Items/EXP_Tokens
- 3.60% 4.541 1 Template:Binds/Options/Names
--->
-<!-- Saved in parser cache with key mediawiki-f7_:pcache:idhash:2472-0!canonical and timestamp 20250903091736 and revision id 20933
- -->

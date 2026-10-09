@@ -3,435 +3,359 @@ title: Commands
 categories:
   - Tutorial
 ---
-<p><br/>
-Here you see all Commands/Hotkeys the server currently has. For easier/faster use they can be bound to a key, for more information head to <a data-p="Binds">Binds Page</a>.
-</p>
-<h2 id="General_Commands">General Commands</h2>
-<h3 id="Chat_Commands">Chat Commands</h3>
-<table class="wt">
-<tbody><tr>
-<td>/ems [message]
-</td>
-<td>Paramedic Dispatch (Can only be used in the EMS job)
-</td></tr>
-<tr>
-<td>/mec [message]
-</td>
-<td>Mechanic Dispatch (Can only be used in the Mechanic job)
-</td></tr>
-<tr>
-<td>/cab [message]
-</td>
-<td>Cab Dispatch (Can only be used in the CollinsCo's Cabbie job)
-</td></tr>
-<tr>
-<td>/con [message]
-</td>
-<td>Train Conductor (Can only be used in the Train Conductor job)
-</td></tr>
-<tr>
-<td>/fd [message]
-</td>
-<td>Fire Dispatch (Can only be used in the Firefighter job)
-</td></tr>
-<tr>
-<td><div id="passive"></div>/passive
-</td>
-<td>Turns on/off passive mode.<br/><b>Player level 10+</b> is required to toggle this.<br/>Certain areas have enforced passive mode, such as the City Hall and Airports.
-</td></tr>
-<tr>
-<td>/pause_chat_colors
-</td>
-<td>Disables animated chat colors
-</td></tr>
-<tr>
-<td><div id="simple_chat"></div>/simple_chat
-</td>
-<td>Hides chat titles (Currently can not be disabled until you relog)
-</td></tr>
-<tr>
-<td>/atc [message]
-</td>
-<td>Custom Flight ATC message (Can only be used in the Airline Pilot &amp; Cargo Pilot jobs).
-<p>This should not be used to reserve a runway for takeoff or landing - use the TAB menu for that.
-</p>
-</td></tr>
-<tr>
-<td>/buy [message]
-</td>
-<td>Signals you want to buy something
-</td></tr>
-<tr>
-<td>/sell [message]
-</td>
-<td>Signals you are selling something
-</td></tr>
-<tr>
-<td>/msg or /dm or /m [user id] [message]
-</td>
-<td>Direct message a player
-</td></tr>
-<tr>
-<td>/reply or /r [message]
-</td>
-<td>Reply to your last direct message
-</td></tr>
-<tr>
-<td>/help
-</td>
-<td>The F7 help menu
-</td></tr>
-<tr>
-<td>/rules
-</td>
-<td>Displays the server rules
-</td></tr>
-<tr>
-<td>/tycoon-refresh
-</td>
-<td>Refreshes your linked discord (used when e.g. you lose access to your discord account and you want to change it, requires relogging)
-</td></tr>
-<tr>
-<td>/discord
-</td>
-<td>Opens the Discord join invite for our community server
-</td></tr>
-<tr>
-<td>/shop
-</td>
-<td>Opens the <a href="https://shop.tycoon.community/" rel="noopener" target="_blank">Tebex shop</a>
-</td></tr>
-<tr>
-<td>/mp view [user id]
-</td>
-<td>Views all listings from a given player
-</td></tr>
-<tr>
-<td>/mp search [item name]
-</td>
-<td>Searches for an item on the marketplace
-</td></tr>
-<tr>
-<td>/faction
-</td>
-<td>The Faction menu
-</td></tr>
-<tr>
-<td>/ignore [Type]
-</td>
-<td>Ignores specific message types in chat. For example, "/ignore leveling" ignores all level up messages
-<p><small><i> system, leveling, company, faction, radio, dispatch, globalchat, dms, perks</i></small>
-</p>
-</td></tr>
-<tr>
-<td>/ignore [user-id]
-</td>
-<td>Ignores specific user from appearing in your chat. For example, "/ignore 123456"
-</td></tr>
-<tr>
-<td>/unignore [user-id]
-</td>
-<td>Unignores specific user to re-appear in your chat. For example, "/unignore 123456"
-</td></tr>
-<tr>
-<td>/ignores
-</td>
-<td>Shows all channels you ignore
-</td></tr>
-<tr>
-<td><div id="Calculator"></div>/calc or /math
-</td>
-<td>Basic in-game calculator
-</td></tr>
-<tr>
-<td><div id="gamepad"></div>/gamepad
-</td>
-<td>Opens the Gamepad Interface to configure gamepads and controllers to work in-game
-</td></tr>
-<tr>
-<td><div id="smoke"></div>/+togglesmoke
-</td>
-<td>Toggles smoke on/off (needs to be in the air)
-</td></tr>
-<tr>
-<td>/setsmoke [0-255] [0-255] [0-255] [0-2]
-</td>
-<td>Allows you to choose the color of your smoke based on RGB values, the last number is the size of the smoke
-</td></tr>
-<tr>
-<td><div id="seat"></div>/seat [seat]
-</td>
-<td>Changes seat (works only while seated in a vehicle) e.g. "/seat -1" changes to Driver seat. <br/>This command has a 3 Minutes cooldown to avoid exploiting.
-</td></tr>
-<tr>
-<td>/stance [0.5-1.5]
-</td>
-<td>Applies stance (wheel thickness) to your current car.
-<p>Must have custom wheels applied. Stance will not persist if you leave the area.
-</p>
-</td></tr>
-<tr>
-<td>/blip
-</td>
-<td>Opens the Blip settings menu
-</td></tr>
-<tr>
-<td>/compass
-</td>
-<td>Opens the Compass settings menu
-</td></tr>
-<tr>
-<td>/garage [type]
-</td>
-<td>Marks the closest Garage<br/> Types are <i>bike, car, cab, trailer, aircraft, helicopter, boat, bicycle</i>
-</td></tr>
-<tr>
-<td>/replace_blip [sprite] [url]
-</td>
-<td>Replaces a map blip with a custom one
-</td></tr>
-<tr>
-<td>/report [Issue]
-</td>
-<td>Opens the player report menu or reports an issue (leave [Issue] blank if you want to open the player report menu)
-</td></tr>
-<tr>
-<td>/channel [Channel name]
-</td>
-<td>Command to switch between chat channels/tabs
-</td></tr>
-<tr>
-<td>/designer
-</td>
-<td>Shortcut for the Airport Designer website tool
-</td></tr>
-<tr>
-<td>/design-test
-</td>
-<td>Command to test airports in-game
-</td></tr>
-<tr>
-<td><div id="metrics"></div>/metrics
-</td>
-<td>Opens the Tycoon Metrics settings
-</td></tr>
-<tr>
-<td>/milestones or /unlocks
-</td>
-<td>Views skill and job milestones
-</td></tr>
-<tr>
-<td>/screenshot_mode or /toggle_ui
-</td>
-<td>Turns on/off screenshot mode
-</td></tr>
-<tr>
-<td>/dev_pos
-</td>
-<td>Saves your x, y, z coordinates (You must be in a company to use it)
-</td></tr>
-<tr>
-<td><div id="radio"></div>/radio
-</td>
-<td>Opens the Radio settings menu
-</td></tr>
-<tr>
-<td>/simrad
-</td>
-<td>Shows the Simulator Radio Interface
-</td></tr>
-<tr>
-<td>/hype
-</td>
-<td>Shows the Hype Radio Interface
-</td></tr>
-<tr>
-<td>/credits
-</td>
-<td>Displays content credits [<a href="https://tycoon-2epova.users.cfx.re/credits/" rel="noopener" target="_blank">website</a>]
-</td></tr>
-<tr>
-<td>/api
-</td>
-<td>All API commands. For more info please head to the <a data-p="API">API</a> page
-</td></tr>
-<tr>
-<td>/visual
-</td>
-<td>Opens the Visual settings menu
-</td></tr>
-<tr>
-<td>/playerlist_font [fontFamily]
-</td>
-<td>Allows you to change the font of player list [X] (you do need to have the font installed)
-</td></tr>
-<tr>
-<td>/item &lt;item id&gt; &lt;option&gt; [modifier]
-</td>
-<td>Command to use an item from your inventory, mostly used in binds. Modifier simulates the way you press the option (-1 is Left Arrow, 0 (or
-<p>none) is Enter, 1 is Right Arrow)
-</p>
-</td></tr>
-<tr>
-<td>/toggle_old_chat
-</td>
-<td>Toggles Old Chat (all messages show in the Chat tab)
-</td></tr>
-<tr>
-<td>/filter
-</td>
-<td>Applies a filter to your screen. Type the command multiple times to cycle through the available filters (check the F8 console to see which filter number is currently applied)
-</td></tr>
-<tr>
-<td>/f7 [query] or /wiki [query]
-</td>
-<td>Opens the wiki on the specified page. If no such page exists, the search results are opened instead.
-</td></tr>
-<tr>
-<td>/racing_ghost_enable
-</td>
-<td>Enable a visual "ghost" for <a data-p="Street Racer">Racing</a> World Records. It's not accurate in position and mimics your own movement.
-</td></tr>
-<tr>
-<td>/racing_ghost_disable
-</td>
-<td>Disables the visual "ghost"
-</td></tr>
-<tr>
-<td>/toggle_xp
-</td>
-<td>Enable the experience bars to remain at the bottom right of your screen instead of disappearing after some time. To disable, reconnect.
-</td></tr>
-<tr>
-<td>/set_vehicle_engine_audio [model]
-</td>
-<td>Change the vehicle engine audio by specifying a specific vehicle model.<br/> To save the change, enter and exit Los Santos Customs.
-</td></tr></tbody></table>
-<h3 id="Hotkey_Button_Commands">Hotkey Button Commands</h3>
-<table class="wt">
-<tbody><tr>
-<td>, (COMMA) . (PERIOD)
-</td>
-<td>Toggle Anchor for boats (only works after getting up from the driver/passenger seat)
-</td></tr>
-<tr>
-<td>T (LETTER T)
-</td>
-<td>Opens Text Chat input box
-</td></tr>
-<tr>
-<td>Page Up/Down
-</td>
-<td>Scrolls Up or Down through the Chat input Box. Press Shift + Page Down to unlock the chat scrolling again.
-</td></tr>
-<tr>
-<td>X (LETTER X)
-</td>
-<td>Show Player List (HOLD). Use ↑ or ↓ to navigate the player list, ← or → to page through players (useful on OneSync)
-</td></tr>
-<tr>
-<td>TAB (TABULATOR)
-</td>
-<td>Open/Close Aircraft ATC Menu
-</td></tr>
-<tr>
-<td>ALT (ALTERNATE)
-</td>
-<td>(Hold) ALT to enable and press Right Mouse Button (RMB) to free the cursor
-</td></tr>
-<tr id="Hide_chat">
-<td>CTRL + T (CONTROL + LETTER T)
-</td>
-<td>(Hold) CTRL + T to free the cursor and interact with the chat input box<br/>(click on <b>Auto-Focus</b> to hide the chat, <b>Clear</b> to clean the chat log (helps when chat is lagging.)
-</td></tr>
-<tr>
-<td>B (LETTER B)
-</td>
-<td>Open the Radial Menu
-</td></tr>
-<tr>
-<td>M (LETTER M)
-</td>
-<td>Open the Main Menu
-</td></tr>
-<tr>
-<td>F7 (FUNCTION KEY 7)
-</td>
-<td>Open the Help Menu
-</td></tr>
-<tr>
-<td>7 (NUMBER 7)
-</td>
-<td>Toggle In-Game Camera
-</td></tr>
-<tr>
-<td>8 (NUMBER 8)
-</td>
-<td>Open/Close Vehicle Menu
-</td></tr>
-<tr>
-<td><div id="autopilot"></div>Y (LETTER Y)
-</td>
-<td>Toggle Cruise / Autopilot Control (letter Z on QWERTZ Keyboards)
-</td></tr>
-<tr>
-<td>F8 (FUNCTION KEY 8)
-</td>
-<td>Opens the Console. (Type "quit" and press the "Enter" key to quit the game.)
-</td></tr>
-<tr>
-<td>H (LETTER H)
-</td>
-<td>Attach the trailer (Hold H to detach).
-</td></tr>
-<tr>
-<td>- (HYPHEN), = (EQUAL), ` (BACKTICK)
-</td>
-<td>Turn signals in that order: left, right, both
-</td></tr></tbody></table>
-<h3 id="Console_.28F8.29_Commands"><span id="Console_(F8)_Commands"></span>Console (F8) Commands</h3>
-<table class="wt">
-<tbody><tr>
-<td>decorators
-</td>
-<td>Prints the vehicle decorators in the console.<br/> Useful to figure out the User ID of the vehicle owner.<small>returns error when not in vehicle.</small>
-</td></tr></tbody></table>
-<h2 id="Default_Siren_Controls">Default Siren Controls</h2>
-<p>The server uses a custom siren control system, we call it Emergency Siren Control, or ESC for short.
-</p>
-<table class="wt">
-<tbody><tr>
-<td>Toggle Lights
-</td>
-<td>Horn Key (<b>E or LS</b>)
-</td></tr>
-<tr>
-<td>Toggle Sirens
-</td>
-<td>Cinematic Camera Key (<b>R</b>)
-</td></tr></tbody></table>
-<p>The siren is only active as long as the lights are turned on.
-</p>
-<!-- 
-NewPP limit report
-Cached time: 20250904034401
-Cache expiry: 86400
-Dynamic content: false
-CPU time usage: 0.844 seconds
-Real time usage: 0.137 seconds
-Preprocessor visited node count: 188/1000000
-Preprocessor generated node count: 1314/1000000
-Post‐expand include size: 2216/2097152 bytes
-Template argument size: 16/2097152 bytes
-Highest expansion depth: 4/40
-Expensive parser function count: 25/100
-Unstrip recursion depth: 0/20
-Unstrip post‐expand size: 20/5000000 bytes
--->
-<!--
-Transclusion expansion time report (%,ms,calls,template)
-100.00% 40.176 1 Template:Otherlang
-100.00% 40.176 1 -total
--->
-<!-- Saved in parser cache with key mediawiki-f7_:pcache:idhash:437-0!canonical and timestamp 20250904034401 and revision id 22420
- -->
+<p>Here you see all Commands/Hotkeys the server currently has. For easier/faster use they can be bound to a key, for more information head to <a data-p="Binds">Binds Page</a>.</p>
+<h2 id="general_commands">General Commands</h2>
+<h3 id="chat_commands">Chat Commands</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td style="width: 50%"><p>/ems [message]</p></td>
+<td style="width: 50%"><p>Paramedic Dispatch (Can only be used in the EMS job)</p></td>
+</tr>
+<tr class="even">
+<td><p>/mec [message]</p></td>
+<td><p>Mechanic Dispatch (Can only be used in the Mechanic job)</p></td>
+</tr>
+<tr class="odd">
+<td><p>/cab [message]</p></td>
+<td><p>Cab Dispatch (Can only be used in the CollinsCo's Cabbie job)</p></td>
+</tr>
+<tr class="even">
+<td><p>/con [message]</p></td>
+<td><p>Train Conductor (Can only be used in the Train Conductor job)</p></td>
+</tr>
+<tr class="odd">
+<td><p>/fd [message]</p></td>
+<td><p>Fire Dispatch (Can only be used in the Firefighter job)</p></td>
+</tr>
+<tr class="even">
+<td><div id="passive">
+</div>
+<p>/passive</p></td>
+<td><p>Turns on/off passive mode.<br />
+<b>Player level 10+</b> is required to toggle this.<br />
+Certain areas have enforced passive mode, such as the City Hall and Airports.</p></td>
+</tr>
+<tr class="odd">
+<td><p>/pause_chat_colors</p></td>
+<td><p>Disables animated chat colors</p></td>
+</tr>
+<tr class="even">
+<td><div id="simple chat">
+</div>
+<p>/simple_chat</p></td>
+<td><p>Hides chat titles (Currently can not be disabled until you relog)</p></td>
+</tr>
+<tr class="odd">
+<td><p>/atc [message]</p></td>
+<td><p>Custom Flight ATC message (Can only be used in the Airline Pilot &amp; Cargo Pilot jobs). This should not be used to reserve a runway for takeoff or landing - use the TAB menu for that.</p></td>
+</tr>
+<tr class="even">
+<td><p>/buy [message]</p></td>
+<td><p>Signals you want to buy something</p></td>
+</tr>
+<tr class="odd">
+<td><p>/sell [message]</p></td>
+<td><p>Signals you are selling something</p></td>
+</tr>
+<tr class="even">
+<td><p>/msg or /dm or /m [user id] [message]</p></td>
+<td><p>Direct message a player</p></td>
+</tr>
+<tr class="odd">
+<td><p>/reply or /r [message]</p></td>
+<td><p>Reply to your last direct message</p></td>
+</tr>
+<tr class="even">
+<td><p>/help</p></td>
+<td><p>The F7 help menu</p></td>
+</tr>
+<tr class="odd">
+<td><p>/rules</p></td>
+<td><p>Displays the server rules</p></td>
+</tr>
+<tr class="even">
+<td><p>/tycoon-refresh</p></td>
+<td><p>Refreshes your linked discord (used when e.g. you lose access to your discord account and you want to change it, requires relogging)</p></td>
+</tr>
+<tr class="odd">
+<td><p>/discord</p></td>
+<td><p>Opens the Discord join invite for our community server</p></td>
+</tr>
+<tr class="even">
+<td><p>/shop</p></td>
+<td><p>Opens the <a href="https://shop.tycoon.community/">Tebex shop</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>/mp view [user id]</p></td>
+<td><p>Views all listings from a given player</p></td>
+</tr>
+<tr class="even">
+<td><p>/mp search [item name]</p></td>
+<td><p>Searches for an item on the marketplace</p></td>
+</tr>
+<tr class="odd">
+<td><p>/faction</p></td>
+<td><p>The Faction menu</p></td>
+</tr>
+<tr class="even">
+<td><p>/ignore [Type]</p></td>
+<td><p>Ignores specific message types in chat. For example, "/ignore leveling" ignores all level up messages <i> system, leveling, company, faction, radio, dispatch, globalchat, dms, perks</i></p></td>
+</tr>
+<tr class="odd">
+<td><p>/ignore [user-id]</p></td>
+<td><p>Ignores specific user from appearing in your chat. For example, "/ignore 123456"</p></td>
+</tr>
+<tr class="even">
+<td><p>/unignore [user-id]</p></td>
+<td><p>Unignores specific user to re-appear in your chat. For example, "/unignore 123456"</p></td>
+</tr>
+<tr class="odd">
+<td><p>/ignores</p></td>
+<td><p>Shows all channels you ignore</p></td>
+</tr>
+<tr class="even">
+<td><div id="Calculator">
+</div>
+<p>/calc or /math</p></td>
+<td><p>Basic in-game calculator</p></td>
+</tr>
+<tr class="odd">
+<td><div id="gamepad">
+</div>
+<p>/gamepad</p></td>
+<td><p>Opens the Gamepad Interface to configure gamepads and controllers to work in-game</p></td>
+</tr>
+<tr class="even">
+<td><div id="smoke">
+</div>
+<p>/+togglesmoke</p></td>
+<td><p>Toggles smoke on/off (needs to be in the air)</p></td>
+</tr>
+<tr class="odd">
+<td><p>/setsmoke [0-255] [0-255] [0-255] [0-2]</p></td>
+<td><p>Allows you to choose the color of your smoke based on RGB values, the last number is the size of the smoke</p></td>
+</tr>
+<tr class="even">
+<td><div id="seat">
+</div>
+<p>/seat [seat]</p></td>
+<td><p>Changes seat (works only while seated in a vehicle) e.g. "/seat -1" changes to Driver seat.<br />
+This command has a 3 Minutes cooldown to avoid exploiting.</p></td>
+</tr>
+<tr class="odd">
+<td><p>/stance [0.5-1.5]</p></td>
+<td><p>Applies stance (wheel thickness) to your current car. Must have custom wheels applied. Stance will not persist if you leave the area.</p></td>
+</tr>
+<tr class="even">
+<td><p>/blip</p></td>
+<td><p>Opens the Blip settings menu</p></td>
+</tr>
+<tr class="odd">
+<td><p>/compass</p></td>
+<td><p>Opens the Compass settings menu</p></td>
+</tr>
+<tr class="even">
+<td><p>/garage [type]</p></td>
+<td><p>Marks the closest Garage<br />
+Types are <i>bike, car, cab, trailer, aircraft, helicopter, boat, bicycle</i></p></td>
+</tr>
+<tr class="odd">
+<td><p>/replace_blip [sprite] [url]</p></td>
+<td><p>Replaces a map blip with a custom one</p></td>
+</tr>
+<tr class="even">
+<td><p>/report [Issue]</p></td>
+<td><p>Opens the player report menu or reports an issue (leave [Issue] blank if you want to open the player report menu)</p></td>
+</tr>
+<tr class="odd">
+<td><p>/channel [Channel name]</p></td>
+<td><p>Command to switch between chat channels/tabs</p></td>
+</tr>
+<tr class="even">
+<td><p>/designer</p></td>
+<td><p>Shortcut for the Airport Designer website tool</p></td>
+</tr>
+<tr class="odd">
+<td><p>/design-test</p></td>
+<td><p>Command to test airports in-game</p></td>
+</tr>
+<tr class="even">
+<td><div id="metrics">
+</div>
+<p>/metrics</p></td>
+<td><p>Opens the Tycoon Metrics settings</p></td>
+</tr>
+<tr class="odd">
+<td><p>/milestones or /unlocks</p></td>
+<td><p>Views skill and job milestones</p></td>
+</tr>
+<tr class="even">
+<td><p>/screenshot_mode or /toggle_ui</p></td>
+<td><p>Turns on/off screenshot mode</p></td>
+</tr>
+<tr class="odd">
+<td><p>/dev_pos</p></td>
+<td><p>Saves your x, y, z coordinates (You must be in a company to use it)</p></td>
+</tr>
+<tr class="even">
+<td><div id="radio">
+</div>
+<p>/radio</p></td>
+<td><p>Opens the Radio settings menu</p></td>
+</tr>
+<tr class="odd">
+<td><p>/simrad</p></td>
+<td><p>Shows the Simulator Radio Interface</p></td>
+</tr>
+<tr class="even">
+<td><p>/hype</p></td>
+<td><p>Shows the Hype Radio Interface</p></td>
+</tr>
+<tr class="odd">
+<td><p>/credits</p></td>
+<td><p>Displays content credits <a data-p="https://tycoon-2epova.users.cfx.re/credits/ website"><a href="https://tycoon-2epova.users.cfx.re/credits/">https://tycoon-2epova.users.cfx.re/credits/</a> website</a></p></td>
+</tr>
+<tr class="even">
+<td><p>/api</p></td>
+<td><p>All API commands. For more info please head to the <a data-p="API">API</a> page</p></td>
+</tr>
+<tr class="odd">
+<td><p>/visual</p></td>
+<td><p>Opens the Visual settings menu</p></td>
+</tr>
+<tr class="even">
+<td><p>/playerlist_font [fontFamily]</p></td>
+<td><p>Allows you to change the font of player list [X] (you do need to have the font installed)</p></td>
+</tr>
+<tr class="odd">
+<td><p>/item   [modifier]</p></td>
+<td><p>Command to use an item from your inventory, mostly used in binds. Modifier simulates the way you press the option (-1 is Left Arrow, 0 (or none) is Enter, 1 is Right Arrow)</p></td>
+</tr>
+<tr class="even">
+<td><div id="old chat">
+</div>
+<p>/toggle_old_chat</p></td>
+<td><p>Toggles Old Chat (all messages show in the Chat tab)</p></td>
+</tr>
+<tr class="odd">
+<td><p>/filter</p></td>
+<td><p>Applies a filter to your screen. Type the command multiple times to cycle through the available filters (check the F8 console to see which filter number is currently applied)</p></td>
+</tr>
+<tr class="even">
+<td><p>/f7 [query] or /wiki [query]</p></td>
+<td><p>Opens the wiki on the specified page. If no such page exists, the search results are opened instead.</p></td>
+</tr>
+<tr class="odd">
+<td><p>/racing_ghost_enable</p></td>
+<td><p>Enable a visual "ghost" for <a data-p="Street Racer">Racing</a> World Records. It's not accurate in position and mimics your own movement.</p></td>
+</tr>
+<tr class="even">
+<td><p>/racing_ghost_disable</p></td>
+<td><p>Disables the visual "ghost"</p></td>
+</tr>
+<tr class="odd">
+<td><p>/toggle_xp</p></td>
+<td><p>Enable the experience bars to remain at the bottom right of your screen instead of disappearing after some time. To disable, reconnect.</p></td>
+</tr>
+<tr class="even">
+<td><p>/set_vehicle_engine_audio [model]</p></td>
+<td><p>Change the vehicle engine audio by specifying a specific vehicle model.<br />
+To save the change, enter and exit Los Santos Customs.</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="hotkey_button_commands">Hotkey Button Commands</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td style="width: 50%"><p>, (COMMA) . (PERIOD)</p></td>
+<td style="width: 50%"><p>Toggle Anchor for boats (only works after getting up from the driver/passenger seat)</p></td>
+</tr>
+<tr class="even">
+<td><p>T (LETTER T)</p></td>
+<td><p>Opens Text Chat input box</p></td>
+</tr>
+<tr class="odd">
+<td><p>Page Up/Down</p></td>
+<td><p>Scrolls Up or Down through the Chat input Box. Press Shift + Page Down to unlock the chat scrolling again.</p></td>
+</tr>
+<tr class="even">
+<td><p>X (LETTER X)</p></td>
+<td><p>Show Player List (HOLD). Use ↑ or ↓ to navigate the player list, ← or → to page through players (useful on OneSync)</p></td>
+</tr>
+<tr class="odd">
+<td><p>TAB (TABULATOR)</p></td>
+<td><p>Open/Close Aircraft ATC Menu</p></td>
+</tr>
+<tr class="even">
+<td><p>ALT (ALTERNATE)</p></td>
+<td><p>(Hold) ALT to enable and press Right Mouse Button (RMB) to free the cursor |-</p>
+<div id="Hide chat">
+</div></td>
+</tr>
+<tr class="odd">
+<td><p>B (LETTER B)</p></td>
+<td><p>Open the Radial Menu</p></td>
+</tr>
+<tr class="even">
+<td><p>M (LETTER M)</p></td>
+<td><p>Open the Main Menu</p></td>
+</tr>
+<tr class="odd">
+<td><p>F7 (FUNCTION KEY 7)</p></td>
+<td><p>Open the Help Menu</p></td>
+</tr>
+<tr class="even">
+<td><p>7 (NUMBER 7)</p></td>
+<td><p>Toggle In-Game Camera</p></td>
+</tr>
+<tr class="odd">
+<td><p>8 (NUMBER 8)</p></td>
+<td><p>Open/Close Vehicle Menu</p></td>
+</tr>
+<tr class="even">
+<td><div id="autopilot">
+</div>
+<p>Y (LETTER Y)</p></td>
+<td><p>Toggle Cruise / Autopilot Control (letter Z on QWERTZ Keyboards)</p></td>
+</tr>
+<tr class="odd">
+<td><p>F8 (FUNCTION KEY 8)</p></td>
+<td><p>Opens the Console. (Type "quit" and press the "Enter" key to quit the game.)</p></td>
+</tr>
+<tr class="even">
+<td><p>H (LETTER H)</p></td>
+<td><p>Attach the trailer (Hold H to detach).</p></td>
+</tr>
+<tr class="odd">
+<td><p>- (HYPHEN), = (EQUAL), ` (BACKTICK)</p></td>
+<td><p>Turn signals in that order: left, right, both</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="console_f8_commands">Console (F8) Commands</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td style="width: 50%"><p>decorators</p></td>
+<td style="width: 50%"><p>Prints the vehicle decorators in the console.<br />
+Useful to figure out the User ID of the vehicle owner.returns error when not in vehicle.</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="default_siren_controls">Default Siren Controls</h2>
+<p>The server uses a custom siren control system, we call it Emergency Siren Control, or ESC for short.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="width: 50%"><p>Toggle Lights</p></td>
+<td style="width: 50%"><p>Horn Key (<strong>E or LS</strong>)</p></td>
+</tr>
+<tr class="even">
+<td><p>Toggle Sirens</p></td>
+<td><p>Cinematic Camera Key (<strong>R</strong>)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The siren is only active as long as the lights are turned on.</p>

@@ -4,10 +4,129 @@ categories:
   - Changelog
 ---
 <div><b>To stay up-to-date, check out our <b><a href="https://discord.com/channels/307266366174658560/346790171548712960" rel="noopener" target="_blank">#changelogfx</a></b> channel on the Transport Tycoon Discord.</b></div>
-<div><div id="tabber-1e4d4b7c06da888aba1bcf737e113869">
-<div>
+<p>Dates are the days each update was announced in <b>#changelogfx</b>. Newest first.
+</p>
+<h2 id="August_13th_2026">August 13th 2026</h2>
+<p>August 13th Server Update
+</p>
+<h4>Daily / Weekly Challenges</h4>
+<ul><li>Introducing daily and weekly challenges!</li><li>Each player receives their own set of challenges to complete.</li><li>Completing challenges rewards you with EXP Bonuses you can redeem.</li><li>Challenges can be viewed via /challenges and M &gt; Identity &gt; Challenges</li></ul>
+<h4>Roxwood</h4>
+<ul><li>Updated Roxwood to the latest version</li><li>Added a new area near Lombart Bay</li><li>Added some new POIs</li></ul>
+<h4>Concrete Delivery</h4>
+<ul><li>Added the Concrete Delivery specialized job</li><li>The job is a simple A-B delivery mission</li><li>Serves as a current measure to slow down House crafting rewards</li></ul>
+<h4>EMS</h4>
+<ul><li>The EMS Perk now gives you Pills in your paycheck</li><li>Tweaked the reward bonus from streaks (Smoother curve, higher mid-reward, lower end-reward)</li><li>Co-drivers now receive a small reward</li><li>Mobile ER drivers now receive a substantial reward</li></ul>
+<h4>Conductor</h4>
+<ul><li>Train Conductor jobs now give a reward bonus for their streaks</li></ul>
+<h4>Helicopter Pilot</h4>
+<ul><li>Helicopter Pilot now receive bonuses based on the streak</li></ul>
+<h4>Spaceship Parts (EXP Boost)</h4>
+<ul><li>Changed spawning logic so boosts dont vanish in places like Roxwood</li><li>Added multiple informants, one in Marina Beach, one between Sandy Shores and Grapeseed and the original near City Hall</li><li>Informants now mark the general area on the map making locating their intel easier</li></ul>
+<h4>Server</h4>
+<ul><li>Fixed an error when loading new users</li><li>Added user stats for lots of activities and interactions (for challenges)</li><li>Fixed player and server counts for Discord and economy.csv</li><li>Credits page can now show photos from resources</li><li>Fixed username fetching from the DB</li><li>Re-enabled the Backpack shortcut bind</li><li>Expanded the table helper library</li><li>M &gt; Identity now supports a sub-menu where some information has been moved to</li></ul>
+<h2 id="July_2nd_2026">July 2nd 2026</h2>
+<p>A small patch with some features from beta, mainly bugfixes and backend changes.
+</p>
+<h4>Helicopter Pilot</h4>
+<ul><li>Streak rewards have been adjusted to be more generous</li><li>Streak bonus is now given for each stop, not just the end of the route</li></ul>
+<h4>Bus Driver</h4>
+<ul><li>Added the Vulcar Bridgestrike, a new double-decker bus on-par with the existing double-decker</li><li>Added the Articulated Bus as a bonus tier 4 job vehicle, it can be spawned in Juniper by the Shore and near the Market Station in Davis/Strawberry.</li></ul>
+<h4>Businesses</h4>
+<ul><li>"Free Business" cards now turn into Business Cash Stacks</li></ul>
+<p>This happens automatically when they enter your inventory. Any that are in your inventory can be put into a storage and taken back out to convert them. The amount of cash stacks given is equal to the value of the card. The items have been given new names and descriptions aswell.
+</p>
+<h4>Self Storages</h4>
+<ul><li>Covered some edge cases during transfers that lead to items vanishing</li></ul>
+<h4>Server</h4>
+<ul><li>NUI callbacks now have an origin check</li><li>Re-configured some API calls to a new domain</li></ul>
+<h2 id="June_10th_2026">June 10th 2026</h2>
+<p>This update consists of bugfixes and some additions to jobs.
+</p>
+<p>Thank you to ArtemOP for providing code fixes and additions, and to Morfik for helping with new EXP Boost locations.
+</p>
+<p>Plus a special thanks to everyone who provided beta feedback, bug reports and suggestions!
+</p>
+<h4>Perks</h4>
+<ul><li>Business Perk<ul><li>"Spawn Jet-ski" now spawns a Ricochet when not in water</li></ul></li></ul>
+<h4>Los Santos Customs</h4>
+<ul><li>Added new wheel categories<ul><li>Benny's Originals</li><li>Benny's Bespoke</li><li>Open Wheel</li><li>Street wheels</li><li>Track wheels</li></ul></li><li>Interior Color<ul><li>Added the option to choose an Interior Color</li></ul></li><li>Fender<ul><li>A category of Fender options was missing, these now show in the existing Fender menu</li></ul></li></ul>
+<h4>Bugfixes</h4>
+<ul><li>Forklift Certified is now awarded when reaching 100 missions (was 101)</li><li>Spaceship Parts no longer show while in the flying broom</li><li>(Hopefully) disabled spawning of crop dusters</li><li>You can no longer purchase additional faction capcacity past the limit</li><li>You can no longer consume more treasure keys than you have chests</li></ul>
+<h4>Jobs</h4>
+<ul><li>CollinsCo Cabbie<ul><li>Added M-menu option to go on duty as CollinsCo Cabbie</li><li>Prevent race condition error in Cabbie job (This sometimes pulled animals into vehicles)</li></ul></li><li>Bus Driver<ul><li>Moved some bugged stops on the Behemoth routes for Bus Driver</li><li>Fixed Bus Driver routes that were broken</li><li>Re-routed some of the stops on those routes too</li><li>Added a bus-stop (and related) pack</li><li>This adds bus stops, bus shelters and other decorations all over San Andreas</li><li>The Bus and Airport Bus now feature dynamic route text (only you see this)</li></ul></li><li>Trucker<ul><li>Fixed the Tools Seller not marking the next location on your radar</li><li>Corrected the Roxwood Intl. Raceway location's job requirement</li><li>Corrected trucking level requirement to drive the Voyager Box SWB</li></ul></li><li>Firefighter<ul><li>Water contents in your vehicle now persists between missions</li></ul></li><li>Helicopter Pilot<ul><li>Added rewards based on your streak</li><li>Your current streak is now displayed correctly</li></ul></li><li>Airline Pilot<ul><li>Added rewards based on your streak</li><li>Your current streak is now displayed correctly</li></ul></li><li>PIGS<ul><li>Slightly moved the job selector</li></ul></li><li>RTS<ul><li>Added missing map icons for Roxwood locations</li><li>Remove APC and prox mines from Medved to stop screen flickering during RTS deliveries</li></ul></li></ul>
+<h4>Phone</h4>
+<ul><li>Mobile Job Center<ul><li>Added CollinsCo Cabbies at Racing 100</li><li>Added RTS Transporter at Racing 100</li><li>Added RTS Aviator at Airline Piloting 100</li><li>Added RTS Professional at Racing &amp; Airline Pilot 100</li></ul></li></ul>
+<h4>Vehicles</h4>
+<ul><li>Added custom classes to a bunch of vehicles (Mostly trucks, semi-cabs and some emergency models)</li><li>Added a warning message when the anti-wiggle triggers in semi-cabs</li><li>Added 6 missing EVs to the electric list</li><li>Locking player owned vehicles now blocks other players from entering them.</li></ul>
+<h4>Businesses</h4>
+<ul><li>Updated Roxwood Power Plant business preview image</li><li>Added a water-based access point to Juniper Shipping Yard</li><li>Corrected Marina Beach Mansion required level to match the displayed level requirement</li></ul>
+<h4>Miscellaneous</h4>
+<ul><li>Tweaked Cayo Perico leaderboard text</li><li>Added missing command for career selection system (unused)</li><li>Prevent non-beta changes from showing up in the Automatic Changelog</li></ul>
+<h4>Garages</h4>
+<ul><li>Spawning a trailer from a garage now automatically connects it to your owned cab (if one is spawned and nearby) and puts you in the driver seat of the cab for you.</li></ul>
+<h4>Chat</h4>
+<ul><li>Added chat suggestion for /toggle_xp</li><li>Added a new Chat Prefix for pride</li></ul>
+<h4>EXP Boosts (Spaceship Parts)</h4>
+<ul><li>Added EXP Boost locations to Roxwood</li><li>Tweaked the location of boosts that occassionally got stuck</li></ul>
+<h4>Inventory</h4>
+<ul><li>Allow Take Weightless when inventory is full</li><li>Allow left arrow take when inventory is full</li><li>Added give/take weightless options to the backpack</li></ul>
+<h2 id="May_2026">May 2026</h2>
+<h4>Bus Driver</h4>
+<ul><li>Revamped the Bus Driver job.</li><li>Made custom stop markers that will better align with terrain on new routes. (Some routes received updates, but not all)</li><li>You now have a passenger satisfaction rating, this is improved by driving cleanly and making good stops.</li><li>Satisfaction penalties are applied to certain actions, such as horrible stop alignment and collisions.</li><li>Your reward (Money and EXP) is boosted up to 50% based on your satisfaction.</li><li>Added routes to Roxwood.</li></ul>
+<h4>Firefighter</h4>
+<ul><li>Added the Keitora FD as a Level 1 firetruck.</li><li>Moved the LSFD Hose Truck to Level 10.</li></ul>
+<h4>Intro Screen</h4>
+<ul><li>The intro screen now remembers if you pause or change the volume.</li><li>Added a fadeout when fully loaded in to the game.</li><li>Added some new photos by Tweety ❤️</li></ul>
+<h4>Chat</h4>
+<ul><li>Added 10M mining titles (congrats 9.riscei!)</li></ul>
+<h4>API / Server</h4>
+<ul><li>Fixed /dealership.json TTL being 166 hours (now is 10 minutes)</li><li>Base Events expansion for vehicle collision detection.</li><li>Utility to render text over peds.</li></ul>
+<h4>World</h4>
+<ul><li>Added water loading zones, meaning some airports and Roxwood no longer have water clipping through the terrain.</li></ul>
+<h4>Vehicles</h4>
+<ul><li>Added the Keitora FD (Modified Kei Truck for Firefighter)</li><li>Added the Coil Ricochet (custom event bumper car for maybe later)</li><li>Added 4 missing EVs to the electric list (Buffalo EVX, Roxwood E-Bus 1 &amp; 2, Ricochet)</li></ul>
+<h2 id="February_16th_2026">February 16th 2026</h2>
+<p>First update of 2026? Wow!
+</p>
+<h4>Roxwood</h4>
+<ul><li>Updated Roxwood map and related content</li><li>Added a few new landmasses</li><li>Added a new city section, South Roxwood City</li><li>Added the Redwood Forests of Whetstone</li><li>Added some POIs in the new zones</li><li>General bugfixes from the creators</li><li>(GPS issues still persist, sadly)</li><li>Water issues may occur</li></ul>
+<h4>Businesses</h4>
+<ul><li>Removed the Oil Platform business</li><li>Added the Roxwood Power Plant (as a standin for now)</li></ul>
+<h4>Fishing</h4>
+<ul><li>Moved the Oil Platform zone to the coastline of Roxwood</li></ul>
+<h4>Paramedic</h4>
+<ul><li>You can now do Paramedic missions in most Emergency class vehicles</li></ul>
+<h4>Coast Guard</h4>
+<ul><li>Removed an overlapping callout in the Roxwood landmass</li><li>Added new drop-off locations for Roxwood</li><li>Removed the Liberty City hospital dropoff</li></ul>
+<h4>Helicopter Pilot</h4>
+<ul><li>Removed the Oil Platform destination</li></ul>
+<h4>Loading Screen</h4>
+<ul><li>Some tweaks for special events</li></ul>
+<h4>Chat</h4>
+<ul><li>Added a 10 million Firefighter EXP title</li></ul>
+<h4>Other</h4>
+<ul><li>Option to make NPCs ignore sirens temporarily</li><li>Implmented the "Outfit" item that some people own</li></ul>
+<h4>Beta</h4>
+<ul><li>A re-implementation of the PIGS heists are currently available on Beta, courtesy of ArtemOP</li></ul>
+<h2 id="December_2nd_2025">December 2nd 2025</h2>
+<h4>Loading Screen</h4>
+<ul><li>We now have a new loading screen!</li><li>It'll feature photos from the 2025 Photo Contest. Thank you for all the submissions.</li><li>We will be looking to expand the photo gallery at some point, so make sure you capture some photos!</li></ul>
+<h4>Chat Titles</h4>
+<ul><li>Separated Chat Title and Chat Color.</li><li>Unlocking a chat title will now unlock its color as well (if it has one).</li><li>You can use any unlocked color in combination with any unlocked title.</li><li>Special effects like rainbow colors are still locked to their respective title and cannot be applied to other titles.</li></ul>
+<h4>Vehicles</h4>
+<ul><li>Locked LAZER to Leisure Pilot</li><li>Traffic no longer reacts to non-emergency vehicles' sirens<ul><li>(This means that traffic ignores service and utility vehicles with "sirens" on, like their amber lightbars or other features.)</li></ul></li></ul>
+<h4>Courier job</h4>
+<ul><li>Replaced the vehicle spawner with a spawn menu</li><li>Added stats and streak tracking for the job</li><li>Added a leaderboard for most cargo delivered</li><li>Added a seasonal flair for the holidays</li><li>Added a map symbol where the vehicle spawner is</li></ul>
+<h4>Bugfixes</h4>
+<ul><li>Fixed some trunks not working with "Take to Trunk"</li><li>Courier: Fixed a bug letting you carry extra cargo</li></ul>
+<h4>Backend</h4>
+<ul><li>Garage no longer seizes up when CDN is offline</li><li>Additional staff tools to edit milestones</li><li>Allow pending message system to revoke groups</li><li>Updated prop whitelist</li></ul>
+<h4>Keybinds</h4>
+<ul><li>Removed unused Company channel shortcut</li></ul>
+<h2 id="August_12th_2025">August 12th 2025</h2>
 <p> Hey! Here's a quick rundown of the new changes on the server:
-</p><h2 id="Factions"><b>Factions</b></h2>
+</p><h4><b>Factions</b></h4>
 <ul><li>Removed the "Leave Faction" button in the President Menu.</li>
 <li>Faction President can now kick themselves via the member management screen instead.</li>
 <li>Enabled the Public Listing system.</li>
@@ -22,30 +141,29 @@ categories:
 <li>Members already in a faction are not affected by the capacity, although new members cannot join, and members cannot re-join if the faction is full.</li>
 <li>Joining a faction via public listing costs the faction credits, if the faction cannot afford the entry cost the faction will no longer appear in the list.</li>
 <li>Full factions do not appear in the public list.</li></ul>
-<h2 id="Forklift_Job"><b>Forklift Job</b></h2>
+<h4><b>Forklift Job</b></h4>
 <ul><li>Increased the range for picking up pallets.</li></ul>
-<h2 id="Summer_Titles"><b>Summer Titles</b></h2>
+<h4><b>Summer Titles</b></h4>
 <ul><li>Updated colors on some of the Titles.</li></ul>
-<h2 id="RTS"><b>RTS</b></h2>
+<h4><b>RTS</b></h4>
 <ul><li>Fixed some invalid vehicle entries.</li></ul>
-</div>
-<div>
+<h2 id="Summer_2025_Update">Summer 2025 Update (July 2025)</h2>
 <p> Summer 2025 Update
 Hey! Here's a list of some of the changes you can find with the new summer update.
-</p><h2 id="Ice_Cream_Delivery_Event"><b>Ice Cream Delivery Event</b></h2>
+</p><h4><b>Ice Cream Delivery Event</b></h4>
 <p><a data-p="Summer Event">Summer Event</a>
 </p>
 <ul><li>For the summer, you've been tasked with delivering ice cream to the people of San Andreas.</li>
 <li>Head to the Paleto Bay Shipyard to pick up Ice Cream Totes and trade them in at Fridgit Co in Los Santos.</li>
 <li>Once you've procured yourself a Mr. Tasty, you can sell your ice cream anywhere in San Andreas.</li>
 <li>Simply stop the truck and shut the engine down, and you'll start attracting nearby customers!</li></ul>
-<h2 id="Job_Vehicles"><b>Job Vehicles</b></h2>
+<h4><b>Job Vehicles</b></h4>
 <ul><li>Added capacities to all vehicles for <a data-p="Mechanic">Mechanic</a>, <a data-p="EMS">EMS</a>, <a data-p="Firefighter">Firefighter</a> and <a data-p="Garbage Collector">Garbage Collector</a></li>
 <li>Added base customizations for EMS Dorado and EMS Kuruma</li>
 <li>Added the Mobile ER as a reward for EMS, it works as a mobile dropoff location for other players</li>
 <li>Added the Rune Zhdanov Firetruck as a reward for Firefighter</li>
 <li>Increased the height of the Forklift</li></ul>
-<h2 id="Jobs"><b>Jobs</b></h2>
+<h4><b>Jobs</b></h4>
 <ul><li>Changed the name of the Fisherman job to "Fisher"</li>
 <li>Added forklift job to the interior of the warehouse at the LS Terminal</li>
 <li>RTS Jobs now show the correct streak</li>
@@ -57,82 +175,79 @@ Hey! Here's a list of some of the changes you can find with the new summer updat
 <li>Firefighter reward changes</li>
 <li>Paramedic tweaks</li>
 <li>Firefighter vehicles now have different tank capacities</li></ul>
-<h2 id="Vehicle_Boost"><b>Vehicle Boost</b></h2>
+<h4><b>Vehicle Boost</b></h4>
 <ul><li>Revamped the vehicle boost system.</li>
 <li>Vehicle Engine Upgrades now apply an actual effect, this was previously not working as intended.</li>
 <li>This new system may cause certain configuations to be slower than before, and some to be faster than before.</li></ul>
-<h2 id="Tools"><b>Tools</b></h2>
+<h4><b>Tools</b></h4>
 <ul><li>Improved developer position tool</li>
 <li>Improved group adding tool for development</li>
 <li>Added moderation tools for marketplace transactions</li>
 <li>Stats can now be shown as precise numbers by using left arrow</li>
 <li>Added support for 6DOF input controller in freecam mode</li></ul>
-<h2 id="User_Applications"><b>User Applications</b></h2>
+<h4><b>User Applications</b></h4>
 <ul><li>Image Notifications in jobs now send their text to apps</li>
 <li>Added more Camera parameters</li></ul>
-<h2 id="Bugfixes"><b>Bugfixes</b></h2>
+<h4><b>Bugfixes</b></h4>
 <ul><li>Fixed Faction Discord roles</li>
 <li>Cleaned up unused legacy vehicle models</li></ul>
-</div>
-<div>
+<h2 id="May_11th_2025">May 11th 2025</h2>
 <blockquote>
 <p>Another quick patch for changes and bugs introduced in the Roxwood update <br/>
 Thank you everyone that submitted bug reports and feedback
 </p>
 </blockquote>
-<h2 id="Server">Server</h2>
+<h4>Server</h4>
 <ul><li>You can now skip an entire day without losing your streak</li>
 <li>Added missing credits for Goobie vehicles</li></ul>
-<h2 id="Items">Items</h2>
+<h4>Items</h4>
 <ul><li>Added descriptions to the <a data-p="Defib Kit">Defibrillator Kits</a></li></ul>
-<h2 id="Bugfixes">Bugfixes</h2>
+<h4>Bugfixes</h4>
 <ul><li><a data-f="Job_Vehicles" data-p="Garbage Collector">Trash Brickade</a> is now correctly locked to level 25</li>
 <li>Fixed a whitelist issue with fireworks</li>
 <li>Fixed a bug in number input prompts where invalid values didn't resolve to 0 (thanks SirPro)</li>
 <li>Patched a bug with speed boosts</li>
 <li>Fixed an issue where <a data-p="EMS">EMS</a> patients would get up early</li></ul>
-<h2 id="Vehicles">Vehicles</h2>
+<h4>Vehicles</h4>
 <ul><li>Added capacity to <a data-p="Mechanic">Mechanic</a> vehicles</li></ul>
-<h2 id="Map">Map</h2>
+<h4>Map</h4>
 <ul><li>Moved the <a data-f="R.T.S._Aviator" data-p="RTS">RTS Aviator</a> marker from PBA to RAM</li></ul>
-<h2 id="Racing"><a data-p="Racing">Racing</a></h2>
+<h4><a data-p="Racing">Racing</a></h4>
 <ul><li>Added toggle for Sound Effects during races (checkpoints etc)</li>
 <li>Fixed Open Wheel class not being allowed in races</li>
 <li>Disabled repairs on checkpoints for Open Wheel vehicles</li></ul>
-</div>
-<div>
+<h2 id="May_9th_2025">May 9th 2025</h2>
 <blockquote>
 <p>This is the first patch for the Roxwood update
 Thank you everyone that submitted bug reports and feedback
 </p>
 </blockquote>
-<h2 id="Server">Server</h2>
+<h4>Server</h4>
 <ul><li>Removed the <a data-p="Faction">Faction</a> skill, this was not meant to be there</li>
 <li>Completionists now get their title and rank back</li></ul>
-<h2 id="Trucking"><a data-p="Trucking">Trucking</a></h2>
+<h4><a data-p="Trucking">Trucking</a></h4>
 <ul><li>Fixed the Roxwood Marina not showing the menu</li>
 <li>Fixed the Pack Airline Meals recipe</li></ul>
-<h2 id="World">World</h2>
+<h4>World</h4>
 <ul><li>Removed the static plane at the LSIA cargo location</li>
 <li>Added LSC at the Roxwood Raceway</li>
 <li>Added <a data-p="Job Center">Job Center</a> at the Roxwood Raceway</li>
 <li>Added extra repair points in Roxwood</li></ul>
-<h2 id="EMS"><a data-p="EMS">EMS</a></h2>
+<h4><a data-p="EMS">EMS</a></h4>
 <ul><li>Added trunk capacity to all EMS vehicles</li></ul>
-<h2 id="Racing"><a data-p="Racing">Racing</a></h2>
+<h4><a data-p="Racing">Racing</a></h4>
 <ul><li>Open Wheel class vehicles can now race</li></ul>
-<h2 id="Job_Vehicles">Job Vehicles</h2>
+<h4>Job Vehicles</h4>
 <ul><li>Added the EMS Kuruma for EMS at 500k EXP</li>
 <li>Added the EMS Dorado for EMS at level 20</li>
 <li>Added the Voyager Semi-Cabs, SWB and LWB variants</li>
 <li>Added the Voyager Box Truck SWB for <a data-p="Trucking">Trucking</a> at level 5</li>
 <li>Added the Voyager <a data-p="Garbage Collector">Garbage Truck</a> at level 50</li>
 <li>Added the Brickade Garbage Truck at level 25</li></ul>
-<h2 id="Bugfixes">Bugfixes</h2>
+<h4>Bugfixes</h4>
 <ul><li>Fixed the vehicle tyre textures not loading</li>
 <li>Fixed the vehicle plate textures not loading</li></ul>
-</div>
-<div>
+<h2 id="May_8th_2025">May 8th 2025: The Roxwood Update</h2>
 <blockquote>
 <p><big>The Roxwood Update</big>
 </p><p><br/>
@@ -140,31 +255,31 @@ Hey everyone! Today is the big day where you can finally get your hands on the e
 This update has been in the works for a while, so there's a lot of changes to list. Please take a look:
 </p>
 </blockquote>
-<h2 id="Server">Server</h2>
-<h3 id="Blip_Menu">Blip Menu</h3>
+<h4>Server</h4>
+<h5>Blip Menu</h5>
 <ul><li>Compress option now makes a separate category</li></ul>
-<h3 id="Bugfixes">Bugfixes</h3>
+<h5>Bugfixes</h5>
 <ul><li>Miner: Fixed flickering on high framerates</li>
 <li>Fixed spelling on some vehicle names</li>
 <li>Changed more instances of "Fire Fighter" to "Firefighter"</li>
 <li>Corrected 1 Day EXP Boost name (it's 10%, not 5%)</li>
 <li>Paycheck system should no longer stop working</li>
 <li>Fixed default customization on vehicles (!!!)</li></ul>
-<h3 id="vRP">vRP</h3>
+<h5>vRP</h5>
 <ul><li>Added handling of new blip categories</li>
 <li>Added more details to "Stop Job" option</li></ul>
-<h3 id="API">API</h3>
+<h5>API</h5>
 <ul><li>Added new farming endpoints</li>
 <li>Added new data to faction endpoints</li>
 <li>Added Runway List as Config File</li></ul>
-<h3 id="User_Applications">User Applications</h3>
+<h5>User Applications</h5>
 <ul><li>Tweaked landing disclaimer for user applications</li>
 <li>Sample application.html updated</li>
 <li>Added new data fields and commands</li>
 <li>Added menu and prompt handling commands</li>
 <li>Added camera direction values</li></ul>
-<h2 id="Misc">Misc</h2>
-<h3 id="Added_a_new_Streak_system">Added a new Streak system</h3>
+<h4>Misc</h4>
+<h5>Added a new Streak system</h5>
 <p>It will track streaks across gameplay sessions, similar to how the daily streak works.
 If you don't progress the job streak for two days it will end and put you back to 0.
 </p><p>Jobs with existing streak mechanics will utilize this new system.
@@ -184,29 +299,29 @@ This means you no longer lose your streak if you get disconnected.
 <li>Re-implemented the EMS Streak system</li>
 <li>Added the new Streak stats to the stats menu</li>
 <li>Current job streaks now appear in M &gt; Identity</li></ul>
-<h3 id="Radio">Radio</h3>
+<h5>Radio</h5>
 <ul><li>Removed the "presented by" text for Pean FM</li></ul>
-<h3 id="Vehicle_Menu">Vehicle Menu</h3>
+<h5>Vehicle Menu</h5>
 <ul><li>Added option to close all categories</li></ul>
-<h3 id="Vehicles">Vehicles</h3>
+<h5>Vehicles</h5>
 <ul><li>Added the Voyager line of vehicles</li>
 <li>Added new Semi Cab models to trailer system</li>
 <li>Configured the Voyager Box SWB for trucking</li></ul>
-<h2 id="Jobs">Jobs</h2>
-<h3 id="Specialized_Jobs">Specialized Jobs</h3>
+<h4>Jobs</h4>
+<h5>Specialized Jobs</h5>
 <ul><li>Improved Specialized Job blips
 <ul><li>They now show their names in the legend</li>
 <li>They now have images representing each job in the info box</li></ul></li>
 <li>Added a new location for CollinsCo Cabbies at the Roxwood Red Rocket Cab Co.</li>
 <li>Added taxi spawner at Red Rocket Cab Co.</li></ul>
-<h3 id="Farming">Farming</h3>
+<h5>Farming</h5>
 <ul><li>Added Farm Workers that can do farming tasks for you</li>
 <li>Farm Workers require tokens, which can be obtained while tending to your fields</li>
 <li>Added 4 new fields to farming in Roxwood</li>
 <li>Farmer's Milk no longer is affected by "Put All"</li>
 <li>Farming should now update time when selecting the job</li>
 <li>Farming post-harvest item usages</li></ul>
-<h3 id="EMS_.2F_Paramedic"><span id="EMS_/_Paramedic"></span>EMS / Paramedic</h3>
+<h5><span id="EMS_/_Paramedic"></span>EMS / Paramedic</h5>
 <ul><li>Added support for the EMS Dorado and the EMS Kuruma</li>
 <li>Defib Kits now give extra EMS exp even in helicopters</li>
 <li>Added new helicopter start at Pillbox Hill</li>
@@ -214,7 +329,7 @@ This means you no longer lose your streak if you get disconnected.
 <li>Tweaked streak reward scaling</li>
 <li>EMS perk effect is currently disabled due to conflicting mechanics</li>
 <li>Added EMS missions to Roxwood</li></ul>
-<h3 id="Trucking">Trucking</h3>
+<h5>Trucking</h5>
 <ul><li>Added Deliver Jewelry x10 option</li>
 <li>Added x2 option for Debif Charging</li>
 <li>Added a Trucking HQ in Roxwood</li>
@@ -224,35 +339,35 @@ This means you no longer lose your streak if you get disconnected.
 <li>Trucking additions to Roxwood</li>
 <li>Added new type of food item for shipments</li>
 <li>Additional Airline Meals recipe</li></ul>
-<h3 id="Piloting">Piloting</h3>
+<h5>Piloting</h5>
 <ul><li>Removed Paleto Bay Airport from all piloting jobs</li>
 <li>Added Roxwood Arroyo Muerto as a replacement to Paleto Bay Airport</li></ul>
-<h3 id="Firefighter">Firefighter</h3>
+<h5>Firefighter</h5>
 <ul><li>Firefighters can now use any zone at level 100 and it will reward you with the max xp/money</li></ul>
-<h3 id="Street_Racer">Street Racer</h3>
+<h5>Street Racer</h5>
 <ul><li>Added 4 new racetracks in the Roxwood area</li>
 <li>Added a live leaderboard for the top 9 times of each Roxwood Raceway track</li>
 <li>Racing records now show the persons ID as well as their name</li></ul>
-<h3 id="Mechanic">Mechanic</h3>
+<h5>Mechanic</h5>
 <ul><li>Added the Bri-Covery for the Mechanic job</li>
 <li>Added Mechanic dropoff and start location in Roxwood</li>
 <li>Added support for 2 new vehicles
 <ul><li>The Voyager Flatbed and the Mule Recovery</li></ul></li></ul>
-<h3 id="Garbage_Collector">Garbage Collector</h3>
+<h5>Garbage Collector</h5>
 <ul><li>Added support for 3 new vehicles
 <ul><li>Trash Voyager, Trash Brickade and the Trasher</li></ul></li></ul>
-<h3 id="Mining">Mining</h3>
+<h5>Mining</h5>
 <ul><li>Added the Roxwood Roxite Mine</li></ul>
-<h3 id="Hunting">Hunting</h3>
+<h5>Hunting</h5>
 <ul><li>Added Hunting to Roxwood County</li>
 <li>Added a garage near the Roxwood Ranger Station</li></ul>
-<h3 id="Conductor">Conductor</h3>
+<h5>Conductor</h5>
 <ul><li>Added a new Train Station: Market Station near Rancho</li>
 <li>Added the new Market Station to the Railroad fast travel</li>
 <li>Passenger Train route now auto-starts the next route</li>
 <li>Metro Train now auto-starts the next route</li></ul>
-<h2 id="Map_Changes">Map Changes</h2>
-<h3 id="Map">Map</h3>
+<h4>Map Changes</h4>
+<h5>Map</h5>
 <ul><li>Added a new system for map blip categories</li>
 <li>Courier job blips now have proper names</li>
 <li>Mineshaft blips now appear in their own category</li>
@@ -272,7 +387,7 @@ This means you no longer lose your streak if you get disconnected.
 <li>Added support for wiki links from the map view</li>
 <li>Vehicle Spawner icons now show their name</li>
 <li>Garage blips now show in categories</li></ul>
-<h3 id="World">World</h3>
+<h5>World</h5>
 <ul><li>Upgraded the New Califa road surface</li>
 <li>Added Fast Travel system for Train Stations</li>
 <li>Added Skydiving as fast travel (fun!)</li>
@@ -280,14 +395,14 @@ This means you no longer lose your streak if you get disconnected.
 <ul><li>Removed Paleto Bay Airport</li></ul></li>
 <li>Added a warehouse interior at the LS Terminal</li>
 <li>Added Vehicle Shop and Boat Shop in Roxwood</li></ul>
-<h3 id="Businesses">Businesses</h3>
+<h5>Businesses</h5>
 <ul><li>Added Juniper Shipping Yard business</li>
 <li>Fixed Business Self Storage sizes</li>
 <li>Added the Marina Beach Mansion business</li></ul>
-<h3 id="Self_Storage">Self Storage</h3>
+<h5>Self Storage</h5>
 <ul><li>Removed Air location for Paleto Bay Storage</li>
 <li>Added a new Self Storage in Marina Beach</li></ul>
-<h3 id="Roxwood">Roxwood</h3>
+<h5>Roxwood</h5>
 <ul><li>Added the new Roxwood County, a map expansion
 <ul><li>An actively developed expansion to the map. A new countryside with towns and a variety of stuff to explore.</li>
 <li>We will expand upon this with existing jobs and new fun activities.</li></ul></li>
@@ -307,32 +422,80 @@ This means you no longer lose your streak if you get disconnected.
 <li>Added a missing gas station in Roxwood</li>
 <li>Added missing gas station market in Roxwood</li>
 <li>Added a garage to the Roxwood farms</li></ul></li></ul>
-</div></div></div>
-<!-- 
-NewPP limit report
-Cached time: 20251217225324
-Cache expiry: 86400
-Dynamic content: false
-CPU time usage: 0.531 seconds
-Real time usage: 0.079 seconds
-Preprocessor visited node count: 97/1000000
-Preprocessor generated node count: 438/1000000
-Post‐expand include size: 14548/2097152 bytes
-Template argument size: 518/2097152 bytes
-Highest expansion depth: 4/40
-Expensive parser function count: 0/100
-Unstrip recursion depth: 0/20
-Unstrip post‐expand size: 23633/5000000 bytes
--->
-<!--
-Transclusion expansion time report (%,ms,calls,template)
-100.00% 39.161 1 -total
- 15.88% 6.219 1 Template:Changelog:08.12.25
- 13.21% 5.173 1 Template:Changelog:05.11.25
- 12.83% 5.023 1 Template:Note
- 12.16% 4.763 1 Template:Changelog:05.08.25
- 11.70% 4.582 1 Template:Changelog:05.09.25
- 9.72% 3.808 1 Template:Changelog:06.07.25
--->
-<!-- Saved in parser cache with key mediawiki-f7_:pcache:idhash:142-0!canonical and timestamp 20251217225324 and revision id 22966
- -->
+<p>And that marks the end of the list of changes for the Roxwood update! Enjoy ❤️
+</p>
+<h2 id="March_12th_2025">March 12th 2025</h2>
+<p>Just a small little patch coming through
+</p>
+<h4>API</h4>
+<ul><li>Exposed the PostOP Air config file</li><li>Added X-Tycoon-Private-Key as an alias to X-Tycoon-Key</li><li>Added the User Applications read-me as an exposed config file (always up to date documentation)</li></ul>
+<h4>User Applications</h4>
+<ul><li>Added commands to add custom map blips</li><li>Fixed some jobs not setting the status value correctly</li><li>Added Radio inforation like current station and current song</li></ul>
+<h4>Radio</h4>
+<ul><li>Removed Hype Radio</li><li>Added Pean FM 🥜</li></ul>
+<h2 id="February_11th_2025">February 11th 2025</h2>
+<h4>RUDS</h4>
+<ul><li>Removed RUDS checks on all drones</li><li>Patched some cases where you'd get infractions without actually doing anything wrong</li></ul>
+<h4>HUD</h4>
+<ul><li>Added a toggle for the waypoint Racing Line (Toggle Options)</li><li>Added an option to change the Racing Line color (also in Toggle Options)</li><li>Removed leftover Runway markings from FIA</li></ul>
+<h4>Server</h4>
+<ul><li>We implemented a new MySQL driver, this should improve server side performance and speed when operating with the database.</li><li>Hopefully there will be a noticable speed-up in menu responsiveness when doing trunk and inventory handling.</li></ul>
+<h4>User Applications</h4>
+<ul><li>Chest contents are now updated when using Dump from Trunk and other related actions</li><li>Stripped the chest: prefix from chest names, as it was used inconsistently.</li><li>Added the Status contents as a new data point, this is the text shown next to the minimap in some jobs.</li></ul>
+<h4>Vehicles</h4>
+<ul><li>Removed the Dash-8 from the RTS Aviator roster</li><li>Added inventory capacity for the Miljet MK.II</li><li>Added inventory capacity for the Imperial Yard</li><li>Added inventory capacity for the W-575</li><li>Replaced the "real" names with the game names for RTS Aviator planes</li></ul>
+<h4>Bugfixes</h4>
+<ul><li>Open Wheel class vehicles no longer break speed traps entirely</li><li>Fixed the Trunk Capacity indicator going to the moon when dumping to trunk</li></ul>
+<h2 id="January_17th_2025">January 17th 2025</h2>
+<h4>ATC / Runway Utilization Detection System (RUDS)</h4>
+<ul><li>We have implemented a new system, the Runway Utilization Detection System (RUDS)</li><li>The goal of RUDS is to ensure players utilize the air infrastrucure we have properly.</li><li>RUDS is integrated with the ATC system and will reward/penalize players depending on their flight performance.</li><li>Landing or taking off without ATC clearance counts as a RUDS violation</li><li>Landing or taking off anywhere that is not a marked runway counts as a RUDS violation</li><li>Proper (clean) takeoff manouvers are rewarded based on your current job and level</li><li>Proper (clean) landing manouvers are rewarded based on your current job and level</li><li>Cargo Pilot pickup and dropoff is restricted while you have an active violation</li><li>Airline Pilot rewards are lowered if you violate RUDS during your mission</li><li>VTOL aircraft, seaplanes and some special aircraft may be exempt from getting violations due to their different landing and takeoff behaviors</li></ul>
+<h4>Jobs</h4>
+<ul><li>Added two additional Helicopter Pilot tiers:<ul><li>Tour Maverick (returns!) at level 60</li><li>Maverick II (new!) at level 75</li></ul></li></ul>
+<h4>HUD</h4>
+<ul><li>Added ground markers towards your current waypoint</li></ul>
+<h4>Server</h4>
+<ul><li>Server no longer reboots after 18 hours, and instead reboots at the same time each day</li><li>API can now be accessed without triggering CORS</li><li>Properly allowed the X-Tycoon-Public-Key header in API requests</li><li>Exposed player identifiers in the /players.json endpoint</li></ul>
+<h4>User Applications</h4>
+<ul><li>Chest data now updates when the chest contents change.</li><li>Added trunkWeight and trunkCapacity to calculate trunk/storage fill capacity.</li><li>Added a "Remove Tab" option</li><li>Added a blacklist for certain URI types</li><li>Fixed loading order of previous URLs</li></ul>
+<h4>Bugfixes</h4>
+<ul><li>Fixed an error in POF that would prevent players from seeing field blips if pen was purchased first</li><li>Fixed a major lag cause in chat</li><li>Helicopters can no longer customize their extras</li><li>Fixed Tongva Hills ATC call softlocking menu</li><li>Fixed name for Jugular (DPU)</li><li>Removed certain christmas content that was always loaded</li></ul>
+<h2 id="January_7th_2025">January 7th 2025</h2>
+<p>Happy new year, here's the first proper changelog of 2025!
+</p>
+<h4>Weather</h4>
+<ul><li>Added a few extra custom weather types</li><li>These are not in rotation, but may be used in the future.</li></ul>
+<h4>Map Changes</h4>
+<ul><li>Added a secondary rail by the Sawmill, used by cargo trains</li><li>Prevented several scenario vehicles from spawning</li><li>Added a garage near the Donkey Punch Family Farm in Paleto Bay</li></ul>
+<h4>Bugfixes</h4>
+<ul><li>Fixed a bug that caused Los Santos Customs to remain open</li><li>Fixed a bug that allowed Slipstreaming while racing</li><li>Fixed a bug that caused the Implement Menu in farming to stay open</li><li>The overhead arrow for waypoints now updates correctly</li><li>Swapping vehicles now registers correctly</li><li>Added missing support features for the Rockstar Editor</li></ul>
+<h4>User Applications</h4>
+<ul><li>A new system for implementing custom game tools and applications have been added. We hope to see developers utilize and create tools for users.</li><li>See the F1 menu for more information.</li></ul>
+<h2 id="September_22nd_2024">September 22nd 2024</h2>
+<p>Here's a summary of the new server update!
+</p>
+<h4>Bottom Dollar Bounties</h4>
+<ul><li>This update upgrades the server to the Bottom Dollar Bounties game DLC.</li><li>You will receive a prompt to upgrade FiveM to this version upon connecting for the first time.</li><li>Make sure you have updated Grand Theft Auto V to the latest version.</li></ul>
+<h4>Farming Job 2.0</h4>
+<ul><li>The farming job has been completely reworked.</li><li>You must now cultivate crops in a series of steps, involving preparing, planting and harvesting stages.</li><li>A bunch of new vehicles await your farming adventures.</li></ul>
+<p>You can now also raise and manage livestock, which you can feed using the yield from your fields.
+</p>
+<p>Make sure you feed them enough, or else they won't last long enough to be profitable!
+</p>
+<h4>Tweaks / Balancing</h4>
+<ul><li>Quarry Worker Job no longer gives Farming EXP</li><li>Added Helicopter and Airplane fuel to the Aircraft Carrier</li><li>Cleaned up the Beach Cleanup vehicle selection</li><li>Changed Chat "Auto-Focus" to "Hide Chat"</li><li>Added a shortcut button for toggling the "Hide Chat" option</li><li>Added restriction for giving items to fresh accounts</li><li>Businesses are now in order of level in the Map Legend</li></ul>
+<h4>Trucking</h4>
+<ul><li>Added a 10x Hardened Steel recipe</li></ul>
+<h4>Factions</h4>
+<ul><li>Factions can now purchase Farmer Shop market</li><li>Increased faction market perk limit to 7</li></ul>
+<h4>Map / World</h4>
+<ul><li>Updated some of the Train Station models around the map</li><li>Removed the Advertisement Agency</li><li>Added an unmarked garage at the Paleto Bay Dealership</li></ul>
+<h4>Vehicles</h4>
+<ul><li>New Tractor variants for Farming</li><li>A brand new Combine Harvester you can unlock</li><li>Gave the Exoskeleton an upgraded handling model</li><li>Tweaked damage and armor values for 575s and 878s</li><li>Added a Sponge item you can clean your car with</li><li>Added audio to the Excavator control system</li><li>Gave the Brickade Grain Truck 1500kg storage</li><li>You can now obtain the Semilander at 10 Land Surveyor Missions</li><li>You can now obtain the Master B8 semi cab at Level 100 Garbage Collector</li><li>Moved the redeemable Police Vehicle location to Davis</li></ul>
+<h4>Los Santos Customs</h4>
+<ul><li>Added new License Plate options</li><li>Added the option to change vehicle engine audio</li><li>Added the option to change vehicle sirens</li></ul>
+<p>Do note that engine and siren audio are mutually exclusive and cannot be changed independently of eachother.
+</p>
+<h4>Bugfixes</h4>
+<ul><li>Fixed render flickers in Airline + ATC</li><li>Fixed render flickers in postop marker drawing</li><li>Updated Blip spritesheet to match new DLC</li><li>Removed water under SSIA which was causing some planes to fall apart</li><li>Fixed "Tilt Wings" input label being incorrect</li><li>Removed left-over Liberty Trucking content</li><li>Pool Inspector now properly shows entity names</li></ul>
+<h4>API</h4>
+<ul><li>Added /owner.json endpoint</li><li>API should now always include vehicle spawn name</li><li>Server data now includes Pure Mode value</li><li>Added an option to donate charges to a user</li></ul>

@@ -10,26 +10,8 @@ title: Streak
 <h3 id="firefighter"><a data-p="Firefighter">Firefighter</a></h3>
 <p>There are no set streak thresholds, the exp earned is dependent on 3 variables. The region in which you have completed the call-out (tier, this can be a number between 1 and 6 and always is 6 at level 100+), the difficulty of a fire (difficulty, this is a random number between 1 and 5) and your streak (with a maximum of 1000).</p>
 <p>This also applies to the amount of money you get, but this gets calculated through a different formula. The amount of BXP items you get is calculated by the raw exp formula.</p>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th><p>The formula for raw exp: (tier * 5 + 7 + difficulty) * (1 + 0.2 * ((streak - 1) / 100) ^ 1.5)</p></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th><p>The formula for money: (tier + difficulty + (streak / 10)) * 5000</p></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>The formula for raw exp: (tier * 5 + 7 + difficulty) * (1 + 0.2 * ((streak - 1) / 100) ^ 1.5)</p>
+<p>The formula for money: (tier + difficulty + (streak / 10)) * 5000</p>
 <h3 id="rts"><a data-p="RTS">RTS</a></h3>
 <p>As you complete RTS deliveries, you increase your streak by 1, this will increase the amount of exp you gain per delivery.</p>
 <p>The streak increases rewards linearly and starts at 7.5 EXP and 30 000$. The RTS streak has currently no maximum.</p>
@@ -38,16 +20,7 @@ title: Streak
 <h3 id="cabbie"><a data-p="Cabbie">Cabbie</a></h3>
 <p>As you complete Cabbie callouts, you increase your streak by 1, this will increase the amount of exp you gain per dropoff.</p>
 <p>The Cabbies streak starts at 6 exp. The exp for a dropoff is dependent on the distance of the delivery, the current streak and if you manage to deliver in time.</p>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th><p>The formula for raw exp: (distance) * ((100 + streak)/100) * (time bonus)</p></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
+<p>The formula for raw exp: (distance) * ((100 + streak)/100) * (time bonus)</p>
 <p>Where distance can have the value 6 exp for deliveries that are less than 3500m away and 7.5 exp for ones that are further away and the time bonus is a *2 Multiplier if you manage to deliver in time.</p>
 <h3 id="p.i.g.s_robberrery"><a data-p="P.I.G.S Robberrery">P.I.G.S Robberrery</a></h3>
 <p>xpBase = 10 * tier</p>
